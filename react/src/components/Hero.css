@@ -1,0 +1,145 @@
+.MainContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width: 100vw;
+    height: 30rem;
+    overflow: hidden;
+}
+
+.main {
+    display: flex;
+    flex-direction: column;
+}
+
+.main1 {
+    align-items: start;
+    width: 83%;
+}
+
+.main2 {
+    align-items: center;
+}
+.s2 {
+    align-items: center;
+}
+.main3 {
+    align-items: flex-start;
+    justify-content: center;
+    width: 80%;
+}
+
+.s3 {
+    margin-left: 32%;
+}
+
+.main-hidden {
+    display: none;
+}
+
+.ArrowLeft {
+    display: flex;
+    margin-left: 1rem;
+    color: white;
+    font-size: 30px;
+}
+
+.ArrowRight {
+    display: flex;
+    margin-right: 1rem;
+    color: white;
+    font-size: 30px;
+}
+
+.background-img1 {
+    background-image: url("https://cleversoft-moleez.myshopify.com/cdn/shop/files/moleez-slide-28_2048x.jpg?v=1613753249");
+    background-position: 10%;
+}
+.background-img2 {
+    background-image: url("https://cleversoft-moleez.myshopify.com/cdn/shop/files/moleez-slide-27_2048x.jpg?v=1613753249");
+    background-position: center;
+}
+.background-img3 {
+    background-image: url("https://cleversoft-moleez.myshopify.com/cdn/shop/files/moleez-slide-26_2048x.jpg?v=1613753249");
+    background-position: 100%;
+}
+
+.slider {
+    display: flex;
+    align-self: center;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+.circle {
+    background-color: transparent;
+    border-radius: 50%;
+    margin: 0 0.3rem;
+    transition: background-color 0.3s ease;
+    color: white;
+    cursor: pointer;
+}
+
+.circle-active {
+    background-color: white;
+    border-color: white;
+    border-radius: 50%;
+    color: white;
+    cursor: pointer;
+}
+
+.whiteParagraph {
+    color: white;
+}
+.blackParagraph {
+    color: black;
+}
+
+.slide1button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: transparent;
+    padding: 0 0 5px 0;
+    border-bottom: 1px solid black;
+    border-radius: 0;
+}
+
+.slide2button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    background-color: white;
+    color: black;
+    padding: 10px 15px 10px 15px;
+    border: 1px solid black;
+    border-radius: 0;
+}
+.slide2button:hover {
+    background-color: black;
+    color: white;
+}
+
+.whiteFirstHeader {
+    color: white;
+    margin-bottom: 1.5rem;
+}
+
+.whiteSecondHeader {
+    color: white;
+    margin-top: -1rem;
+    margin-bottom: 0rem;
+}
+.blackFirstHeader {
+    color: black;
+    margin-bottom: 1.5rem;
+}
+
+.blackSecondHeader {
+    color: black;
+    margin-top: -1rem;
+    margin-bottom: 0rem;
+}

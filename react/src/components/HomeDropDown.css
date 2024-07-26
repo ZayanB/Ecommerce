@@ -1,0 +1,46 @@
+.MainContainer {
+    display: flex;
+    flex-direction: row;
+    width: 100vw;
+    justify-content: space-around;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+.columnList {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 20px;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.column3List {
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    font-size: 20px;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.column4 {
+    display: flex;
+    flex-direction: column;
+    margin-top: 3rem;
+}
+
+.image1Caption {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.head1Style {
+    margin-bottom: 0rem;
+}
+.head2Style {
+    margin-top: 0rem;
+}

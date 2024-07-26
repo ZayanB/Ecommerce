@@ -1,0 +1,41 @@
+[
+    {
+        "backgorund": "background-img1",
+        "header2": "Multipurpose",
+        "header1": "Minimalist\nShopify Theme",
+        "description": "30 skins, powerful features, great support, exclusive offer",
+        "buttonText": "DISCOVER NOW",
+        "style": "main main1",
+        "header1Style": "blackFirstHeader",
+        "header2Style": "blackSecondHeader",
+        "paragraphStyle": "blackParagraph",
+        "buttonStyle": "slide1button",
+        "containerStyle": "s1"
+    },
+    {
+        "backgorund": "background-img2",
+        "header2": "\t    Ready To",
+        "header1": "Use Unique\n    Demos",
+        "description": "Optimized for speed, websites that sell",
+        "buttonText": "DISCOVER MORE",
+        "style": "main main2",
+        "header1Style": "whiteFirstHeader",
+        "header2Style": "whiteSecondHeader",
+        "paragraphStyle": "whiteParagraph",
+        "buttonStyle": "slide2button",
+        "containerStyle": "s2"
+    },
+    {
+        "backgorund": "background-img3",
+        "header2": "Visual",
+        "header1": "Drag & Drop\nMegaMenu Builder",
+        "description": "Now you have unlimited oppurtinuties with our drag & drop megamenu builder ",
+        "buttonText": "DISCOVER NOW",
+        "style": "main main3",
+        "header1Style": "blackFirstHeader",
+        "header2Style": "blackSecondHeader",
+        "paragraphStyle": "blackParagraph",
+        "buttonStyle": "slide1button",
+        "containerStyle": "s3"
+    }
+]
