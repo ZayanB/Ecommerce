@@ -11,6 +11,8 @@ class Vendor extends Model
     use HasFactory;
 
     protected $table = 'vendor';
+    protected $primaryKey = 'vendor_id_pkey';
+
 
     public function transaction(): HasMany
     {

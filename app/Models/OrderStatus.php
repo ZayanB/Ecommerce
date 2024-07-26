@@ -11,6 +11,7 @@ class OrderStatus extends Model
     use HasFactory;
 
     protected $table = 'order_status';
+    protected $primaryKey = 'order_status_id_pkey';
 
     public function orderInfo(): HasMany
     {

@@ -12,6 +12,7 @@ class Transaction extends Model
     use HasFactory;
 
     protected $table = 'transaction';
+    protected $primaryKey = 'transaction_id_pkey';
 
     public function inventory(): BelongsToMany
     {

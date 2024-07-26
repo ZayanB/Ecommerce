@@ -12,6 +12,7 @@ class Product extends Model
     use HasFactory;
 
     protected $table = 'product';
+    protected $primaryKey = 'product_id_pkey';
 
     public function image(): HasMany
     {

@@ -11,6 +11,7 @@ class TransactionItem extends Model
     use HasFactory;
 
     protected $table = 'transaction_item';
+    protected $primaryKey = 'transaction_item_id_pkey';
 
     public function product(): BelongsTo
     {

@@ -11,6 +11,7 @@ class PaymentMethod extends Model
     use HasFactory;
 
     protected $table = 'payment_method';
+    protected $primaryKey = 'payment_method_id_pkey';
 
     public function orderPayment(): HasMany
     {

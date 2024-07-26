@@ -11,6 +11,7 @@ class UserRole extends Model
     use HasFactory;
 
     protected $table = 'user_role';
+    protected $primaryKey = 'user_role_id_pkey';
 
     public function userInfo(): HasMany
     {

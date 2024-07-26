@@ -12,6 +12,7 @@ class CartStatus extends Model
     use HasFactory;
 
     protected $table = 'cart_status';
+    protected $primaryKey = 'cart_status_id_pkey';
 
     public function shoppingCart(): HasMany
     {

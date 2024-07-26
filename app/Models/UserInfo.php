@@ -13,6 +13,7 @@ class UserInfo extends Model
     use HasFactory;
 
     protected $table = 'user_info';
+    protected $primaryKey = 'user_id_pkey';
 
     public function userAddress(): HasMany
     {

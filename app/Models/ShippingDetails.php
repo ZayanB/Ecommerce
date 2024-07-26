@@ -15,6 +15,7 @@ class ShippingDetails extends Model
     use HasFactory;
 
     protected $table = 'shipping_details';
+    protected $primaryKey = 'shipping_details_id_pkey';
 
     public function shippingStatus(): BelongsTo
     {

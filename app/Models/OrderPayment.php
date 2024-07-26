@@ -12,6 +12,7 @@ class OrderPayment extends Model
     use HasFactory;
 
     protected $table = 'order_payment';
+    protected $primaryKey = 'order_payment_id_pkey';
 
     public function paymentMethod(): BelongsTo
     {

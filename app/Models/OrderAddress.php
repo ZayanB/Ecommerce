@@ -11,6 +11,7 @@ class OrderAddress extends Model
     use HasFactory;
 
     protected $table = 'order_address';
+    protected $primaryKey = 'order_address_id_pkey';
 
     public function order(): HasOne
     {

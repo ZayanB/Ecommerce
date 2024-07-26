@@ -11,6 +11,7 @@ class Image extends Model
     use HasFactory;
 
     protected $table = 'image';
+    protected $primaryKey = 'image_id_pkey';
 
     public function product(): BelongsTo
     {

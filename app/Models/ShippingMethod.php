@@ -11,6 +11,7 @@ class ShippingMethod extends Model
     use HasFactory;
 
     protected $table = 'shipping_method';
+    protected $primaryKey = 'shipping_method_id_pkey';
 
     public function shippingDetails(): HasMany
     {

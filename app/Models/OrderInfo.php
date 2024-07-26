@@ -12,6 +12,7 @@ class OrderInfo extends Model
     use HasFactory;
 
     protected $table = 'order_info';
+    protected $primaryKey = 'order_id_pkey';
 
     public function shippingDetails(): HasOne
     {

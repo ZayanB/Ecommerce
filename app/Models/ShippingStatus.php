@@ -11,6 +11,7 @@ class ShippingStatus extends Model
     use HasFactory;
 
     protected $table = 'shipping_status';
+    protected $primaryKey = 'shipping_status_id_pkey';
 
     public function shippingDetails(): HasMany
     {

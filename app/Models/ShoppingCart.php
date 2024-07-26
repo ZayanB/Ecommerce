@@ -13,6 +13,7 @@ class ShoppingCart extends Model
     use HasFactory;
 
     protected $table = 'shopping_cart';
+    protected $primaryKey = 'cart_id_pkey';
 
     public function cartItem(): HasMany
     {
