@@ -18,7 +18,7 @@
     </div>
 
     <div>
-        <form action="addUser" method="POST">
+        <form action="{{route('registerNewUser') }}" method="POST">
             @csrf
             <div>
                 <label for="firstname">First Name</label>
