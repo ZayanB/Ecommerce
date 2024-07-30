@@ -16,7 +16,7 @@ class Product extends Model
 
     public function image(): HasMany
     {
-        return $this->hasMany(Image::class);
+        return $this->hasMany(Image::class, 'product_id_from');
     }
     public function cartItem(): HasMany
     {
@@ -29,5 +29,33 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class);
+    }
+
+
+    public static function getFeaturedProducts($criteria = 'new_arrivals', $limit = 6)
+    {
+        switch ($criteria) {
+            case 'new_arrivals':
+                $products = Product::orderBy('created_at', 'desc');
+                break;
+
+            case 'our_favorites':
+                $products = Product::orderBy('product_rating', 'desc');
+                break;
+
+            default:
+                $products = Product::orderBy('created_at', 'desc');
+                break;
+        }
+
+
+        return $products->with('image:product_id_from,image_url')
+            ->select('product_name', 'product_price', 'product_rating')
+            ->limit($limit)
+            ->get()
+            ->map(function ($product) {
+                $product->image_urls = $product->images ? $product->images->pluck('image_url') : collect();
+                return $product;
+            });
     }
 }
