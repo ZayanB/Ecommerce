@@ -2,33 +2,33 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasMany;
-use Illuminate\Database\Eloquent\Relations\HasOne;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
-class UserInfo extends Model
+class UserInfo extends Authenticatable
 {
     use HasFactory;
 
     protected $table = 'user_info';
     protected $primaryKey = 'user_id_pkey';
 
-    public function userAddress(): HasMany
+    protected $fillable = [
+        'user_first_name',
+        'user_last_name',
+        'user_email',
+        'user_password',
+        'user_birth_date',
+    ];
+
+    protected $hidden = [
+        'user_password',
+    ];
+
+    public $timestamps = true;
+
+
+    public function getAuthPassword()
     {
-        return $this->hasMany(UserAddress::class);
-    }
-    public function orderInfo(): HasMany
-    {
-        return $this->hasMany(OrderInfo::class);
-    }
-    public function shoppingCart(): HasOne
-    {
-        return $this->hasOne(ShoppingCart::class);
-    }
-    public function userRole(): BelongsTo
-    {
-        return $this->belongsTo(UserRole::class, 'user_role_id');
+        return $this->user_password;
     }
 }

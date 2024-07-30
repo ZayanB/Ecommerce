@@ -101,3 +101,18 @@
     background-color: black;
     transition: background-color 0.5s ease;
 }
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.Form1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+    width: 32vw;
+}
