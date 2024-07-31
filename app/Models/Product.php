@@ -16,7 +16,7 @@ class Product extends Model
 
     public function image(): HasMany
     {
-        return $this->hasMany(Image::class, 'product_id_from');
+        return $this->hasMany(Image::class, 'product_id');
     }
     public function cartItem(): HasMany
     {
@@ -48,14 +48,10 @@ class Product extends Model
                 break;
         }
 
+        $products = Product::with('image:product_id,image_url')
+            ->select(['product_id_pkey', 'product_name', 'product_price', 'product_rating', 'product_url', 'created_at', 'product_sale', 'product_size'])->limit($limit)->get();
 
-        return $products->with('image:product_id_from,image_url')
-            ->select('product_name', 'product_price', 'product_rating')
-            ->limit($limit)
-            ->get()
-            ->map(function ($product) {
-                $product->image_urls = $product->images ? $product->images->pluck('image_url') : collect();
-                return $product;
-            });
+
+        return $products;
     }
 }

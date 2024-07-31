@@ -9,7 +9,7 @@
 
 <body>
     <div>
-        <form method="post" action="featured">
+        <form method="post" action="ftrd">
             @csrf
             <label for="criteria">Criteria:</label>
             <select id="criteria" name="criteria">
