@@ -89,3 +89,10 @@
     background-color: black;
     transition: background-color 0.5s ease;
 }
+
+.Form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
+}
