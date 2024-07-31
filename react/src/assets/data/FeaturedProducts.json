@@ -1,0 +1,74 @@
+[
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-4d.jpg?v=1537863697",
+        "alt": "product1",
+        "name": "Daschshund Planter",
+        "price": "$130.00",
+        "size1": "M",
+        "size2": "XL",
+        "size3": "L",
+        "style": "sizeOptions",
+        "sale": "saleContainer-hidden",
+        "new": "newContainer-hidden"
+    },
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-7a.jpg?v=1524714457",
+        "alt": "product2",
+        "name": "Dahlila Double Round Wall",
+        "price": "$199.00",
+        "size1": "M",
+        "size2": "XS",
+        "size3": "S",
+        "style": "sizeOptions",
+        "sale": "saleContainer-hidden",
+        "new": "newContainer-hidden"
+    },
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-5a.jpg?v=1524714174",
+        "alt": "product3",
+        "name": "Ira Hanging Planter",
+        "price": "$199.00",
+        "size1": "S",
+        "size2": "M",
+        "size3": "L",
+        "style": "sizeOptions",
+        "sale": "saleContainer-hidden",
+        "new": "newContainer-hidden"
+    },
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-1a.jpg?v=1524712964",
+        "alt": "product4",
+        "name": "Lydia Woven Basket",
+        "price": "$200.00",
+        "size1": "M",
+        "size2": "L",
+        "size3": "XL",
+        "style": "sizeOptions",
+        "sale": "saleContainer",
+        "new": "newContainer"
+    },
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950",
+        "alt": "product5",
+        "name": "Mirror Frame",
+        "price": "$112.00",
+        "size1": "",
+        "size2": "",
+        "size3": "",
+        "style": "sizeOptions-hidden",
+        "sale": "saleContainer-hidden",
+        "new": "newContainer-hidden"
+    },
+    {
+        "URL": "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-3a.jpg?v=1524713253",
+        "alt": "product6",
+        "name": "Washed Cotton Tassel",
+        "price": "$256.00",
+        "size1": "M",
+        "size2": "L",
+        "size3": "XL",
+        "style": "sizeOptions",
+        "sale": "saleContainer-hidden",
+        "new": "newContainer-hidden"
+    }
+]

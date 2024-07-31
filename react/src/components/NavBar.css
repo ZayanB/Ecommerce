@@ -1,4 +1,4 @@
-.MainContainer {
+.MainContainerNavBar {
     display: flex;
     position: relative;
     flex-direction: row;
@@ -73,7 +73,7 @@
     display: none;
     position: absolute;
     z-index: 1;
-    transform: translate(-19%, 10px);
+    transform: translate(-19%, 10%);
 }
 
 .d-block {

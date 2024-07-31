@@ -16,7 +16,7 @@ const NavBar = () => {
     const onMouseLeave = () => setHoverDrop(false);
 
     return (
-        <nav className="MainContainer">
+        <nav className="MainContainerNavBar">
             <div>
                 <h1 className="ShopName">MOLEEZ</h1>
             </div>

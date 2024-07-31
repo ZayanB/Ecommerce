@@ -11,13 +11,18 @@
 
     <div>
         @if($errors->any())
+        <div>Sorry, looks like something went wrong. Please correct the following and submit again:</div>
         @foreach($errors->all() as $error )
-        <div>{{$error}}</div>
+        <div>
+            <ul>
+                <li>{{$error}}</li>
+            </ul>
+        </div>
         @endforeach
         @endif
     </div>
     <div>
-        <form action="loginUser" method="POST">
+        <form action="{{route('loginUser') }}" method="POST">
             @csrf
             <div>
                 <label for="email">Email</label>
