@@ -6,7 +6,7 @@ import column2Data from "../assets/data/MenuData2.json";
 const HomeDropDown = () => {
     return (
         <>
-            <div className="MainContainer">
+            <div className="MainContainerDropdown">
                 <div>
                     <ul className="columnList ">
                         {column1Data.map((item, index) => {

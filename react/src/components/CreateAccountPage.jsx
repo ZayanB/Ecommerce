@@ -3,7 +3,7 @@ import "./CreateAccountPage.css";
 
 const CreateAccountPage = () => {
     return (
-        <div className="MainContainer">
+        <div className="MainContainerCreateAcc">
             <div className="Inputs">
                 <form className="Form" action="">
                     <div className="Text">Create An Account</div>
