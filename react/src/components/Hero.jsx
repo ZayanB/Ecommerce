@@ -22,7 +22,7 @@ const Hero = () => {
                     key={index}
                     className={
                         slide === index
-                            ? `MainContainer ${img.backgorund}`
+                            ? `MainContainerHero ${img.backgorund}`
                             : "main-hidden"
                     }
                     style={{ height: "30rem" }}
