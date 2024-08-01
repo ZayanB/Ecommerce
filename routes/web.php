@@ -18,5 +18,5 @@ Route::post('log', [AuthenticationController::class, 'login'])->name('loginUser'
 Route::post('addUser', [AuthenticationController::class, 'addUser']);
 Route::post('loginUser', [AuthenticationController::class, 'loginUser']);
 
-Route::post('featured', [ProductController::class, 'getFeaturedProducts']);
-
+Route::post('ftrd', [ProductController::class, 'getFeaturedProducts']);
+Route::get('featured', [ProductController::class, 'getFeaturedProducts']);
