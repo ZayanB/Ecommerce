@@ -1,0 +1,199 @@
+.productsMainContainer {
+    display: flex;
+    flex-direction: row;
+    overflow: hidden;
+}
+
+.categoryContainer {
+    display: flex;
+    flex-direction: column;
+    width: 18vw;
+    margin-left: 2rem;
+    margin-top: 2rem;
+}
+
+.rowProductContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 0rem;
+    width: 75vw;
+    flex-wrap: wrap;
+}
+
+.allProducts-grid {
+    width: 33.333%;
+}
+.allProducts-list {
+    width: 100%;
+    border-bottom: solid 1px rgb(199, 193, 193);
+}
+
+@media (max-width: 768px) {
+    .allProducts-grid {
+        width: 50%;
+    }
+}
+
+.productFigureContainerGrid {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.productFigureContainerList {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    width: 50vw;
+}
+
+.product-card {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+.overlayButtons {
+    position: absolute;
+    margin-top: 8px;
+    top: 0;
+    right: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.overlayButton {
+    background: white;
+    border: none;
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+}
+.overlayIcons {
+    color: black;
+}
+.overlayButton:hover {
+    background: orange;
+}
+.overlayButton:hover .overlayIcons {
+    color: white;
+}
+
+.productFigureContainerGrid:hover .overlayButtons,
+.productFigureContainerGrid:hover .addToCart {
+    opacity: 1;
+}
+.productFigureContainerList:hover .overlayButtons,
+.productFigureContainerList:hover .addToCart {
+    opacity: 1;
+}
+
+.addToCart {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    background: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+    cursor: pointer;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    gap: 5px;
+}
+
+.overlayCart {
+    bottom: 0;
+    transform: opacity 0.3s ease;
+    z-index: 1;
+    opacity: 0;
+}
+
+.addToCart:hover .overlayCart {
+    opacity: 1;
+}
+
+.rowColProd {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 77vw;
+}
+
+.viewContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    margin-top: 1rem;
+    align-items: center;
+    background-color: rgb(243, 243, 243);
+}
+
+.viewGridList {
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 10px;
+    margin-left: 20px;
+}
+
+.collectionContent {
+    display: block;
+    padding-left: 0rem;
+    border-bottom: solid 1px grey;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.collectionContent li {
+    margin-bottom: 10px;
+}
+
+.collectionContent li:hover {
+    color: orange;
+    transition-duration: 500ms;
+}
+
+.collectionContent-hidden {
+    display: none;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.prod-description {
+    display: block;
+}
+.prod-description-hidden {
+    display: none;
+}
+
+.figCapList {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+.figCapGrid {
+    margin-left: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

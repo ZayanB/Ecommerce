@@ -9,3 +9,5 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 Route::get('/products', [ProductController::class, 'getFeaturedProducts']);
+
+Route::get('/products/category/{category?}', [ProductController::class, 'getProductsCategory']);
