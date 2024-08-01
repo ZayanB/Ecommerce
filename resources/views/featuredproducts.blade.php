@@ -11,6 +11,22 @@
     <div>
         <form method="post" action="ftrd">
             @csrf
+            <label for="category">category:</label>
+            <select id="category" name="category">
+                <option value="artDecor">Art + Decor</option>
+                <option value="cases + docks">Cases & Docks</option>
+                <option value="cosmetic">cosmetic</option>
+                <option value="fashion">fashion</option>
+                <option value="furniture">furniture</option>
+                <option value="jewelry">jewelry</option>
+                <option value="pottery">pottery</option>
+            </select>
+
+            <button type="submit">Submit</button>
+        </form>
+
+        <form method="post" action="ftrdd">
+            @csrf
             <label for="criteria">Criteria:</label>
             <select id="criteria" name="criteria">
                 <option value="default">Default</option>
