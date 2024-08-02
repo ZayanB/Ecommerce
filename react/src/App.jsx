@@ -11,12 +11,12 @@ import "./App.css";
 const App = () => {
     return (
         <div className="MAIN">
-            <NavBar />
+            {/* <NavBar />
             <Hero />
             <FeaturedProducts />
             <LoginPage />
-            <CreateAccountPage />
-            {/* <ProductsPage /> */}
+            <CreateAccountPage /> */}
+            <ProductsPage />
         </div>
     );
 };

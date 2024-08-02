@@ -9,7 +9,7 @@
 
 <body>
     <div>
-        <form method="post" action="ftrd">
+        <!-- <form method="post" action="ftrd">
             @csrf
             <label for="category">category:</label>
             <select id="category" name="category">
@@ -23,9 +23,9 @@
             </select>
 
             <button type="submit">Submit</button>
-        </form>
+        </form> -->
 
-        <form method="post" action="ftrdd">
+        <!-- <form method="post" action="ftrdd">
             @csrf
             <label for="criteria">Criteria:</label>
             <select id="criteria" name="criteria">
@@ -37,6 +37,24 @@
             <label for="limit">Limit:</label>
             <input type="number" id="limit" name="limit" min="1" max="6">
 
+            <button type="submit">Submit</button>
+        </form> -->
+        <!-- <form method="post" action="ftrdd">
+            @csrf
+            <label for="category">category:</label>
+            <select id="category" name="category">
+                <option value="10">Art Decor</option>
+                <option value="7">Fashion</option>
+            </select>
+            <button type="submit">Submit</button>
+        </form> -->
+        <form method="post" action="ftrdd">
+            @csrf
+            <!-- <label for="category">category:</label>
+            <select id="category" name="category">
+                <option value="10">Art Decor</option>
+                <option value="7">Fashion</option>
+            </select> -->
             <button type="submit">Submit</button>
         </form>
     </div>
