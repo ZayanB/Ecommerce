@@ -130,7 +130,7 @@
 .rowColProd {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-start;
     width: 77vw;
 }
 
@@ -142,6 +142,7 @@
     margin-top: 1rem;
     align-items: center;
     background-color: rgb(243, 243, 243);
+    margin-left: 40px;
 }
 
 .viewGridList {
@@ -164,6 +165,17 @@
 .collectionContent li {
     margin-bottom: 10px;
 }
+.sizeContent {
+    display: block;
+    padding-left: 0rem;
+    border-bottom: solid 1px grey;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.sizeContent li {
+    margin-bottom: 10px;
+}
 
 .collectionContent li:hover {
     color: orange;
@@ -171,6 +183,9 @@
 }
 
 .collectionContent-hidden {
+    display: none;
+}
+.sizeContent-hidden {
     display: none;
 }
 
@@ -186,7 +201,7 @@ ul {
 }
 
 .figCapList {
-    margin-left: 1rem;
+    margin-left: 2rem;
     display: flex;
     flex-direction: column;
     align-items: flex-start;
@@ -196,4 +211,60 @@ ul {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.saleContainer {
+    background-color: beige;
+    border: solid 1px black;
+    padding: 2px 7px 2px 7px;
+    font-size: 13px;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+.saleContainer-hidden {
+    display: none;
+}
+
+.statusContainer {
+    display: flex;
+    position: absolute;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    flex-direction: column;
+    gap: 1rem;
+    margin-left: 12px;
+    margin-top: 8px;
+}
+
+.newContainer {
+    background-color: green;
+    border: solid 1px black;
+    padding: 2px 7px 2px 7px;
+    font-size: 13px;
+    color: white;
+    box-shadow: 3px 3px 1px rgba(0, 0, 0, 0.2);
+    display: block;
+}
+
+.newContainer-hidden {
+    display: none;
+}
+
+.category-Name {
+    margin-left: 40px;
+    margin-top: 1rem;
+    font-size: 30px;
+}
+
+.no-products {
+    font-size: 50px;
+    margin: 50px 0px 0px 50px;
+}
+
+.filter-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    gap: 1rem;
 }
