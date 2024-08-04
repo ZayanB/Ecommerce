@@ -4,6 +4,7 @@ use App\Http\Controllers\CategoryController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\AuthenticationController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -15,3 +16,6 @@ Route::get('/products/category/{categoryId}', [ProductController::class, 'getPro
 
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 Route::get('/test', [ProductController::class, 'getProductsByFilter']);
+
+Route::post('/register', [AuthenticationController::class, 'register']);
+Route::post('/login', [AuthenticationController::class, 'login']);

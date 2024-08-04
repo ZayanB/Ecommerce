@@ -5,11 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
 
-class AuthenticationController extends Controller
-{
-    function register(Request $request)
-    {
+class AuthenticationController extends Controller {
+    function register(Request $request) {
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -28,25 +27,28 @@ class AuthenticationController extends Controller
             'user_birth_date' => date('Y-m-d', strtotime($validatedData['birthday'])),
         ]);
 
-        $user->createToken('auth_token')->plainTextToken;
+        // $user->createToken('auth_token')->plainTextToken;
 
         return "User Created Successfully";
     }
-    function login(Request $request)
-    {
-        $validatedData = $request->validate([
-            'email' => 'required|string|email|max:255|exists:user_info,user_email',
-            'password' => 'required|string',
-        ]);
+
+    function login(Request $request) {
+        try {
+            $validatedData = $request->validate([
+                'email' => 'required|string|email|max:255|exists:user_info,user_email',
+                'password' => 'required|string',
+            ]);
+        } catch (ValidationException $e) {
+            return response()->json(['errors' => $e->errors()], 422);
+        }
 
         $user = UserInfo::where('user_email', $validatedData['email'])->first();
 
         if (!$user || !Hash::check($validatedData['password'], $user->user_password)) {
-            return back()->withErrors(['message' => 'Incorrect email or password'])->withInput();
+            return response()->json(['errors' => ['message' => 'Incorrect email or password']], 422);
         }
 
-        $user->createToken('auth_token')->plainTextToken;
-
-        return to_route('home');
+        $token = $user->createToken('auth_token')->plainTextToken;
+        return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
     }
 }

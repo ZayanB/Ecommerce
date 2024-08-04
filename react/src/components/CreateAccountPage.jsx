@@ -1,14 +1,69 @@
-import React from "react";
+import React, { useState } from "react";
+import axios from "axios";
 import "./CreateAccountPage.css";
 
 const CreateAccountPage = () => {
+    const [formData, setFormData] = useState({
+        firstname: "",
+        lastname: "",
+        email: "",
+        password: "",
+        birthday: "",
+    });
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setSuccessMessage("");
+        setErrorMessage("");
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/register",
+                formData,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        // Referer: "http://localhost:5173/",
+                    },
+                }
+            );
+            setSuccessMessage("Account created successfully!");
+        } catch (error) {
+            if (error.response && error.response.data.errors) {
+                setErrorMessage(
+                    "Failed to create account: " +
+                        Object.values(error.response.data.errors).join(", ")
+                );
+            } else {
+                setErrorMessage(
+                    "Failed to create account: An unknown error occurred."
+                );
+            }
+        }
+    };
+
     return (
         <div className="MainContainerCreateAcc">
             <div className="Inputs">
-                <form className="Form" action="">
+                <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Create An Account</div>
+                    {successMessage && (
+                        <div className="SuccessMessage">{successMessage}</div>
+                    )}
+                    {errorMessage && (
+                        <div className="ErrorMessage">{errorMessage}</div>
+                    )}
                     <div className="pd-0">
-                        <label htmlFor="firstName">
+                        <label htmlFor="firstname">
                             First Name <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
@@ -16,6 +71,8 @@ const CreateAccountPage = () => {
                             type="text"
                             id="firstname"
                             name="firstname"
+                            value={formData.firstname}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -28,6 +85,8 @@ const CreateAccountPage = () => {
                             type="text"
                             id="lastname"
                             name="lastname"
+                            value={formData.lastname}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -41,6 +100,8 @@ const CreateAccountPage = () => {
                             type="email"
                             id="email"
                             name="email"
+                            value={formData.email}
+                            onChange={handleChange}
                             required
                         />
                     </div>
@@ -54,11 +115,13 @@ const CreateAccountPage = () => {
                             type="password"
                             id="password"
                             name="password"
+                            value={formData.password}
+                            onChange={handleChange}
                             required
                         />
                     </div>
                     <div className="pd-0">
-                        <label htmlFor="password">
+                        <label htmlFor="birthday">
                             Birthday <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
@@ -66,11 +129,13 @@ const CreateAccountPage = () => {
                             type="date"
                             id="birthday"
                             name="birthday"
+                            value={formData.birthday}
+                            onChange={handleChange}
                             required
                         />
                     </div>
                     <div style={{ width: "100%" }}>
-                        <button className="CreateAccButton">
+                        <button type="submit" className="CreateAccButton">
                             CREATE AN ACCOUNT
                         </button>
                     </div>
