@@ -211,21 +211,29 @@ const ProductsPage = () => {
                                         }
                                     >
                                         <div className="product-card">
-                                            <img
-                                                key={index}
-                                                src={
-                                                    product.image &&
-                                                    product.image.length > 0
-                                                        ? product.image[0]
-                                                              .image_url
-                                                        : "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950"
+                                            <div
+                                                className={
+                                                    view == "list"
+                                                        ? "image-list"
+                                                        : "image-grid"
                                                 }
-                                                alt="photo"
-                                                style={{
-                                                    width: "100%",
-                                                    height: "100%",
-                                                }}
-                                            />
+                                            >
+                                                <img
+                                                    key={index}
+                                                    src={
+                                                        product.image &&
+                                                        product.image.length > 0
+                                                            ? product.image[0]
+                                                                  .image_url
+                                                            : "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950"
+                                                    }
+                                                    alt="photo"
+                                                    style={{
+                                                        width: "100%",
+                                                        height: "100%",
+                                                    }}
+                                                />
+                                            </div>
                                             <div className="overlayButtons">
                                                 <button className="overlayButton">
                                                     <GoEye className="overlayIcons" />
