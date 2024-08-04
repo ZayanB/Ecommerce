@@ -18,7 +18,17 @@ const NavBar = () => {
     return (
         <nav className="MainContainerNavBar">
             <div>
-                <h1 className="ShopName">MOLEEZ</h1>
+                <h1 className="ShopName">
+                    <a style={{ color: "white" }} href="/">
+                        MOLEEZ
+                    </a>
+                </h1>
+            </div>
+            <div>
+                <a href="/signIn">Sign In </a>
+            </div>
+            <div>
+                <a href="/createAcc">Create Account</a>
             </div>
 
             <div className="ListContainer" onMouseLeave={onMouseLeave}>
@@ -27,7 +37,8 @@ const NavBar = () => {
                         onMouseOver={onMouseOver}
                         className={`arrowDown dropDown`}
                     >
-                        HOME{<MdKeyboardArrowDown />}
+                        <a href="/">HOME</a>
+                        {<MdKeyboardArrowDown />}
                         <div
                             onMouseOver={onMouseOver}
                             onMouseLeave={onMouseLeave}
@@ -44,7 +55,8 @@ const NavBar = () => {
                         SHOP {<MdKeyboardArrowDown />}
                     </li>
                     <li className="arrowDown">
-                        PRODUCTS {<MdKeyboardArrowDown />}
+                        <a href="/allProducts">PRODUCTS</a>
+                        {<MdKeyboardArrowDown />}
                     </li>
                     <li className="arrowDown">
                         PAGES {<MdKeyboardArrowDown />}

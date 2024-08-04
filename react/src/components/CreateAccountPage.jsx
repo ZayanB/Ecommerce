@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import axios from "axios";
 import "./CreateAccountPage.css";
+import { useNavigate } from "react-router-dom";
 
 const CreateAccountPage = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/signIn");
+    };
+
     const [formData, setFormData] = useState({
         firstname: "",
         lastname: "",
@@ -144,7 +151,9 @@ const CreateAccountPage = () => {
                     <span className="divider-text">Or</span>
                 </div>
                 <div style={{ width: "100%" }}>
-                    <button className="SignInButton">SIGN IN</button>
+                    <button onClick={handleClick} className="SignInButton">
+                        SIGN IN
+                    </button>
                 </div>
             </div>
         </div>

@@ -27,8 +27,6 @@ class AuthenticationController extends Controller {
             'user_birth_date' => date('Y-m-d', strtotime($validatedData['birthday'])),
         ]);
 
-        // $user->createToken('auth_token')->plainTextToken;
-
         return "User Created Successfully";
     }
 

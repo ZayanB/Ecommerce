@@ -1,8 +1,15 @@
 import React, { useState } from "react";
 import "./LoginPage.css";
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const LoginPage = () => {
+    const navigate = useNavigate();
+
+    const handleClick = () => {
+        navigate("/createAcc");
+    };
+
     const [formData, setFormData] = useState({
         email: "",
         password: "",
@@ -115,7 +122,10 @@ const LoginPage = () => {
                 </div>
                 <form className="Form1" action="">
                     <div style={{ width: "100%" }}>
-                        <button className="CreateAccButton">
+                        <button
+                            onClick={handleClick}
+                            className="CreateAccButton"
+                        >
                             CREATE AN ACCOUNT
                         </button>
                     </div>
