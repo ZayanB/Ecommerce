@@ -15,7 +15,7 @@
 .rowProductContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0rem;
     width: 75vw;
     flex-wrap: wrap;
@@ -268,3 +268,12 @@ ul {
     justify-content: space-between;
     gap: 1rem;
 }
+
+.image-grid {
+    height: 42vh;
+    width: 20vw;
+}
+/* .image-list {
+    height: 231px;
+    width: 185px;
+} */

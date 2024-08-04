@@ -6,7 +6,6 @@
     background-color: black;
     color: white;
     width: 100vw;
-    /* height: auto; */
     align-items: center;
     overflow: visible;
 }
@@ -64,6 +63,7 @@
     margin-left: 0rem;
     margin-bottom: 0.5rem;
     margin-top: 0.5rem;
+    margin-right: 2rem;
 }
 
 .dropDown {
@@ -78,4 +78,39 @@
 
 .d-block {
     display: block !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: black;
+    transform: translate(-19%, 0%);
+    z-index: 1;
+}
+
+.dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content ul li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-content ul li:hover {
+    color: orange;
+}
+
+.dropdown:hover .dropdown-content {
+    display: block;
+}
+
+.signIn-drop {
+    color: white;
+}
+
+.signIn-drop:hover {
+    color: orange;
 }

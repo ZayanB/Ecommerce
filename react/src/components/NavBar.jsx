@@ -19,25 +19,20 @@ const NavBar = () => {
         <nav className="MainContainerNavBar">
             <div>
                 <h1 className="ShopName">
-                    <a style={{ color: "white" }} href="/">
+                    <a style={{ color: "white", marginLeft: "1rem" }} href="/">
                         MOLEEZ
                     </a>
                 </h1>
             </div>
-            <div>
-                <a href="/signIn">Sign In </a>
-            </div>
-            <div>
-                <a href="/createAcc">Create Account</a>
-            </div>
-
             <div className="ListContainer" onMouseLeave={onMouseLeave}>
                 <ul className="uList">
                     <li
                         onMouseOver={onMouseOver}
                         className={`arrowDown dropDown`}
                     >
-                        <a href="/">HOME</a>
+                        <a style={{ color: "white" }} href="/">
+                            HOME
+                        </a>
                         {<MdKeyboardArrowDown />}
                         <div
                             onMouseOver={onMouseOver}
@@ -55,7 +50,9 @@ const NavBar = () => {
                         SHOP {<MdKeyboardArrowDown />}
                     </li>
                     <li className="arrowDown">
-                        <a href="/allProducts">PRODUCTS</a>
+                        <a style={{ color: "white" }} href="/allProducts">
+                            PRODUCTS
+                        </a>
                         {<MdKeyboardArrowDown />}
                     </li>
                     <li className="arrowDown">
@@ -73,8 +70,27 @@ const NavBar = () => {
                     <li>
                         <CiSearch className="CartHover" />
                     </li>
-                    <li>
+                    <li className="dropdown">
                         <IoPersonCircleSharp className="CartHover" />
+                        <div className="dropdown-content ">
+                            <ul>
+                                <li>My Wishlist</li>
+                                <li>Checkout</li>
+                                <li>
+                                    <a className="signIn-drop" href="/signIn">
+                                        Sign In
+                                    </a>
+                                </li>
+                                <li>
+                                    <a
+                                        className="signIn-drop"
+                                        href="/createAcc"
+                                    >
+                                        Create Account
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
                     </li>
                     <li>
                         <FaScaleBalanced className="CartHover" />
