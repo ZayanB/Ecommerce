@@ -7,10 +7,23 @@ import { FaScaleBalanced } from "react-icons/fa6";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import CartPanel from "./CartPanel";
 import "./NavBar.css";
-import { isAfter } from "date-fns";
+
+import { Drawer, Button } from "antd";
+// import 'antd/dist/antd.css';
 
 const NavBar = () => {
+    const [visible, setVisible] = useState(false);
+
+    const showDrawer = () => {
+        setVisible(true);
+    };
+
+    const onClose = () => {
+        setVisible(false);
+    };
+
     const [hoverDrop, setHoverDrop] = useState(false);
     const onMouseOver = () => setHoverDrop(true);
     const onMouseLeave = () => setHoverDrop(false);
@@ -40,10 +53,7 @@ const NavBar = () => {
                             onMouseOver={onMouseOver}
                             className={`arrowDown dropDown`}
                         >
-                            <NavLink
-                                className={linkClass}
-                                to="/"
-                            >
+                            <NavLink className={linkClass} to="/">
                                 HOME
                             </NavLink>
                             {<MdKeyboardArrowDown />}
@@ -66,10 +76,7 @@ const NavBar = () => {
                             SHOP {<MdKeyboardArrowDown />}
                         </li>
                         <li className="arrowDown">
-                            <NavLink
-                                className={linkClass}
-                                to="/allProducts"
-                            >
+                            <NavLink className={linkClass} to="/allProducts">
                                 PRODUCTS
                             </NavLink>
                             {<MdKeyboardArrowDown />}
@@ -123,11 +130,12 @@ const NavBar = () => {
                             </ul>
                         </div>
                     </li>
+
                     <li>
                         <FaScaleBalanced className="CartHover" />
                     </li>
                     <li>
-                        <RiShoppingCartLine className="CartHover" />
+                        <CartPanel />
                     </li>
                     <li className="cartFont">Cart(0)</li>
                 </ul>

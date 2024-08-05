@@ -13,7 +13,7 @@ import MainLayout from "./Layouts/MainLayout";
 import CreateAccountsPage from "./Pages/CreateAccountsPage";
 import SignInPage from "./Pages/SignInPage";
 import ProductView from "./Pages/ProductView";
-import "./App.css";
+// import "./App.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(

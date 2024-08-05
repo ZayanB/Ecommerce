@@ -13,6 +13,13 @@ class CartItem extends Model
     protected $table = 'cart_item';
     protected $primaryKey = 'cart_item_id_pkey';
 
+    protected $fillable = [
+        'product_id',
+        'cart_item_price'
+    ];
+
+    public $timestamps = true;
+
     public function shoppingCart(): BelongsTo
     {
         return $this->belongsTo(ShoppingCart::class, 'cart_id');

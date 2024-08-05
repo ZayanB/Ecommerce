@@ -11,6 +11,63 @@ import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
 
 const ProductsPage = () => {
+    const [cartItem, setCartItem] = useState({
+        productid: "",
+        productprice: "",
+    });
+    const [isCartUpdated, setIsCartUpdated] = useState(false);
+
+    const addToCart = (productId, productPrice) => {
+        return new Promise((resolve) => {
+            setCartItem({
+                productid: productId,
+                productprice: productPrice,
+            });
+            setIsCartUpdated(true);
+            resolve();
+        });
+    };
+
+    useEffect(() => {
+        if (isCartUpdated) {
+            handleSubmit();
+            setIsCartUpdated(false);
+        }
+    }, [isCartUpdated]);
+
+    console.log(cartItem);
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const handleSubmit = async () => {
+        setSuccessMessage("");
+        setErrorMessage("");
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/cartItem",
+                cartItem,
+                {
+                    headers: {
+                        Accept: "application/json",
+                    },
+                }
+            );
+            setSuccessMessage("Item Added to cart successfully!");
+        } catch (error) {
+            if (error.response && error.response.data.errors) {
+                setErrorMessage(
+                    "Failed to add item: " +
+                        Object.values(error.response.data.errors).join(", ")
+                );
+            } else {
+                setErrorMessage("Failed to add item.");
+            }
+        }
+    };
+
+    const handleClick = async (productId, productPrice) => {
+        await addToCart(productId, productPrice);
+    };
+
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
 
@@ -109,6 +166,9 @@ const ProductsPage = () => {
     };
 
     const productsCount = products.length;
+    console.log(successMessage);
+    console.log(errorMessage);
+    console.log(products);
 
     // console.log(categories);
     return (
@@ -281,12 +341,26 @@ const ProductsPage = () => {
                                                             <FaBalanceScale className="overlayIcons" />
                                                         </button>
                                                     </div>
+                                                    {/*  */}
                                                     <div className="addToCart">
-                                                        <div className="overlayCart">
-                                                            <SlBag size={20} />
-                                                        </div>
-                                                        ADD TO CART
+                                                        <button
+                                                            onClick={() =>
+                                                                handleClick(
+                                                                    product.product_id_pkey,
+                                                                    product.product_price
+                                                                )
+                                                            }
+                                                            className="addToCart"
+                                                        >
+                                                            <div className="overlayCart">
+                                                                <SlBag
+                                                                    size={20}
+                                                                />
+                                                            </div>
+                                                            ADD TO CART
+                                                        </button>
                                                     </div>
+                                                    {/*  */}
                                                     <div className="statusContainer">
                                                         <div
                                                             key={index}
