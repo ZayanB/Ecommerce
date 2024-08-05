@@ -4,11 +4,11 @@ import HomeDropDown from "./HomeDropDown";
 import { CiSearch } from "react-icons/ci";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaScaleBalanced } from "react-icons/fa6";
-import { RiShoppingCartLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import { isAfter } from "date-fns";
+import CartDrawer from "./CartDrawer";
 
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(false);
@@ -40,10 +40,7 @@ const NavBar = () => {
                             onMouseOver={onMouseOver}
                             className={`arrowDown dropDown`}
                         >
-                            <NavLink
-                                className={linkClass}
-                                to="/"
-                            >
+                            <NavLink className={linkClass} to="/">
                                 HOME
                             </NavLink>
                             {<MdKeyboardArrowDown />}
@@ -66,10 +63,7 @@ const NavBar = () => {
                             SHOP {<MdKeyboardArrowDown />}
                         </li>
                         <li className="arrowDown">
-                            <NavLink
-                                className={linkClass}
-                                to="/allProducts"
-                            >
+                            <NavLink className={linkClass} to="/allProducts">
                                 PRODUCTS
                             </NavLink>
                             {<MdKeyboardArrowDown />}
@@ -127,7 +121,7 @@ const NavBar = () => {
                         <FaScaleBalanced className="CartHover" />
                     </li>
                     <li>
-                        <RiShoppingCartLine className="CartHover" />
+                        <CartDrawer />
                     </li>
                     <li className="cartFont">Cart(0)</li>
                 </ul>
