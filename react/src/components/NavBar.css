@@ -3,11 +3,12 @@
     position: relative;
     flex-direction: row;
     justify-content: space-between;
-    background-color: black;
-    color: white;
+    background-color: whitesmoke;
+    color: black;
     width: 100vw;
     align-items: center;
     overflow: visible;
+    height: 12vh;
 }
 .ShopName {
     display: flex;
@@ -26,6 +27,8 @@
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: 15rem;
+    flex: 1;
+    height: 100%;
 }
 
 .uList {
@@ -40,6 +43,7 @@
 }
 .arrowDown {
     display: flex;
+    flex-direction: row;
     align-items: center;
     cursor: pointer;
 }
@@ -67,13 +71,14 @@
 }
 
 .dropDown {
-    display: inline-block;
+    display: flex;
+    flex-direction: row;
 }
 .dropDownContent {
     display: none;
     position: absolute;
     z-index: 1;
-    transform: translate(-19%, 10%);
+    transform: translate(-19%, 65%);
 }
 
 .d-block {
@@ -83,8 +88,9 @@
 .dropdown-content {
     display: none;
     position: absolute;
-    background-color: black;
-    transform: translate(-19%, 0%);
+    background-color: white;
+    color: black;
+    transform: translate(-19%, 13%);
     z-index: 1;
 }
 
@@ -103,14 +109,25 @@
     color: orange;
 }
 
-.dropdown:hover .dropdown-content {
-    display: block;
-}
-
 .signIn-drop {
-    color: white;
+    color: black;
 }
 
 .signIn-drop:hover {
+    color: orange;
+}
+
+.nav-active {
+    color: orange;
+}
+.nav-active:hover {
+    color: orange;
+}
+
+.nav-non {
+    color: black;
+}
+
+.nav-non:hover {
     color: orange;
 }

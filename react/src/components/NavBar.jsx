@@ -6,88 +6,119 @@ import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaScaleBalanced } from "react-icons/fa6";
 import { RiShoppingCartLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
+import { NavLink } from "react-router-dom";
 import "./NavBar.css";
+import { isAfter } from "date-fns";
 
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(false);
-
     const onMouseOver = () => setHoverDrop(true);
-
     const onMouseLeave = () => setHoverDrop(false);
+
+    const [signDrop, setSignDrop] = useState(false);
+    const onSignOver = () => setSignDrop(true);
+    const onSignLeave = () => setSignDrop(false);
+
+    const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
 
     return (
         <nav className="MainContainerNavBar">
             <div>
                 <h1 className="ShopName">
-                    <a style={{ color: "white", marginLeft: "1rem" }} href="/">
+                    <NavLink
+                        style={{ color: "black", marginLeft: "1rem" }}
+                        to="/"
+                    >
                         MOLEEZ
-                    </a>
+                    </NavLink>
                 </h1>
             </div>
-            <div className="ListContainer" onMouseLeave={onMouseLeave}>
-                <ul className="uList">
-                    <li
-                        onMouseOver={onMouseOver}
-                        className={`arrowDown dropDown`}
-                    >
-                        <a style={{ color: "white" }} href="/">
-                            HOME
-                        </a>
-                        {<MdKeyboardArrowDown />}
-                        <div
+            <div onMouseLeave={onMouseLeave}>
+                <div className="ListContainer">
+                    <ul className="uList">
+                        <li
                             onMouseOver={onMouseOver}
-                            onMouseLeave={onMouseLeave}
-                            className={`dropDownContent ${
-                                hoverDrop ? "d-block" : ""
-                            }`}
-                            style={{ color: "black" }}
+                            className={`arrowDown dropDown`}
                         >
-                            <HomeDropDown />
-                        </div>
-                    </li>
+                            <NavLink
+                                className={linkClass}
+                                to="/"
+                            >
+                                HOME
+                            </NavLink>
+                            {<MdKeyboardArrowDown />}
+                            <div
+                                onMouseOver={onMouseOver}
+                                onMouseLeave={onMouseLeave}
+                                className={`dropDownContent ${
+                                    hoverDrop ? "d-block" : ""
+                                }`}
+                                style={{ color: "black" }}
+                            >
+                                <HomeDropDown
+                                    onMouseOver={onMouseOver}
+                                    onMouseLeave={onMouseLeave}
+                                />
+                            </div>
+                        </li>
 
-                    <li className="arrowDown">
-                        SHOP {<MdKeyboardArrowDown />}
-                    </li>
-                    <li className="arrowDown">
-                        <a style={{ color: "white" }} href="/allProducts">
-                            PRODUCTS
-                        </a>
-                        {<MdKeyboardArrowDown />}
-                    </li>
-                    <li className="arrowDown">
-                        PAGES {<MdKeyboardArrowDown />}
-                    </li>
-                    <li className="arrowDown">
-                        BLOG {<MdKeyboardArrowDown />}
-                    </li>
-                    <li className="arrowDown">BUY {<MdKeyboardArrowDown />}</li>
-                </ul>
+                        <li className="arrowDown">
+                            SHOP {<MdKeyboardArrowDown />}
+                        </li>
+                        <li className="arrowDown">
+                            <NavLink
+                                className={linkClass}
+                                to="/allProducts"
+                            >
+                                PRODUCTS
+                            </NavLink>
+                            {<MdKeyboardArrowDown />}
+                        </li>
+                        <li className="arrowDown">
+                            PAGES {<MdKeyboardArrowDown />}
+                        </li>
+                        <li className="arrowDown">
+                            BLOG {<MdKeyboardArrowDown />}
+                        </li>
+                        <li className="arrowDown">
+                            BUY {<MdKeyboardArrowDown />}
+                        </li>
+                    </ul>
+                </div>
             </div>
 
-            <div>
+            <div onMouseLeave={onSignLeave}>
                 <ul className="uList uCart">
                     <li>
                         <CiSearch className="CartHover" />
                     </li>
-                    <li className="dropdown">
+                    <li onMouseOver={onSignOver} className="dropdown">
                         <IoPersonCircleSharp className="CartHover" />
-                        <div className="dropdown-content ">
+                        <div
+                            onMouseOver={onSignOver}
+                            onMouseLeave={onSignLeave}
+                            className={`dropdown-content ${
+                                signDrop ? "d-block" : ""
+                            }`}
+                        >
                             <ul>
                                 <li>My Wishlist</li>
                                 <li>Checkout</li>
                                 <li>
-                                    <a className="signIn-drop" href="/signIn">
+                                    <NavLink
+                                        className="signIn-drop"
+                                        to="/signIn"
+                                    >
                                         Sign In
-                                    </a>
+                                    </NavLink>
                                 </li>
                                 <li>
-                                    <a
+                                    <NavLink
                                         className="signIn-drop"
-                                        href="/createAcc"
+                                        to="/createAcc"
                                     >
                                         Create Account
-                                    </a>
+                                    </NavLink>
                                 </li>
                             </ul>
                         </div>

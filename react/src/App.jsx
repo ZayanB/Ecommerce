@@ -31,15 +31,6 @@ const App = () => {
         <>
             <RouterProvider router={router} />
         </>
-
-        // <div className="MAIN">
-        //     {/* <NavBar /> */}
-        //     {/* <Hero /> */}
-        //     {/* <FeaturedProducts /> */}
-        //     {/* <LoginPage /> */}
-        //     {/* <CreateAccountPage /> */}
-        //     {/* <ProductsPage /> */}
-        // </div>
     );
 };
 

@@ -269,6 +269,42 @@ ul {
     gap: 1rem;
 }
 
+.show-filters {
+    display: block;
+}
+
+.hide-filters {
+    display: none;
+}
+
+.filter-box {
+    background-color: beige;
+    padding: 5px 5px 5px 5px;
+    border-radius: 0.5rem; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    margin: 1rem 0; /* Optional: Add some margin */
+    display: flex;
+    justify-content: center;
+}
+
+.clear-filter-box {
+    background-color: rgb(223, 120, 120);
+    padding: 5px 5px 5px 5px; /* Optional: Add some padding */
+    border-radius: 0.5rem; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    display: flex;
+    justify-content: center;
+}
+
+.filter-by-box {
+    background-color: rgb(170, 245, 151);
+    padding: 5px 5px 5px 5px; /* Optional: Add some padding */
+    border-radius: 0.5rem; /* Optional: Add rounded corners */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+    display: flex;
+    justify-content: center;
+}
+
 .image-grid {
     height: 42vh;
     width: 20vw;
