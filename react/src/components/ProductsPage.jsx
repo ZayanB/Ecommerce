@@ -8,6 +8,7 @@ import { PiSquaresFour, PiList, PiCaretDown } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
+import Spinner from "./Spinner";
 
 const ProductsPage = () => {
     const [menu, setMenu] = useState(false);
@@ -42,6 +43,11 @@ const ProductsPage = () => {
             size: size,
         }));
     };
+
+    const keysToMap = ["categoryName", "size"];
+    const filteredKeys = Object.keys(filters).filter((key) =>
+        keysToMap.includes(key)
+    );
 
     const clearFilter = () => {
         setFilters({});
@@ -85,7 +91,6 @@ const ProductsPage = () => {
         fetchCategories();
     }, []);
 
-    if (loading) return <p>Loading...</p>;
     if (error) return <p>Error: {error}</p>;
 
     const isNewProduct = (createdAt) => {
@@ -110,8 +115,33 @@ const ProductsPage = () => {
         <div className="productsMainContainer">
             <div style={{ marginTop: "2rem" }}>
                 <ul className="filter-panel">
-                    <li style={{ cursor: "pointer" }} onClick={clearFilter}>
-                        CLEAR FILTER
+                    <li
+                        className={
+                            Object.keys(filters).length === 0
+                                ? "hide-filters"
+                                : "show-filters"
+                        }
+                    >
+                        <div className="filter-by-box">Filter By:</div>
+
+                        <div>
+                            {filteredKeys.map((key, index) => (
+                                <div key={index} className="filter-box">
+                                    {filters[key]}
+                                </div>
+                            ))}
+                        </div>
+                    </li>
+                    <li
+                        className={
+                            Object.keys(filters).length === 0
+                                ? "hide-filters"
+                                : "show-filters"
+                        }
+                        style={{ cursor: "pointer" }}
+                        onClick={clearFilter}
+                    >
+                        <div className="clear-filter-box">CLEAR FILTER</div>
                     </li>
                     <li
                         style={{
@@ -190,144 +220,164 @@ const ProductsPage = () => {
                     </div>
                 </div>
                 <div className="rowProductContainer">
-                    {productsCount > 0 ? (
-                        products.map((product, index) => {
-                            const sizes = parseProductSize(
-                                product.product_size
-                            );
-                            return (
-                                <div
-                                    className={
-                                        view == "list"
-                                            ? "allProducts-list"
-                                            : "allProducts-grid"
-                                    }
-                                >
-                                    <figure
-                                        className={
-                                            view == "list"
-                                                ? "productFigureContainerList"
-                                                : "productFigureContainerGrid"
-                                        }
-                                    >
-                                        <div className="product-card">
-                                            <div
-                                                className={
-                                                    view == "list"
-                                                        ? "image-list"
-                                                        : "image-grid"
-                                                }
-                                            >
-                                                <img
-                                                    key={index}
-                                                    src={
-                                                        product.image &&
-                                                        product.image.length > 0
-                                                            ? product.image[0]
-                                                                  .image_url
-                                                            : "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950"
-                                                    }
-                                                    alt="photo"
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                    }}
-                                                />
-                                            </div>
-                                            <div className="overlayButtons">
-                                                <button className="overlayButton">
-                                                    <GoEye className="overlayIcons" />
-                                                </button>
-                                                <button className="overlayButton">
-                                                    <CiHeart className="overlayIcons" />
-                                                </button>
-                                                <button className="overlayButton">
-                                                    <FaBalanceScale className="overlayIcons" />
-                                                </button>
-                                            </div>
-                                            <div className="addToCart">
-                                                <div className="overlayCart">
-                                                    <SlBag size={20} />
-                                                </div>
-                                                ADD TO CART
-                                            </div>
-                                            <div className="statusContainer">
-                                                <div
-                                                    key={index}
-                                                    className={
-                                                        product.product_sale
-                                                            ? "saleContainer"
-                                                            : "saleContainer-hidden"
-                                                    }
-                                                >
-                                                    SALE
-                                                </div>
-                                                <div
-                                                    key={index}
-                                                    className={
-                                                        isNewProduct(
-                                                            product.created_at
-                                                        )
-                                                            ? "newContainer"
-                                                            : "newContainer-hidden"
-                                                    }
-                                                >
-                                                    NEW
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <figcaption
+                    {loading ? (
+                        <Spinner />
+                    ) : (
+                        <>
+                            {productsCount > 0 ? (
+                                products.map((product, index) => {
+                                    const sizes = parseProductSize(
+                                        product.product_size
+                                    );
+                                    return (
+                                        <div
                                             className={
                                                 view == "list"
-                                                    ? "figCapList"
-                                                    : "figCapGrid"
+                                                    ? "allProducts-list"
+                                                    : "allProducts-grid"
                                             }
                                         >
-                                            <h3
-                                                style={{ marginBottom: "0rem" }}
-                                                key={index}
-                                            >
-                                                {product.product_name}
-                                            </h3>
-                                            <p
-                                                style={{
-                                                    textAlign: "left",
-                                                }}
+                                            <figure
                                                 className={
                                                     view == "list"
-                                                        ? "prod-description"
-                                                        : "prod-description-hidden"
+                                                        ? "productFigureContainerList"
+                                                        : "productFigureContainerGrid"
                                                 }
                                             >
-                                                {product.product_description}
-                                            </p>
-                                            <p key={index}>
-                                                ${product.product_price}
-                                            </p>
-                                            <div
-                                                className={
-                                                    sizes.length === 0
-                                                        ? "sizeOptions-hidden"
-                                                        : "sizeOptions"
-                                                }
-                                            >
-                                                {sizes.map(
-                                                    (size, sizeIndex) => (
-                                                        <button key={sizeIndex}>
-                                                            {size}
+                                                <div className="product-card">
+                                                    <div
+                                                        className={
+                                                            view == "list"
+                                                                ? "image-list"
+                                                                : "image-grid"
+                                                        }
+                                                    >
+                                                        <img
+                                                            key={index}
+                                                            src={
+                                                                product.image &&
+                                                                product.image
+                                                                    .length > 0
+                                                                    ? product
+                                                                          .image[0]
+                                                                          .image_url
+                                                                    : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                                                            }
+                                                            alt="photo"
+                                                            style={{
+                                                                width: "100%",
+                                                                height: "100%",
+                                                            }}
+                                                        />
+                                                    </div>
+                                                    <div className="overlayButtons">
+                                                        <button className="overlayButton">
+                                                            <GoEye className="overlayIcons" />
                                                         </button>
-                                                    )
-                                                )}
-                                            </div>
-                                        </figcaption>
-                                    </figure>
+                                                        <button className="overlayButton">
+                                                            <CiHeart className="overlayIcons" />
+                                                        </button>
+                                                        <button className="overlayButton">
+                                                            <FaBalanceScale className="overlayIcons" />
+                                                        </button>
+                                                    </div>
+                                                    <div className="addToCart">
+                                                        <div className="overlayCart">
+                                                            <SlBag size={20} />
+                                                        </div>
+                                                        ADD TO CART
+                                                    </div>
+                                                    <div className="statusContainer">
+                                                        <div
+                                                            key={index}
+                                                            className={
+                                                                product.product_sale
+                                                                    ? "saleContainer"
+                                                                    : "saleContainer-hidden"
+                                                            }
+                                                        >
+                                                            SALE
+                                                        </div>
+                                                        <div
+                                                            key={index}
+                                                            className={
+                                                                isNewProduct(
+                                                                    product.created_at
+                                                                )
+                                                                    ? "newContainer"
+                                                                    : "newContainer-hidden"
+                                                            }
+                                                        >
+                                                            NEW
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <figcaption
+                                                    className={
+                                                        view == "list"
+                                                            ? "figCapList"
+                                                            : "figCapGrid"
+                                                    }
+                                                >
+                                                    <h3
+                                                        style={{
+                                                            marginBottom:
+                                                                "0rem",
+                                                        }}
+                                                        key={index}
+                                                    >
+                                                        {product.product_name}
+                                                    </h3>
+                                                    <p
+                                                        style={{
+                                                            textAlign: "left",
+                                                        }}
+                                                        className={
+                                                            view == "list"
+                                                                ? "prod-description"
+                                                                : "prod-description-hidden"
+                                                        }
+                                                    >
+                                                        {
+                                                            product.product_description
+                                                        }
+                                                    </p>
+                                                    <p key={index}>
+                                                        ${product.product_price}
+                                                    </p>
+                                                    <div
+                                                        className={
+                                                            sizes.length === 0
+                                                                ? "sizeOptions-hidden"
+                                                                : "sizeOptions"
+                                                        }
+                                                    >
+                                                        {sizes.map(
+                                                            (
+                                                                size,
+                                                                sizeIndex
+                                                            ) => (
+                                                                <button
+                                                                    key={
+                                                                        sizeIndex
+                                                                    }
+                                                                >
+                                                                    {size}
+                                                                </button>
+                                                            )
+                                                        )}
+                                                    </div>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    );
+                                })
+                            ) : (
+                                <div className="no-products">
+                                    No products in {filters.categoryName}
                                 </div>
-                            );
-                        })
-                    ) : (
-                        <div className="no-products">
-                            No products in {filters.categoryName}
-                        </div>
+                            )}
+                        </>
                     )}
                 </div>
             </div>

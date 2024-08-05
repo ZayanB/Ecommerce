@@ -16,9 +16,20 @@
 .rowContainer {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 0rem;
     width: 90%;
+    flex-wrap: wrap;
+}
+
+.all-products {
+    width: 33.333%;
+}
+
+@media (max-width: 768px) {
+    .all-products {
+        width: 50%;
+    }
 }
 
 figure {
