@@ -2,21 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\CartItem;
+use Illuminate\Http\Request;
+
 
 class CartItemController extends Controller
 {
-    function addCartItem(Request $request)
+    public function createCartItem(Request $request)
     {
-        $productID = $request->input('productid');
-        $productPrice = $request->input('productprice');
-        // $quantity = $request->input('quantity');
+        $productid = $request->input('productid');
+        $productprice = $request->input('productprice');
 
         CartItem::create([
-            'product_id' => $productID,
-            'cart_item_price' => $productPrice,
-            // 'cart_item_quantity' => $quantity,
+            'product_id' => $productid,
+            'cart_item_price' => $productprice
         ]);
+
+        return response()->json(['message' => 'Product added to cart successfully!'], 200);
     }
 }

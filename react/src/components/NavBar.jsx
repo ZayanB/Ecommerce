@@ -4,26 +4,13 @@ import HomeDropDown from "./HomeDropDown";
 import { CiSearch } from "react-icons/ci";
 import { IoPersonCircleSharp } from "react-icons/io5";
 import { FaScaleBalanced } from "react-icons/fa6";
-import { RiShoppingCartLine } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { NavLink } from "react-router-dom";
-import CartPanel from "./CartPanel";
 import "./NavBar.css";
-
-import { Drawer, Button } from "antd";
-// import 'antd/dist/antd.css';
+import { isAfter } from "date-fns";
+import CartDrawer from "./CartDrawer";
 
 const NavBar = () => {
-    const [visible, setVisible] = useState(false);
-
-    const showDrawer = () => {
-        setVisible(true);
-    };
-
-    const onClose = () => {
-        setVisible(false);
-    };
-
     const [hoverDrop, setHoverDrop] = useState(false);
     const onMouseOver = () => setHoverDrop(true);
     const onMouseLeave = () => setHoverDrop(false);
@@ -130,12 +117,11 @@ const NavBar = () => {
                             </ul>
                         </div>
                     </li>
-
                     <li>
                         <FaScaleBalanced className="CartHover" />
                     </li>
                     <li>
-                        <CartPanel />
+                        <CartDrawer />
                     </li>
                     <li className="cartFont">Cart(0)</li>
                 </ul>

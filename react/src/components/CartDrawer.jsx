@@ -1,12 +1,9 @@
-import React from "react";
-import { Drawer, Button, List } from "antd";
+import React, { useState } from "react";
+import { Drawer, Button } from "antd";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { useState } from "react";
-// import "antd/dist/antd.css";
 
-const CartPanel = () => {
+const CartDrawer = () => {
     const [visible, setVisible] = useState(false);
-    const [cartItems, setCartItems] = useState([]);
 
     const showDrawer = () => {
         setVisible(true);
@@ -14,10 +11,6 @@ const CartPanel = () => {
 
     const onClose = () => {
         setVisible(false);
-    };
-
-    const addToCart = (item) => {
-        setCartItems((prevItems) => [...prevItems, item]);
     };
 
     return (
@@ -31,12 +24,13 @@ const CartPanel = () => {
                 onClose={onClose}
                 visible={visible}
             >
-                <p>dhsdhiou</p>
-                <p>dhsdhiou</p>
-                <p>dhsdhiou</p>
+                <p>Cart Item 1</p>
+                <p>Cart Item 2</p>
+                <p>Cart Item 3</p>
+                {/* Add your cart items here */}
             </Drawer>
         </div>
     );
 };
 
-export default CartPanel;
+export default CartDrawer;

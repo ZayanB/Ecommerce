@@ -11,63 +11,6 @@ import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
 
 const ProductsPage = () => {
-    const [cartItem, setCartItem] = useState({
-        productid: "",
-        productprice: "",
-    });
-    const [isCartUpdated, setIsCartUpdated] = useState(false);
-
-    const addToCart = (productId, productPrice) => {
-        return new Promise((resolve) => {
-            setCartItem({
-                productid: productId,
-                productprice: productPrice,
-            });
-            setIsCartUpdated(true);
-            resolve();
-        });
-    };
-
-    useEffect(() => {
-        if (isCartUpdated) {
-            handleSubmit();
-            setIsCartUpdated(false);
-        }
-    }, [isCartUpdated]);
-
-    console.log(cartItem);
-    const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const handleSubmit = async () => {
-        setSuccessMessage("");
-        setErrorMessage("");
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/cartItem",
-                cartItem,
-                {
-                    headers: {
-                        Accept: "application/json",
-                    },
-                }
-            );
-            setSuccessMessage("Item Added to cart successfully!");
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrorMessage(
-                    "Failed to add item: " +
-                        Object.values(error.response.data.errors).join(", ")
-                );
-            } else {
-                setErrorMessage("Failed to add item.");
-            }
-        }
-    };
-
-    const handleClick = async (productId, productPrice) => {
-        await addToCart(productId, productPrice);
-    };
-
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
 
@@ -148,6 +91,83 @@ const ProductsPage = () => {
         fetchCategories();
     }, []);
 
+    const [cartItem, setCartItem] = useState({
+        productid: "",
+        productprice: "",
+    });
+
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const handleSubmit = async (cartItem, token) => {
+        setSuccessMessage("");
+        setErrorMessage("");
+        try {
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/createItem",
+                cartItem,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setSuccessMessage("Item added to cart successfully!");
+        } catch (error) {
+            if (error.response && error.response.data.errors) {
+                setErrorMessage(
+                    "Failed to add item to cart: " +
+                        Object.values(error.response.data.errors).join(", ")
+                );
+            } else {
+                setErrorMessage(
+                    "Failed to add item to cart: An unknown error occurred."
+                );
+            }
+        }
+    };
+
+    const addToCart = (productid, productprice) => {
+        return new Promise((resolve, reject) => {
+            const token = localStorage.getItem("access_token");
+
+            if (!token) {
+                alert("Please log in to add items to your cart.");
+                reject("User not authenticated");
+                return;
+            }
+
+            const newCartItem = {
+                productid: productid,
+                productprice: productprice,
+            };
+
+            setCartItem(newCartItem);
+            resolve({ cartItem: newCartItem, token });
+        });
+    };
+
+    // useEffect(() => {
+    //     if (cartItem.productid && cartItem.productprice) {
+    //         handleSubmit();
+    //     }
+    // }, [cartItem]);
+
+    // const handleClick = async (productid, productprice) => {
+    //     await addToCart(productid, productprice);
+    // };
+    const handleClick = async (productid, productprice) => {
+        try {
+            const { cartItem, token } = await addToCart(
+                productid,
+                productprice
+            );
+            handleSubmit(cartItem, token);
+        } catch (error) {
+            console.error("Error adding item to cart:", error);
+        }
+    };
+
     if (error) return <p>Error: {error}</p>;
 
     const isNewProduct = (createdAt) => {
@@ -166,8 +186,8 @@ const ProductsPage = () => {
     };
 
     const productsCount = products.length;
-    console.log(successMessage);
-    console.log(errorMessage);
+
+    console.log(cartItem);
     console.log(products);
 
     // console.log(categories);
@@ -341,16 +361,15 @@ const ProductsPage = () => {
                                                             <FaBalanceScale className="overlayIcons" />
                                                         </button>
                                                     </div>
-                                                    {/*  */}
                                                     <div className="addToCart">
                                                         <button
+                                                            className="addToCart"
                                                             onClick={() =>
                                                                 handleClick(
                                                                     product.product_id_pkey,
                                                                     product.product_price
                                                                 )
                                                             }
-                                                            className="addToCart"
                                                         >
                                                             <div className="overlayCart">
                                                                 <SlBag
@@ -360,7 +379,6 @@ const ProductsPage = () => {
                                                             ADD TO CART
                                                         </button>
                                                     </div>
-                                                    {/*  */}
                                                     <div className="statusContainer">
                                                         <div
                                                             key={index}

@@ -21,4 +21,5 @@ Route::get('/test', [ProductController::class, 'getProductsByFilter']);
 Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
 
-Route::post('/cartItem', [CartItemController::class, 'addCartItem']);
+
+Route::post('/createItem', [CartItemController::class, 'createCartItem'])->middleware('auth:sanctum');
