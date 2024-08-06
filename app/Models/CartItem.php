@@ -15,18 +15,19 @@ class CartItem extends Model
 
     protected $fillable = [
         'product_id',
-        'cart_item_price'
+        'cart_item_price',
+        'cart_id',
     ];
 
     public $timestamps = true;
 
     public function shoppingCart(): BelongsTo
     {
-        return $this->belongsTo(ShoppingCart::class, 'cart_id');
+        return $this->belongsTo(ShoppingCart::class, 'cart_id', 'cart_id_pkey');
     }
 
     public function product(): BelongsTo
     {
-        return $this->belongsTo(Product::class);
+        return $this->belongsTo(Product::class, 'product_id', 'product_id_pkey');
     }
 }

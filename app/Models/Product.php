@@ -17,7 +17,7 @@ class Product extends Model
 
     public function image(): HasMany
     {
-        return $this->hasMany(Image::class, 'product_id');
+        return $this->hasMany(Image::class, 'product_id', 'product_id_pkey');
     }
     public function cartItem(): HasMany
     {

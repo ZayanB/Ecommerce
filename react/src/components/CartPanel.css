@@ -1,0 +1,19 @@
+.cart-main-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.cart-product {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 1rem;
+    border-bottom: solid 1px black;
+}
+
+.product {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}

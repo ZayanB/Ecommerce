@@ -15,9 +15,13 @@ class ShoppingCart extends Model
     protected $table = 'shopping_cart';
     protected $primaryKey = 'cart_id_pkey';
 
+    protected $fillable = ['user_id'];
+
+    public $timestamps = true;
+
     public function cartItem(): HasMany
     {
-        return $this->hasMany(CartItem::class);
+        return $this->hasMany(CartItem::class, 'cart_id', 'cart_id_pkey');
     }
     public function cartStatus(): BelongsTo
     {
@@ -27,8 +31,8 @@ class ShoppingCart extends Model
     {
         return $this->hasOne(OrderInfo::class);
     }
-    public function userInfo(): HasOne
+    public function userInfo(): BelongsTo
     {
-        return $this->hasOne(UserInfo::class, 'user_id');
+        return $this->belongsTo(UserInfo::class, 'user_id', 'user_id_pkey');
     }
 }
