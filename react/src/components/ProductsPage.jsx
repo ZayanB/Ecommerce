@@ -95,9 +95,9 @@ const ProductsPage = () => {
         productid: "",
         productprice: "",
     });
-
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
+
     const handleSubmit = async (cartItem, token) => {
         setSuccessMessage("");
         setErrorMessage("");
@@ -147,15 +147,6 @@ const ProductsPage = () => {
         });
     };
 
-    // useEffect(() => {
-    //     if (cartItem.productid && cartItem.productprice) {
-    //         handleSubmit();
-    //     }
-    // }, [cartItem]);
-
-    // const handleClick = async (productid, productprice) => {
-    //     await addToCart(productid, productprice);
-    // };
     const handleClick = async (productid, productprice) => {
         try {
             const { cartItem, token } = await addToCart(
@@ -187,10 +178,10 @@ const ProductsPage = () => {
 
     const productsCount = products.length;
 
-    console.log(cartItem);
-    console.log(products);
-
+    // console.log(cartItem);
+    // console.log(products);
     // console.log(categories);
+
     return (
         <div className="productsMainContainer">
             <div style={{ marginTop: "2rem" }}>

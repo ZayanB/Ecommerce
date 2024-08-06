@@ -6,6 +6,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class UserInfo extends Authenticatable
 {
@@ -32,5 +33,10 @@ class UserInfo extends Authenticatable
     public function getAuthPassword()
     {
         return $this->user_password;
+    }
+
+    public function cart(): HasOne
+    {
+        return $this->hasOne(ShoppingCart::class, 'user_id', 'user_id_pkey');
     }
 }

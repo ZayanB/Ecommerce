@@ -8,7 +8,7 @@ import { MdKeyboardArrowDown } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import { isAfter } from "date-fns";
-import CartDrawer from "./CartDrawer";
+import CartPanel from "./CartPanel";
 
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(false);
@@ -121,7 +121,7 @@ const NavBar = () => {
                         <FaScaleBalanced className="CartHover" />
                     </li>
                     <li>
-                        <CartDrawer />
+                        <CartPanel />
                     </li>
                     <li className="cartFont">Cart(0)</li>
                 </ul>
