@@ -65,7 +65,7 @@ const CartPanel = () => {
                 setTotalCartPrice(response.data.cart_total_price);
                 // setItemId(response.data.cart_item_id);
 
-                console.log(cartItems);
+                // console.log(cartItems);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }

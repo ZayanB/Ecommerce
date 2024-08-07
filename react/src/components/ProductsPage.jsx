@@ -10,6 +10,7 @@ import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
 import { notification, Button } from "antd";
+import { Link } from "react-router-dom";
 
 const ProductsPage = () => {
     const [menu, setMenu] = useState(false);
@@ -326,23 +327,29 @@ const ProductsPage = () => {
                                                                 : "image-grid"
                                                         }
                                                     >
-                                                        <img
-                                                            key={index}
-                                                            src={
-                                                                product.image &&
-                                                                product.image
-                                                                    .length > 0
-                                                                    ? product
-                                                                          .image[0]
-                                                                          .image_url
-                                                                    : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
-                                                            }
-                                                            alt="photo"
-                                                            style={{
-                                                                width: "100%",
-                                                                height: "100%",
-                                                            }}
-                                                        />
+                                                        <Link
+                                                            to={`/allProducts/${product.product_id_pkey}`}
+                                                        >
+                                                            <img
+                                                                key={index}
+                                                                src={
+                                                                    product.image &&
+                                                                    product
+                                                                        .image
+                                                                        .length >
+                                                                        0
+                                                                        ? product
+                                                                              .image[0]
+                                                                              .image_url
+                                                                        : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                                                                }
+                                                                alt="photo"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                }}
+                                                            />
+                                                        </Link>
                                                     </div>
                                                     <div className="overlayButtons">
                                                         <button className="overlayButton">

@@ -41,10 +41,12 @@ class ProductController extends Controller
         return response()->json($products->get());
     }
 
-    // public function getProductsByCategory(Request $request)
-    // {
-    //     $categoryId = $request->input('category');
-    //     $products = Product::getProductsByCategory($categoryId);
-    //     return response()->json($products);
-    // }
+    public function getSingleProduct($productId)
+    {
+        // $productid = $request->input('productid');
+
+        $productInfo = Product::where('product_id_pkey', $productId)->with('image:product_id,image_url')->select('product_id_pkey', 'product_name', 'product_size', 'product_price', 'product_sale', 'product_description', 'created_at', 'product_rating', 'sku')->first();
+
+        return response()->json($productInfo);
+    }
 }

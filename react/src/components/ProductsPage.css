@@ -313,3 +313,26 @@ ul {
     height: 231px;
     width: 185px;
 } */
+
+.sizeOptions {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    opacity: 1;
+}
+.sizeOptions-hidden {
+    display: flex;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    margin-top: 0.5rem;
+    opacity: 0;
+}
+
+.sizeOptions button {
+    padding: 0.5rem 1rem;
+    border: 1px solid gray;
+    background-color: white;
+    cursor: pointer;
+    border-radius: 0%;
+    color: black;
+}
