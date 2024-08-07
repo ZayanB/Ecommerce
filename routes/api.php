@@ -24,3 +24,4 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 
 Route::post('/createItem', [ShoppingCartController::class, 'createCartItem'])->middleware('auth:sanctum');
 Route::post('/getCart', [ShoppingCartController::class, 'getCartItems'])->middleware('auth:sanctum');
+Route::post('/removeCartItem', [ShoppingCartController::class, 'removeCartItem'])->middleware('auth:sanctum');

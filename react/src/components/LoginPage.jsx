@@ -49,8 +49,8 @@ const LoginPage = () => {
                     "access_token",
                     response.data.access_token
                 );
-                //You can access this token later for making authenticated requests by retrieving it from localStorage using localStorage.getItem('access_token')
                 setSuccessMessage("Login successful!");
+                navigate("/");
             } else {
                 setErrorMessage("Failed to log in: Invalid credentials.");
             }
