@@ -7,7 +7,6 @@ import { FaScaleBalanced } from "react-icons/fa6";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import "./NavBar.css";
-import { isAfter } from "date-fns";
 import CartPanel from "./CartPanel";
 
 const NavBar = () => {
@@ -123,7 +122,6 @@ const NavBar = () => {
                     <li>
                         <CartPanel />
                     </li>
-                    <li className="cartFont">Cart(0)</li>
                 </ul>
             </div>
         </nav>

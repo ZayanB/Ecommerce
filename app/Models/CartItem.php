@@ -17,6 +17,7 @@ class CartItem extends Model
         'product_id',
         'cart_item_price',
         'cart_id',
+        'cart_item_quantity'
     ];
 
     public $timestamps = true;

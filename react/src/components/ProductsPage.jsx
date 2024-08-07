@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
+import { notification, Button } from "antd";
 
 const ProductsPage = () => {
     const [menu, setMenu] = useState(false);
@@ -95,12 +96,8 @@ const ProductsPage = () => {
         productid: "",
         productprice: "",
     });
-    const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
 
     const handleSubmit = async (cartItem, token) => {
-        setSuccessMessage("");
-        setErrorMessage("");
         try {
             const response = await axios.post(
                 "http://127.0.0.1:8000/api/createItem",
@@ -112,18 +109,19 @@ const ProductsPage = () => {
                     },
                 }
             );
-            setSuccessMessage("Item added to cart successfully!");
+            notification.success({
+                message: "Success",
+                description: "Item added to cart successfully!",
+                placement: "topRight",
+                duration: 2,
+            });
         } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrorMessage(
-                    "Failed to add item to cart: " +
-                        Object.values(error.response.data.errors).join(", ")
-                );
-            } else {
-                setErrorMessage(
-                    "Failed to add item to cart: An unknown error occurred."
-                );
-            }
+            notification.error({
+                message: "Error",
+                description: "Cannot add item to cart",
+                placement: "topRight",
+                duration: 2,
+            });
         }
     };
 
@@ -132,7 +130,12 @@ const ProductsPage = () => {
             const token = localStorage.getItem("access_token");
 
             if (!token) {
-                alert("Please log in to add items to your cart.");
+                notification.error({
+                    message: "Error",
+                    description: "Cannot add item to cart",
+                    placement: "topRight",
+                    duration: 2,
+                });
                 reject("User not authenticated");
                 return;
             }
