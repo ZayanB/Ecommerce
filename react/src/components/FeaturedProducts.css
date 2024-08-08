@@ -77,6 +77,12 @@ figcaption {
     justify-content: center;
     align-items: center;
 }
+/*         */
+.image-size {
+    height: 100%;
+    width: 100%;
+}
+/*        */
 
 .imageContainer img {
     display: block;
