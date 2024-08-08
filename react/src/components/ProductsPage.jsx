@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
-import { notification, Button } from "antd";
+import { notification} from "antd";
 import { Link } from "react-router-dom";
 
 const ProductsPage = () => {
