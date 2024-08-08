@@ -1,0 +1,88 @@
+.footer-parent {
+    display: flex;
+    flex-direction: column;
+}
+
+.footer-main-container {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    color: white;
+    justify-content: space-between;
+    height: 40vh;
+    padding: 40px 30px;
+    margin-top: 5rem;
+}
+
+.footer-news {
+    width: 40%;
+}
+
+.footer-subscribe {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.subscribe-email {
+    height: 38px;
+    border-radius: 0%;
+    border: none;
+    width: 20rem;
+}
+.subscribe-email:focus,
+.subscribe-email:active {
+    outline: none;
+    border-color: transparent;
+}
+
+.subscibe-button {
+    background-color: grey;
+    color: white;
+    border: none;
+    border-radius: 0%;
+    transition: ease 300ms;
+}
+
+.subscibe-button:hover {
+    background-color: black;
+    transition: ease 300ms;
+}
+
+.subscibe-button:focus,
+.subscibe-button:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}
+
+.footer-socials {
+    display: flex;
+    flex-direction: row;
+    gap: 1.5rem;
+    margin-left: 15px;
+}
+
+.footer-copyright {
+    display: flex;
+    flex-direction: row;
+    background-color: black;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 3rem;
+    color: rgba(255, 255, 255, 0.603);
+}
+
+.footer-icon {
+    transition: ease 150ms;
+}
+
+.footer-icon:hover {
+    transition: ease 150ms;
+    color: orange;
+}
+
+.footer-main-container li {
+    color: rgba(255, 255, 255, 0.603);
+}

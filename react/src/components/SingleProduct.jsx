@@ -211,7 +211,10 @@ const SingleProduct = () => {
                                 {/* <div> In Stock</div> */}
                             </div>
                             <h2>{product.product_name}</h2>
-                            <ul style={{ paddingLeft: "0" }}>
+                            <ul
+                                className="single-product-list"
+                                style={{ paddingLeft: "0" }}
+                            >
                                 <li>SKU: {product.sku}</li>
                                 <li
                                     style={{
