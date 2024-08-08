@@ -1,6 +1,6 @@
 .MainContainerNavBar {
     display: flex;
-    position: relative;
+    /* position: relative; */
     flex-direction: row;
     justify-content: space-between;
     background-color: whitesmoke;
@@ -9,6 +9,9 @@
     align-items: center;
     overflow: visible;
     height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 .ShopName {
     display: flex;

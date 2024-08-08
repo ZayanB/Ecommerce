@@ -45,7 +45,7 @@ class ProductController extends Controller
     {
         // $productid = $request->input('productid');
 
-        $productInfo = Product::where('product_id_pkey', $productId)->with('image:product_id,image_url')->select('product_id_pkey', 'product_name', 'product_size', 'product_price', 'product_sale', 'product_description', 'created_at', 'product_rating', 'sku')->first();
+        $productInfo = Product::where('product_id_pkey', $productId)->with('image:product_id,image_url', 'category:category_id_pkey,category_name')->select('product_id_pkey', 'product_name', 'product_size', 'product_price', 'product_sale', 'product_description', 'created_at', 'product_rating', 'sku', 'category_id')->first();
 
         return response()->json($productInfo);
     }

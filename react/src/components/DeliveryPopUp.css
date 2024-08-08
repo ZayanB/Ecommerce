@@ -1,0 +1,9 @@
+.del-pop-ul {
+    font-weight: bold;
+}
+.del-pop-ul li {
+    font-weight: lighter;
+    list-style-type: disc;
+    list-style-position: inside;
+    margin-bottom: 5px;
+}

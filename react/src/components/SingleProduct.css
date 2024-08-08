@@ -1,8 +1,12 @@
-.XX {
+.prod-main-container {
+    display: flex;
     display: flex;
     flex-direction: column;
     gap: 2rem;
     align-items: center;
+}
+.prod-main-container-loading {
+    display: none;
 }
 .single-prod-main {
     display: flex;
@@ -20,17 +24,14 @@
 
 .single-prod-size {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
     margin-top: 0.5rem;
     opacity: 1;
 }
 
 .single-prod-size-hidden {
-    display: flex;
-    gap: 0.5rem;
-    margin-top: 0.5rem;
-    margin-top: 0.5rem;
-    opacity: 0;
+    display: none;
 }
 
 .single-prod-size button {
@@ -85,4 +86,69 @@
     width: 80%;
     background-color: #fff;
     border-top: 1px solid #e8e8e8;
+}
+
+.sizes-option {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+ul li {
+    margin-bottom: 20px;
+}
+
+.single-prod-status {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.single-new-container {
+    background-color: rgb(30, 162, 202);
+    border: none;
+    padding: 2px 7px 2px 7px;
+    font-size: 13px;
+    color: white;
+    display: flex;
+    width: 5%;
+}
+
+.single-new-container-hidden {
+    display: none;
+}
+
+.single-prod-sale-container {
+    background-color: rgb(226, 74, 74);
+    color: white;
+    border: none;
+    padding: 2px 7px 2px 7px;
+    font-size: 13px;
+    display: block;
+}
+.single-prod-sale-container-hidden {
+    display: none;
+}
+
+.single-shipping-free {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 10px;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+    color: black !important;
+
+    font-weight: 500;
+}
+
+.ant-tabs-tab-btn:hover {
+    color: black;
+}
+.ant-tabs .ant-tabs-tab:hover {
+    color: black;
+}
+.ant-tabs .ant-tabs-ink-bar {
+    background: black;
 }
