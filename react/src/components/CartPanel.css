@@ -33,6 +33,12 @@
     margin-bottom: 3px;
     border: none;
 }
+.cart-button:focus,
+.cart-button:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent; /* or border-color: none; */
+}
 
 .cart-hover:hover {
     color: orange;

@@ -13,6 +13,8 @@ import MainLayout from "./Layouts/MainLayout";
 import CreateAccountsPage from "./Pages/CreateAccountsPage";
 import SignInPage from "./Pages/SignInPage";
 import ProductView from "./Pages/ProductView";
+
+import SingleProductPage from "./Pages/SingleProductPage";
 // import "./App.css";
 
 const router = createBrowserRouter(
@@ -22,6 +24,10 @@ const router = createBrowserRouter(
             <Route path="/createAcc" element={<CreateAccountsPage />} />
             <Route path="/signIn" element={<SignInPage />} />
             <Route path="/allProducts" element={<ProductView />} />
+            <Route
+                path="/allProducts/:productId"
+                element={<SingleProductPage />}
+            />
         </Route>
     )
 );

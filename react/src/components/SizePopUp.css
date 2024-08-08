@@ -1,0 +1,19 @@
+.size-popup-style {
+    border: none;
+    border-radius: 0;
+    text-decoration: underline black;
+    transition: ease 300ms;
+    padding-top: 0%;
+    margin-top: 0%;
+}
+.size-popup-style:hover {
+    color: orange;
+    transition: ease 300ms;
+}
+
+.size-popup-style:focus,
+.size-popup-style:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent; /* or border-color: none; */
+}

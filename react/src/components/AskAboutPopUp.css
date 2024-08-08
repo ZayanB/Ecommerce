@@ -1,0 +1,15 @@
+.ask-about-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 0;
+    cursor: pointer;
+    transition: ease 300ms;
+}
+
+.ask-about-button:hover{
+    background-color: rgba(0, 0, 0, 0.507);
+    transition: ease 300ms;
+}
+

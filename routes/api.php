@@ -13,7 +13,8 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/products', [ProductController::class, 'getFeaturedProducts']);
 
-Route::get('/products/category/{categoryId}', [ProductController::class, 'getProductsByCategory']);
+// Route::get('/products/category/{categoryId}', [ProductController::class, 'getProductsByCategory']);
+Route::get('/products/{product}', [ProductController::class, 'getSingleProduct']);
 
 Route::get('/categories', [CategoryController::class, 'getAllCategories']);
 Route::get('/test', [ProductController::class, 'getProductsByFilter']);
