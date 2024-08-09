@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
 import "./SingleProduct.css";
-import { Tabs, notification } from "antd";
+import { Tabs, notification, Rate, Input } from "antd";
 import SizePopUp from "./SizePopUp";
 import DeliveryPopUp from "./DeliveryPopUp";
 import AskAboutPopUp from "./AskAboutPopUp";
@@ -21,6 +21,11 @@ const SingleProduct = () => {
     const [cartItem, setCartItem] = useState({
         productid: "",
         productprice: "",
+    });
+    const [addReview, setAddReview] = useState({
+        productid: productId,
+        rating: "",
+        description: "",
     });
 
     const { TabPane } = Tabs;
@@ -100,12 +105,17 @@ const SingleProduct = () => {
                 duration: 2,
             });
         } catch (error) {
-            notification.error({
-                message: "Error",
-                description: "Cannot add item to cart",
-                placement: "topRight",
-                duration: 2,
-            });
+            if (error.response && error.response.data.errors) {
+                const errorMessage = Object.values(
+                    error.response.data.errors
+                ).join(", ");
+                notification.error({
+                    message: "Error",
+                    description: `Cannot add item to cart ${errorMessage}`,
+                    placement: "topRight",
+                    duration: 2,
+                });
+            }
         }
     };
 
@@ -116,7 +126,8 @@ const SingleProduct = () => {
             if (!token) {
                 notification.error({
                     message: "Error",
-                    description: "Cannot add item to cart",
+                    description:
+                        "Cannot add item to cart. User not authenticated",
                     placement: "topRight",
                     duration: 2,
                 });
@@ -151,6 +162,75 @@ const SingleProduct = () => {
             start: subDays(new Date(), 30),
             end: new Date(),
         });
+    };
+
+    const handleRateChange = (value) => {
+        setAddReview({
+            ...addReview,
+            rating: value, // Update the rating in the state
+        });
+    };
+
+    const handleDescriptionChange = (e) => {
+        setAddReview({
+            ...addReview,
+            description: e.target.value, // Update the description in the state
+        });
+    };
+
+    const submitReview = async () => {
+        try {
+            const token = localStorage.getItem("access_token");
+
+            const response = await axios.post(
+                "http://127.0.0.1:8000/api/addProductReview",
+                addReview,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            notification.success({
+                message: "Success",
+                description: "Review added successfully!",
+                placement: "topRight",
+                duration: 2,
+            });
+            setAddReview({
+                productid: productId,
+                rating: "",
+                description: "",
+            });
+        } catch (error) {
+            if (error.response && error.response.data.errors) {
+                const errorMessage = Object.values(
+                    error.response.data.errors
+                ).join(", ");
+                notification.error({
+                    message: "Error",
+                    description: `Cannot add review: ${errorMessage}`,
+                    placement: "topRight",
+                    duration: 2,
+                });
+            } else {
+                errorMessage = "User not authenticated";
+                notification.error({
+                    message: "Error",
+                    description: `Cannot add review: ${errorMessage}`,
+                    placement: "topRight",
+                    duration: 2,
+                });
+            }
+
+            notification.error({
+                message: "Error",
+                description: `Cannot add review: ${errorMessage}`,
+                placement: "topRight",
+                duration: 2,
+            });
+        }
     };
 
     return (
@@ -323,6 +403,31 @@ const SingleProduct = () => {
                                 </li>
                                 <li>
                                     Category: {product.category.category_name}
+                                </li>
+                                <li>
+                                    Rate this product:
+                                    <div>
+                                        <Rate
+                                            onChange={handleRateChange}
+                                            value={addReview.rating}
+                                        />
+                                        <Input.TextArea
+                                            rows={4}
+                                            value={addReview.description}
+                                            onChange={handleDescriptionChange}
+                                            placeholder="Write your review"
+                                            style={{
+                                                resize: "none",
+                                                borderRadius: "0%",
+                                            }}
+                                        />
+                                        <button
+                                            className="submit-review-button"
+                                            onClick={submitReview}
+                                        >
+                                            SUBMIT REVIEW
+                                        </button>
+                                    </div>
                                 </li>
                             </ul>
                         </div>
