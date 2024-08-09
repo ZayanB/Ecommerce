@@ -29,3 +29,4 @@ Route::post('/getCart', [ShoppingCartController::class, 'getCartItems'])->middle
 Route::post('/removeCartItem', [ShoppingCartController::class, 'removeCartItem'])->middleware('auth:sanctum');
 
 Route::get('/productReviews', [ProductReviewController::class, 'getProductReview']);
+Route::post('/addProductReview', [ProductReviewController::class, 'addProductReview'])->middleware('auth:sanctum');
