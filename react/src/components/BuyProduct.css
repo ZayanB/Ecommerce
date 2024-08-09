@@ -1,0 +1,11 @@
+.buy-product-parent {
+    display: flex;
+    flex-direction: row;
+}
+
+.contact-info {
+    margin-right: 2rem;
+}
+.buy-summary {
+    border: solid 1px grey;
+}
