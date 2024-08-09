@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-use phpDocumentor\Reflection\DocBlock\Tags\Var_;
+// use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class Product extends Model
 {
@@ -30,6 +30,10 @@ class Product extends Model
     public function category(): BelongsTo
     {
         return $this->belongsTo(Category::class, 'category_id');
+    }
+    public function review(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'product_id', 'product_id_pkey');
     }
 
 

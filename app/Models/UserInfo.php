@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use Illuminate\Database\Eloquent\Relations\HasOne;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class UserInfo extends Authenticatable
 {
@@ -38,5 +39,10 @@ class UserInfo extends Authenticatable
     public function cart(): HasOne
     {
         return $this->hasOne(ShoppingCart::class, 'user_id', 'user_id_pkey');
+    }
+
+    public function review(): HasMany
+    {
+        return $this->hasMany(ProductReview::class, 'user_id', 'user_id_pkey');
     }
 }
