@@ -1,0 +1,27 @@
+.home-footer-parent {
+    display: flex;
+    flex-direction: row;
+    padding: 3rem 9rem 0rem 10rem;
+    gap: 2rem;
+    border-top: solid rgba(128, 128, 128, 0.315) 1px;
+}
+
+.home-footer-col {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 15px;
+}
+
+.home-footer-col h3 {
+    margin-bottom: 0px;
+    font-weight: 700;
+    font-size: 16px;
+    color: black;
+}
+.home-footer-col h4 {
+    margin-top: 0px;
+    font-weight: 400;
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.514);
+}
