@@ -1,11 +1,29 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./ReviewSection.css";
 import { Carousel } from "antd";
 import { FaRegCircle } from "react-icons/fa";
+import axios from "../api/axios";
 
 const ReviewSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = React.useRef(null);
+    const [reviews, setReviews] = useState([]);
+
+    useEffect(() => {
+        const fetchReviews = async () => {
+            try {
+                const response = await axios.get(
+                    "http://127.0.0.1:8000/api/productReviews"
+                );
+                console.log(response.data.reviews);
+                setReviews(response.data);
+            } catch (error) {
+                console.error("Error fetching reviews:", error);
+            }
+        };
+
+        fetchReviews();
+    }, []);
 
     const onChangeSlide = (current) => {
         setCurrentSlide(current);
@@ -36,22 +54,20 @@ const ReviewSection = () => {
                     ref={carouselRef}
                     beforeChange={(from, to) => onChangeSlide(to)}
                 >
-                    <div>
-                        <div className="contentStyle">
-                            <div className="carousel-text">
-                                I did 4 days of research trying to find the best
-                                theme possible for our requirements and this is
-                                definitely the one.
+                    {reviews.map((review, index) => (
+                        <div key={index}>
+                            <div className="contentStyle">
+                                <div className="carousel-text">
+                                    {review.product_review_description}
+                                </div>
+                                <div>
+                                    -{review.user.user_first_name}{" "}
+                                    {review.user.user_last_name} on product{" "}
+                                    {review.product.product_name}
+                                </div>
                             </div>
-                            <div>-Zayan Breish</div>
                         </div>
-                    </div>
-                    <div>
-                        <div className="contentStyle">Page 2</div>
-                    </div>
-                    <div>
-                        <div className="contentStyle">Page 3</div>
-                    </div>
+                    ))}
                 </Carousel>
                 <div className="custom-dots">
                     {[0, 1, 2].map((index) => (
