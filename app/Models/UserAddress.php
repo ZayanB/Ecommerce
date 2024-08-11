@@ -7,19 +7,28 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class UserAddress extends Model
-{
+class UserAddress extends Model {
     use HasFactory;
 
     protected $table = 'user_address';
     protected $primaryKey = 'user_address_id';
 
-    public function userInfo(): BelongsTo
-    {
-        return $this->belongsTo(UserInfo::class, 'user_id');
+    protected $fillable = ([
+        'user_id',
+        'country',
+        'state',
+        'city',
+        'street',
+        'building',
+        'zip_code'
+    ]);
+
+    public $timestamps = true;
+
+    public function userInfo(): BelongsTo {
+        return $this->belongsTo(UserInfo::class, 'user_id', 'user_id_pkey');
     }
-    public function orderAddress(): HasOne
-    {
+    public function orderAddress(): HasOne {
         return $this->hasOne(OrderAddress::class);
     }
 }
