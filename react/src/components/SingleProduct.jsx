@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import axios from "../api/axios";
 import "./SingleProduct.css";
 import { Tabs, notification, Rate, Input } from "antd";
@@ -378,16 +378,18 @@ const SingleProduct = () => {
                                     I agree with terms and conditions
                                 </li>
                                 <li>
-                                    <button
-                                        className={
-                                            agreeTerms
-                                                ? "single-buy-now"
-                                                : "single-buy-now-not"
-                                        }
-                                        disabled={!agreeTerms}
-                                    >
-                                        BUY IT NOW
-                                    </button>
+                                    <Link to={`/buyProduct/${productId}`}>
+                                        <button
+                                            className={
+                                                agreeTerms
+                                                    ? "single-buy-now"
+                                                    : "single-buy-now-not"
+                                            }
+                                            disabled={!agreeTerms}
+                                        >
+                                            BUY IT NOW
+                                        </button>
+                                    </Link>
                                 </li>
                                 <li className="single-shipping-free">
                                     <div>

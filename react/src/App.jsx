@@ -15,6 +15,7 @@ import SignInPage from "./Pages/SignInPage";
 import ProductView from "./Pages/ProductView";
 
 import SingleProductPage from "./Pages/SingleProductPage";
+import BuyProductPage from "./Pages/BuyProductPage";
 // import "./App.css";
 
 const router = createBrowserRouter(
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
                 path="/allProducts/:productId"
                 element={<SingleProductPage />}
             />
+            <Route path="/buyProduct/:productId" element={<BuyProductPage />} />
         </Route>
     )
 );
