@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShoppingCartController;
+use App\Http\Controllers\UserAddressController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -30,3 +31,5 @@ Route::post('/removeCartItem', [ShoppingCartController::class, 'removeCartItem']
 
 Route::get('/productReviews', [ProductReviewController::class, 'getProductReview']);
 Route::post('/addProductReview', [ProductReviewController::class, 'addProductReview'])->middleware('auth:sanctum');
+
+Route::post('/addAddress', [UserAddressController::class, 'addAddress'])->middleware('auth:sanctum');
