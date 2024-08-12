@@ -15,6 +15,6 @@ class ShippingMethod extends Model
 
     public function shippingDetails(): HasMany
     {
-        return $this->hasMany(ShippingDetails::class);
+        return $this->hasMany(ShippingDetails::class, 'shipping_method_id', 'shipping_method_id_pkey');
     }
 }

@@ -1,15 +1,6 @@
-import { React, useState, useEffect } from "react";
+import { React, useState } from "react";
 import axios from "../api/axios";
-import {
-    Form,
-    Input,
-    Checkbox,
-    Select,
-    Button,
-    Radio,
-    Flex,
-    notification,
-} from "antd";
+import { Form, Input, Checkbox, Select, Spin, notification } from "antd";
 
 import { PiMoney } from "react-icons/pi";
 import { PiPaypalLogo } from "react-icons/pi";
@@ -214,6 +205,8 @@ const CreateAddress = () => {
         "Zimbabwe",
     ];
 
+    const [loading, setLoading] = useState(false);
+
     const [userAddress, setUserAddress] = useState({
         country: "",
         state: "",
@@ -262,6 +255,7 @@ const CreateAddress = () => {
 
     const submitAddress = async () => {
         const token = localStorage.getItem("access_token");
+        setLoading(true);
 
         axios
             .post("http://127.0.0.1:8000/api/addAddress", userAddress, {
@@ -271,7 +265,7 @@ const CreateAddress = () => {
                 },
             })
             .then((response) => {
-                // Success handling
+                setLoading(false);
                 notification.success({
                     message: "Success",
                     description: "Address added successfully!",
@@ -281,7 +275,6 @@ const CreateAddress = () => {
             })
             .catch((error) => {
                 if (error.response && error.response.status === 422) {
-                    // Handle validation errors
                     const errors = error.response.data.errors;
                     for (const field in errors) {
                         notification.error({
@@ -294,7 +287,6 @@ const CreateAddress = () => {
                         });
                     }
                 } else {
-                    // Handle unexpected errors
                     notification.error({
                         message: "Error",
                         description:
@@ -307,100 +299,124 @@ const CreateAddress = () => {
     };
 
     return (
-        <div>
-            <Form layout="vertical" style={{ width: "40vw" }}>
-                {/* Contact Section */}
-                <h2>Contact</h2>
-                <Form.Item
-                    name="Phone"
-                    label="Mobile phone number"
-                    rules={[
-                        {
-                            message: "Please enter your mobile phone number",
-                        },
-                    ]}
-                >
-                    <Input placeholder="Mobile phone number" />
-                </Form.Item>
-                <Form.Item name="newsOffers" valuePropName="checked">
-                    <Checkbox>Email me with news and offers</Checkbox>
-                </Form.Item>
+        <>
+            {loading ? (
+                <Spin size="large" style={{ transform: "translateX(250px)" }} />
+            ) : (
+                <>
+                    <div>
+                        <Form layout="vertical" style={{ width: "40vw" }}>
+                            {/* Contact Section */}
+                            <h2>Contact</h2>
+                            <Form.Item
+                                name="Phone"
+                                label="Mobile phone number"
+                                rules={[
+                                    {
+                                        message:
+                                            "Please enter your mobile phone number",
+                                    },
+                                ]}
+                            >
+                                <Input placeholder="Mobile phone number" />
+                            </Form.Item>
+                            <Form.Item
+                                name="newsOffers"
+                                valuePropName="checked"
+                            >
+                                <Checkbox>
+                                    Email me with news and offers
+                                </Checkbox>
+                            </Form.Item>
 
-                {/* Delivery Section */}
-                <h2>Delivery</h2>
-                <Form.Item
-                    name="country"
-                    label="Country"
-                    rules={[
-                        {
-                            message: "Please select your country",
-                        },
-                    ]}
-                >
-                    <Select
-                        placeholder="Select your country"
-                        value={userAddress.country}
-                        onChange={handleCountryChange}
-                    >
-                        {countries.map((country) => (
-                            <Option key={country} value={country}>
-                                {country}
-                            </Option>
-                        ))}
-                    </Select>
-                </Form.Item>
-                <Form.Item
-                    name="State"
-                    rules={[
-                        {
-                            message: "Please enter your State",
-                        },
-                    ]}
-                >
-                    <Input
-                        placeholder="State"
-                        value={userAddress.state}
-                        onChange={(e) => handleStateChange(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item name="city">
-                    <Input
-                        placeholder="City"
-                        value={userAddress.city}
-                        onChange={(e) => handleCityChange(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item name="Street">
-                    <Input
-                        placeholder="Street"
-                        value={userAddress.street}
-                        onChange={(e) => handleStreetChange(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item name="Building">
-                    <Input
-                        placeholder="Building"
-                        value={userAddress.building}
-                        onChange={(e) => handleBuildingChange(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item name="postalCode">
-                    <Input
-                        placeholder="Postal code (optional)"
-                        value={userAddress.zipCode}
-                        onChange={(e) => handleZipChange(e.target.value)}
-                    />
-                </Form.Item>
-                <Form.Item>
-                    <button
-                        style={{ width: "100%", height: "2rem" }}
-                        onClick={submitAddress}
-                    >
-                        Add Address
-                    </button>
-                </Form.Item>
-            </Form>
-        </div>
+                            {/* Delivery Section */}
+                            <h2>Delivery</h2>
+                            <Form.Item
+                                name="country"
+                                label="Country"
+                                rules={[
+                                    {
+                                        message: "Please select your country",
+                                    },
+                                ]}
+                            >
+                                <Select
+                                    placeholder="Select your country"
+                                    value={userAddress.country}
+                                    onChange={handleCountryChange}
+                                >
+                                    {countries.map((country) => (
+                                        <Option key={country} value={country}>
+                                            {country}
+                                        </Option>
+                                    ))}
+                                </Select>
+                            </Form.Item>
+                            <Form.Item
+                                name="State"
+                                rules={[
+                                    {
+                                        message: "Please enter your State",
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    placeholder="State"
+                                    value={userAddress.state}
+                                    onChange={(e) =>
+                                        handleStateChange(e.target.value)
+                                    }
+                                />
+                            </Form.Item>
+                            <Form.Item name="city">
+                                <Input
+                                    placeholder="City"
+                                    value={userAddress.city}
+                                    onChange={(e) =>
+                                        handleCityChange(e.target.value)
+                                    }
+                                />
+                            </Form.Item>
+                            <Form.Item name="Street">
+                                <Input
+                                    placeholder="Street"
+                                    value={userAddress.street}
+                                    onChange={(e) =>
+                                        handleStreetChange(e.target.value)
+                                    }
+                                />
+                            </Form.Item>
+                            <Form.Item name="Building">
+                                <Input
+                                    placeholder="Building"
+                                    value={userAddress.building}
+                                    onChange={(e) =>
+                                        handleBuildingChange(e.target.value)
+                                    }
+                                />
+                            </Form.Item>
+                            <Form.Item name="postalCode">
+                                <Input
+                                    placeholder="Postal code (optional)"
+                                    value={userAddress.zipCode}
+                                    onChange={(e) =>
+                                        handleZipChange(e.target.value)
+                                    }
+                                />
+                            </Form.Item>
+                            <Form.Item>
+                                <button
+                                    style={{ width: "100%", height: "2rem" }}
+                                    onClick={submitAddress}
+                                >
+                                    Add Address
+                                </button>
+                            </Form.Item>
+                        </Form>
+                    </div>
+                </>
+            )}
+        </>
     );
 };
 

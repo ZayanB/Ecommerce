@@ -29,7 +29,7 @@ class ShoppingCart extends Model
     }
     public function order(): HasOne
     {
-        return $this->hasOne(OrderInfo::class);
+        return $this->hasOne(OrderInfo::class, 'cart_id', 'cart_id_pkey');
     }
     public function userInfo(): BelongsTo
     {

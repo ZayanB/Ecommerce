@@ -4,7 +4,6 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class OrderInfo extends Model
@@ -14,28 +13,44 @@ class OrderInfo extends Model
     protected $table = 'order_info';
     protected $primaryKey = 'order_id_pkey';
 
-    public function shippingDetails(): HasOne
+    public $fillable = ([
+        'cart_id',
+        'user_id',
+        'order_address_id',
+        'order_status_id',
+        'payment_details_id',
+        'shipping_details_id'
+    ]);
+
+    public $timestamps = true;
+
+    public function shippingDetails(): BelongsTo
     {
-        return $this->hasOne(ShippingDetails::class);
+        return $this->belongsTo(ShippingDetails::class, 'shipping_details_id', 'shipping_details_pkey');
     }
-    public function orderAddress(): HasOne
+
+    public function orderAddress(): BelongsTo
     {
-        return $this->hasOne(OrderAddress::class, 'order_address_id');
+        return $this->belongsTo(OrderAddress::class, 'order_address_id', 'order_address_id_pkey');
     }
-    public function orderPayment(): HasOne
+
+    public function orderPayment(): BelongsTo
     {
-        return $this->hasOne(OrderPayment::class);
+        return $this->belongsTo(OrderPayment::class, 'payment_details_id', 'order_payment_id');
     }
-    public function shoppingCart(): HasOne
+
+    public function shoppingCart(): BelongsTo
     {
-        return $this->hasOne(ShoppingCart::class, 'cart_id');
+        return $this->belongsTo(ShoppingCart::class, 'cart_id', 'cart_id_pkey');
     }
+    // 
     public function orderStatus(): BelongsTo
     {
-        return $this->belongsTo(OrderStatus::class, 'order_status_id');
+        return $this->belongsTo(OrderStatus::class, 'order_status_id', 'order_status_id');
     }
+    // 
     public function userInfo(): BelongsTo
     {
-        return $this->belongsTo(UserInfo::class, 'user_id');
+        return $this->belongsTo(UserInfo::class, 'user_id', 'user_id_pkey');
     }
 }

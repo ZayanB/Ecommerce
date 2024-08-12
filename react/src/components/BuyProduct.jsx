@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import "./BuyProduct.css";
-import { Form, Radio, Flex } from "antd";
+import { Form, Radio, Flex, notification, Spin } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
 import { PiMoney } from "react-icons/pi";
@@ -14,13 +14,45 @@ import CreateAddressPopUp from "./CreateAddressPopUp";
 const BuyProduct = () => {
     const { productId } = useParams();
     const [product, setProduct] = useState([]);
-    const [shippingMethod, setShippingMethod] = useState(5);
-    const productPrice = parseFloat(product.product_price);
-    const shippingFee = parseFloat(shippingMethod);
-    const totalPrice = (productPrice + shippingFee).toFixed(2);
     const [hasAddress, setHasAddress] = useState([]);
     const [loading, setLoading] = useState(true);
     const [newAddress, setNewAddress] = useState(false);
+    const [buyLoading, setBuyLoading] = useState(false);
+    const [chooseAddressLoading, setChooseAddressLoading] = useState(false);
+
+    const [orderAddress, setOrderAddress] = useState({
+        orderAddressId: "",
+    });
+
+    const [placeOrder, setPlaceOrder] = useState({
+        addressId: "",
+        shippingMethod: "5",
+        paymentMethod: "",
+    });
+
+    const productPrice = parseFloat(product.product_price);
+    const shippingFee = parseFloat(placeOrder.shippingMethod);
+    const totalPrice = (productPrice + shippingFee).toFixed(2);
+
+    const handleAddressChange = (e) => {
+        setPlaceOrder({
+            ...placeOrder,
+            addressId: e.target.value,
+        });
+    };
+
+    const handleShippingChange = (e) => {
+        setPlaceOrder({
+            ...placeOrder,
+            shippingMethod: e.target.value,
+        });
+    };
+    const handlePaymentChange = (e) => {
+        setPlaceOrder({
+            ...placeOrder,
+            paymentMethod: e.target.value,
+        });
+    };
 
     const showNewAddress = () => {
         setNewAddress(true);
@@ -73,12 +105,127 @@ const BuyProduct = () => {
         fetchAddress();
     }, [hasAddress]);
 
-    const onChange = (e) => {
-        console.log(`radio checked:${e.target.value}`);
+    const submitOrderAddress = async (updatedOrderAddress) => {
+        const token = localStorage.getItem("access_token");
+        setChooseAddressLoading(true);
+
+        try {
+            await axios.post(
+                "http://127.0.0.1:8000/api/createOrderAddress",
+                updatedOrderAddress,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setChooseAddressLoading(false);
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                const errors = error.response.data.errors;
+                for (const field in errors) {
+                    notification.error({
+                        message: "Validation Error",
+                        description: `${field}: ${errors[field].join(", ")}`,
+                        placement: "topRight",
+                        duration: 2,
+                    });
+                }
+            } else {
+                notification.error({
+                    message: "Error",
+                    description:
+                        "An unexpected error occurred. Cannot choose address. Please try again later.",
+                    placement: "topRight",
+                    duration: 2,
+                });
+            }
+        }
     };
 
-    const onShippingChange = (e) => {
-        setShippingMethod(e.target.value);
+    const handleRadioChange = async (e) => {
+        const updatedOrderAddress = {
+            ...orderAddress,
+            addressId: e.target.value,
+        };
+
+        setOrderAddress(updatedOrderAddress);
+
+        await submitOrderAddress(updatedOrderAddress);
+        handleAddressChange(e);
+    };
+
+    console.log(placeOrder);
+
+    const submitOrder = async () => {
+        const token = localStorage.getItem("access_token");
+        setBuyLoading(true);
+
+        try {
+            await axios.post(
+                "http://127.0.0.1:8000/api/placeOrder",
+                placeOrder,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setBuyLoading(false);
+            notification.success({
+                message: "Success",
+                description: "Order Placed successfully!",
+                placement: "topRight",
+                duration: 2,
+            });
+        } catch (error) {
+            setBuyLoading(false);
+            if (error.response) {
+                const status = error.response.status;
+
+                if (status === 422) {
+                    const errors = error.response.data.errors;
+                    for (const field in errors) {
+                        notification.error({
+                            message: "Validation Error",
+                            description: `${field}: ${errors[field].join(
+                                ", "
+                            )}`,
+                            placement: "topRight",
+                            duration: 2,
+                        });
+                    }
+                } else if (status === 401) {
+                    notification.error({
+                        message: "Unauthorized",
+                        description:
+                            "You are not authorized to perform this action. Please log in and try again.",
+                        placement: "topRight",
+                        duration: 2,
+                    });
+                } else {
+                    notification.error({
+                        message: "Error",
+                        description: `An error occurred (${status}): ${
+                            error.response.data.message ||
+                            "Please try again later."
+                        }`,
+                        placement: "topRight",
+                        duration: 2,
+                    });
+                }
+            } else {
+                notification.error({
+                    message: "Network Error",
+                    description:
+                        "Unable to connect to the server. Please check your internet connection and try again.",
+                    placement: "topRight",
+                    duration: 2,
+                });
+            }
+        }
     };
 
     return (
@@ -101,59 +248,80 @@ const BuyProduct = () => {
                                         <h2 style={{ color: "black" }}>
                                             Saved Addresses
                                         </h2>
-                                        <Radio.Group style={{ width: "40vw" }}>
-                                            {hasAddress &&
-                                            hasAddress.length > 0 ? (
-                                                hasAddress.map(
-                                                    (address, index) => (
-                                                        <Radio.Button
-                                                            key={index}
-                                                            value={
-                                                                address.user_address_id
-                                                            }
-                                                            className="buy-radio-style"
-                                                        >
-                                                            <div>
-                                                                {
-                                                                    address.country
-                                                                }
-                                                            </div>
-                                                            <div className="radio-button-style">
-                                                                <div>
-                                                                    {
-                                                                        address.state
-                                                                    }
-                                                                    ,
-                                                                </div>
-                                                                <div>
-                                                                    {
-                                                                        address.city
-                                                                    }
-                                                                    ,
-                                                                </div>
-                                                                <div>
-                                                                    {
-                                                                        address.street
-                                                                    }
-                                                                    ,
-                                                                </div>
-                                                                <div>
-                                                                    {
-                                                                        address.building
-                                                                    }
-                                                                    ,
-                                                                </div>
-                                                                <div>
-                                                                    {
-                                                                        address.zip_code
-                                                                    }
-                                                                </div>
-                                                            </div>
-                                                        </Radio.Button>
-                                                    )
-                                                )
+                                        <Radio.Group
+                                            style={{ width: "40vw" }}
+                                            onChange={handleRadioChange}
+                                            value={placeOrder.addressId}
+                                        >
+                                            {chooseAddressLoading ? (
+                                                <Spin
+                                                    style={{
+                                                        transform:
+                                                            "translateX(290px)",
+                                                        marginBottom: "0.5rem",
+                                                    }}
+                                                />
                                             ) : (
-                                                <p>No addresses found.</p>
+                                                <>
+                                                    {hasAddress &&
+                                                    hasAddress.length > 0 ? (
+                                                        hasAddress.map(
+                                                            (
+                                                                address,
+                                                                index
+                                                            ) => (
+                                                                <Radio.Button
+                                                                    key={index}
+                                                                    value={
+                                                                        address.user_address_id
+                                                                    }
+                                                                    className="buy-radio-style"
+                                                                >
+                                                                    <div>
+                                                                        {
+                                                                            address.country
+                                                                        }
+                                                                    </div>
+                                                                    <div className="radio-button-style">
+                                                                        <div>
+                                                                            {
+                                                                                address.state
+                                                                            }
+                                                                            ,
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                address.city
+                                                                            }
+                                                                            ,
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                address.street
+                                                                            }
+                                                                            ,
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                address.building
+                                                                            }
+                                                                            ,
+                                                                        </div>
+                                                                        <div>
+                                                                            {
+                                                                                address.zip_code
+                                                                            }
+                                                                        </div>
+                                                                    </div>
+                                                                </Radio.Button>
+                                                            )
+                                                        )
+                                                    ) : (
+                                                        <p>
+                                                            No addresses found.
+                                                        </p>
+                                                    )}
+                                                </>
                                             )}
                                         </Radio.Group>
                                         <div>
@@ -173,8 +341,10 @@ const BuyProduct = () => {
 
                                     <Radio.Group
                                         style={{ width: "100%" }}
-                                        onChange={onShippingChange}
-                                        value={shippingMethod}
+                                        // onChange={onShippingChange}
+                                        // value={shippingMethod}
+                                        onChange={handleShippingChange}
+                                        value={placeOrder.shippingMethod}
                                     >
                                         <Radio.Button
                                             value="5"
@@ -216,11 +386,11 @@ const BuyProduct = () => {
                                         style={{ width: "100%" }}
                                     >
                                         <Radio.Group
-                                            onChange={onChange} //onChange function to choose payment
-                                            defaultValue="a"
+                                            onChange={handlePaymentChange}
+                                            value={placeOrder.paymentMethod}
                                         >
                                             <Radio.Button
-                                                value="a"
+                                                value="1"
                                                 style={{
                                                     width: "25%",
                                                     height: "5rem",
@@ -236,7 +406,7 @@ const BuyProduct = () => {
                                                 />
                                             </Radio.Button>
                                             <Radio.Button
-                                                value="b"
+                                                value="4"
                                                 style={{
                                                     width: "25%",
                                                     height: "5rem",
@@ -252,7 +422,7 @@ const BuyProduct = () => {
                                                 />
                                             </Radio.Button>
                                             <Radio.Button
-                                                value="c"
+                                                value="2"
                                                 style={{
                                                     width: "25%",
                                                     height: "5rem",
@@ -268,7 +438,7 @@ const BuyProduct = () => {
                                                 />
                                             </Radio.Button>
                                             <Radio.Button
-                                                value="d"
+                                                value="3"
                                                 style={{
                                                     width: "25%",
                                                     height: "5rem",
@@ -289,12 +459,16 @@ const BuyProduct = () => {
                                         <button
                                             style={{
                                                 width: "100%",
-                                                height: "2rem",
+                                                height: "2.5rem",
                                                 marginTop: "1rem",
                                             }}
-                                            // onClick={submitPayment}//TO BE ADDED LATER
+                                            onClick={submitOrder}
                                         >
-                                            Pay Now
+                                            {buyLoading ? (
+                                                <Spin />
+                                            ) : (
+                                                <div>Place Order</div>
+                                            )}
                                         </button>
                                     </Form.Item>
                                 </Form>
@@ -322,7 +496,7 @@ const BuyProduct = () => {
                             <div>Subtotal</div>
                             <div>${product.product_price}</div>
                             <div>Shipping</div>
-                            <div>${shippingMethod}</div>
+                            <div>${placeOrder.shippingMethod}</div>
                             <div style={{ fontWeight: "bold" }}>Total</div>
                             <div>
                                 <span style={{ fontSize: "11px" }}>USD</span>{" "}
