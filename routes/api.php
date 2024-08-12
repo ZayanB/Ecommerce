@@ -10,8 +10,8 @@ use App\Http\Controllers\OrderInfoController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserAddressController;
-use App\Models\OrderAddress;
-use App\Models\OrderInfo;
+use App\Http\Controllers\UserInfoController;
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -27,6 +27,7 @@ Route::get('/test', [ProductController::class, 'getProductsByFilter']);
 
 Route::post('/register', [AuthenticationController::class, 'register']);
 Route::post('/login', [AuthenticationController::class, 'login']);
+Route::post('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
 
 
 Route::post('/createItem', [ShoppingCartController::class, 'createCartItem'])->middleware('auth:sanctum');
@@ -42,3 +43,6 @@ Route::post('/getAddress', [UserAddressController::class, 'getAddress'])->middle
 Route::post('/createOrderAddress', [OrderAddressController::class, 'addOrderAddress'])->middleware(('auth:sanctum'));
 
 Route::post('/placeOrder', [OrderInfoController::class, 'createOrder'])->middleware(('auth:sanctum'));
+
+Route::post('/getUserInfo', [UserInfoController::class, 'getUserInfo'])->middleware('auth:sanctum');
+Route::post('/getOrderInfo', [OrderInfoController::class, 'getOrderInfo'])->middleware('auth:sanctum');

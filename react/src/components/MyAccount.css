@@ -1,0 +1,36 @@
+.my-profile-addresses {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    gap: 2rem;
+}
+
+.order-item-summary {
+    border-bottom: solid 1px grey;
+    border-top: solid 1px grey;
+}
+
+.ant-layout .ant-layout-sider {
+    background-color: black;
+}
+.ant-menu-dark {
+    background-color: black;
+}
+
+.ant-menu-dark .ant-menu-item-selected {
+    background-color: orange;
+}
+.ant-btn-primary.ant-btn-background-ghost {
+    border-color: black;
+}
+
+.sign-out-button {
+    width: 97%;
+    transition: ease 500ms;
+}
+
+.sign-out-button:hover {
+    background-color: orange;
+    border: transparent;
+    transition: ease 500ms;
+}
