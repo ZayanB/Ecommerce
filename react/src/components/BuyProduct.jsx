@@ -1,6 +1,6 @@
 import { React, useEffect, useState } from "react";
 import "./BuyProduct.css";
-import { Form, Radio, Flex, notification, Spin } from "antd";
+import { Form, Radio, Flex, notification, Spin, Badge } from "antd";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
 import { PiMoney } from "react-icons/pi";
@@ -12,7 +12,50 @@ import Spinner from "./Spinner";
 import CreateAddressPopUp from "./CreateAddressPopUp";
 
 const BuyProduct = () => {
-    const { productId } = useParams();
+    const params = useParams();
+
+    const hasParams = Object.keys(params).length > 0;
+
+    const productId = hasParams ? params.productId : null;
+
+    const [cartItems, setCartItems] = useState([]);
+    const [totalCartItems, setTotalCartItems] = useState(0);
+    const [totalCartPrice, setTotalCartPrice] = useState(0);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            const token = localStorage.getItem("access_token");
+
+            if (!token) {
+                console.error("No access token found");
+                return;
+            }
+
+            try {
+                const response = await axios.post(
+                    "http://127.0.0.1:8000/api/getCart",
+                    {
+                        key: "value",
+                    },
+                    {
+                        headers: {
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+                setCartItems(response.data.cart_items);
+                setTotalCartItems(response.data.cart_items_count);
+                setTotalCartPrice(response.data.cart_total_price);
+            } catch (error) {
+                console.error("Error fetching data:", error);
+            }
+        };
+
+        fetchData();
+    }, [cartItems]);
+
+    console.log(cartItems);
+
     const [product, setProduct] = useState([]);
     const [hasAddress, setHasAddress] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -227,6 +270,11 @@ const BuyProduct = () => {
             }
         }
     };
+
+    const totalCartPriceUpdated = parseFloat(totalCartPrice);
+    const totalCartePriceShipping = (
+        totalCartPriceUpdated + shippingFee
+    ).toFixed(2);
 
     return (
         <>
@@ -475,35 +523,113 @@ const BuyProduct = () => {
                             </div>
                         </div>
                         {/*  */}
-                        <div className="buy-summary">
-                            <div className="buy-product-image">
-                                <div>
-                                    {product.image &&
-                                    product.image.length > 0 &&
-                                    product.image[0].image_url ? (
-                                        <img
-                                            src={product.image[0].image_url}
-                                            alt="product"
-                                            className="buy-image-resize"
-                                        />
-                                    ) : (
-                                        <p>Image not available</p>
-                                    )}
-                                </div>
-                                <div>{product.product_name}</div>
-                            </div>
-                            <div>${product.product_price}</div>
-                            <div>Subtotal</div>
-                            <div>${product.product_price}</div>
-                            <div>Shipping</div>
-                            <div>${placeOrder.shippingMethod}</div>
-                            <div style={{ fontWeight: "bold" }}>Total</div>
-                            <div>
-                                <span style={{ fontSize: "11px" }}>USD</span>{" "}
-                                <span style={{ fontWeight: "bold" }}>
-                                    ${totalPrice}
-                                </span>
-                            </div>
+                        <div
+                            className={
+                                productId
+                                    ? "buy-summary-single"
+                                    : "buy-summary-cart"
+                            }
+                        >
+                            {productId ? (
+                                <>
+                                    <div className="buy-product-image">
+                                        <div>
+                                            {product.image &&
+                                            product.image.length > 0 &&
+                                            product.image[0].image_url ? (
+                                                <img
+                                                    src={
+                                                        product.image[0]
+                                                            .image_url
+                                                    }
+                                                    alt="product"
+                                                    className="buy-image-resize"
+                                                />
+                                            ) : (
+                                                <p>Image not available</p>
+                                            )}
+                                        </div>
+                                        <div>{product.product_name}</div>
+                                    </div>
+                                    <div>${product.product_price}</div>
+                                    <div>Subtotal</div>
+                                    <div>${product.product_price}</div>
+                                    <div>Shipping</div>
+                                    <div>${placeOrder.shippingMethod}</div>
+                                    <div style={{ fontWeight: "bold" }}>
+                                        Total
+                                    </div>
+                                    <div>
+                                        <span style={{ fontSize: "11px" }}>
+                                            USD
+                                        </span>{" "}
+                                        <span style={{ fontWeight: "bold" }}>
+                                            ${totalPrice}
+                                        </span>
+                                    </div>
+                                </>
+                            ) : (
+                                <>
+                                    {cartItems.map((item, index) => {
+                                        return (
+                                            <>
+                                                <div className="buy-product-image-cart">
+                                                    <div key={index}>
+                                                        <Badge
+                                                            count={
+                                                                item.quantity
+                                                            }
+                                                            color="grey"
+                                                        >
+                                                            <img
+                                                                src={
+                                                                    item
+                                                                        .product_image[0]
+                                                                        .image_url
+                                                                }
+                                                                alt="product"
+                                                                className="buy-image-resize-cart"
+                                                            />
+                                                        </Badge>
+                                                    </div>
+                                                    <div className="xyc">
+                                                        <div>
+                                                            {item.product_name}
+                                                        </div>
+                                                        <div>
+                                                            $
+                                                            {item.product_price}
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        );
+                                    })}
+                                    <div className="total-cart-shipping">
+                                        <div>Subtotal</div>
+                                        <div>${totalCartPrice}</div>
+                                    </div>
+                                    <div className="total-cart-shipping">
+                                        <div>Shipping</div>
+                                        <div>${placeOrder.shippingMethod}</div>
+                                    </div>
+                                    <div className="total-cart-shipping">
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Total
+                                        </div>
+                                        <div>
+                                            <span style={{ fontSize: "11px" }}>
+                                                USD
+                                            </span>{" "}
+                                            <span
+                                                style={{ fontWeight: "bold" }}
+                                            >
+                                                ${totalCartePriceShipping}
+                                            </span>
+                                        </div>
+                                    </div>
+                                </>
+                            )}
                         </div>
                     </div>
                 </>
