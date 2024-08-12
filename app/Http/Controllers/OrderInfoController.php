@@ -8,16 +8,15 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\OrderInfo;
 use App\Models\OrderPayment;
 use App\Models\ShippingDetails;
+use App\Models\ShoppingCart;
 
-class OrderInfoController extends Controller
-{
-    public function createOrder(Request $request)
-    {
+class OrderInfoController extends Controller {
+    public function createOrder(Request $request) {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
-        // $addressId = $request->input('addressId');
-        // $shippingMethod = $request->input('shippingMethod');
-        // $paymentMethod = $request->input('paymentMethod');
+
+        $shoppingCart = ShoppingCart::where('user_id', $userId)->first();
+        $cartId = $shoppingCart->cart_id_pkey;
 
         $validatedData = $request->validate([
             'addressId' => 'required',
@@ -42,6 +41,7 @@ class OrderInfoController extends Controller
                 'order_address_id' => $orderAddressId,
                 'payment_details_id' => $paymentDetails->order_payment_id,
                 'shipping_details_id' => $shippingDetails->shipping_details_pkey,
+                'cart_id' => $cartId,
             ]);
             return response()->json([
                 'message' => 'Order created successfully!',
