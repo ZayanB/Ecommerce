@@ -6,11 +6,12 @@ use App\Models\UserInfo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
+use Illuminate\Support\Facades\Auth;
 
-class AuthenticationController extends Controller
-{
-    function register(Request $request)
-    {
+
+
+class AuthenticationController extends Controller {
+    function register(Request $request) {
         $validatedData = $request->validate([
             'firstname' => 'required|string|max:255',
             'lastname' => 'required|string|max:255',
@@ -32,8 +33,7 @@ class AuthenticationController extends Controller
         return "User Created Successfully";
     }
 
-    function login(Request $request)
-    {
+    function login(Request $request) {
         try {
             $validatedData = $request->validate([
                 'email' => 'required|string|email|max:255|exists:user_info,user_email',
@@ -51,5 +51,12 @@ class AuthenticationController extends Controller
 
         $token = $user->createToken('auth_token')->plainTextToken;
         return response()->json(['access_token' => $token, 'token_type' => 'Bearer']);
+    }
+
+    public function logout(Request $request) {
+        // Revoke the current token
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json(['message' => 'Logged out successfully.'], 200);
     }
 }

@@ -99,6 +99,14 @@ const NavBar = () => {
                                 <li>Checkout</li>
                                 <li>
                                     <NavLink
+                                        className={"signIn-drop"}
+                                        to="/MyAccount"
+                                    >
+                                        My Account
+                                    </NavLink>
+                                </li>
+                                <li>
+                                    <NavLink
                                         className="signIn-drop"
                                         to="/signIn"
                                     >

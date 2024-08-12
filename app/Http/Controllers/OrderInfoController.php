@@ -51,4 +51,13 @@ class OrderInfoController extends Controller {
             return response()->json(['error' => $e->getMessage()], 500);
         }
     }
+
+    public function getOrderInfo() {
+        $user = Auth::user();
+        $userId = $user->user_id_pkey;
+
+        $orderInfo = OrderInfo::where('user_id', $userId)->with(['shoppingCart.cartItem.product'])->orderBy('created_at', 'desc')->get();
+
+        return response()->json($orderInfo);
+    }
 }
