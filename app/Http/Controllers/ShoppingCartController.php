@@ -7,10 +7,8 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\ShoppingCart;
 use App\Models\CartItem;
 
-class ShoppingCartController extends Controller
-{
-    public function createCartItem(Request $request)
-    {
+class ShoppingCartController extends Controller {
+    public function createCartItem(Request $request) {
         $productid = $request->input('productid');
         $productprice = $request->input('productprice');
 
@@ -45,8 +43,7 @@ class ShoppingCartController extends Controller
         ]);
     }
 
-    public function getCartItems()
-    {
+    public function getCartItems() {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 
@@ -75,6 +72,9 @@ class ShoppingCartController extends Controller
         $shoppingCart->cart_total_price = $cartTotalPrice;
         $shoppingCart->save();
 
+        $shoppingCart->cart_total_quantity = $totalQuantity;
+        $shoppingCart->save();
+
         return response()->json([
             'cart_items' => $transformedCartItems,
             'cart_items_count' => $totalQuantity,
@@ -83,8 +83,7 @@ class ShoppingCartController extends Controller
         ]);
     }
 
-    public function removeCartItem(Request $request)
-    {
+    public function removeCartItem(Request $request) {
         $productid = $request->input('productid');
         $user = Auth::user();
         $userId = $user->user_id_pkey;

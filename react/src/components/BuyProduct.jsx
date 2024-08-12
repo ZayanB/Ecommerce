@@ -46,6 +46,7 @@ const BuyProduct = () => {
                 setCartItems(response.data.cart_items);
                 setTotalCartItems(response.data.cart_items_count);
                 setTotalCartPrice(response.data.cart_total_price);
+                // console.log(response.data.cart_items);
             } catch (error) {
                 console.error("Error fetching data:", error);
             }
@@ -53,8 +54,6 @@ const BuyProduct = () => {
 
         fetchData();
     }, [cartItems]);
-
-    console.log(cartItems);
 
     const [product, setProduct] = useState([]);
     const [hasAddress, setHasAddress] = useState([]);
@@ -71,6 +70,7 @@ const BuyProduct = () => {
         addressId: "",
         shippingMethod: "5",
         paymentMethod: "",
+        cartId: "",
     });
 
     const productPrice = parseFloat(product.product_price);
