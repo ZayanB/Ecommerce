@@ -308,11 +308,7 @@ const CreateAddress = () => {
 
     return (
         <div>
-            <Form
-                layout="vertical"
-                style={{ width: "40vw" }}
-                // style={{ width: "40vw", marginLeft: "7rem" }}
-            >
+            <Form layout="vertical" style={{ width: "40vw" }}>
                 {/* Contact Section */}
                 <h2>Contact</h2>
                 <Form.Item
@@ -352,12 +348,6 @@ const CreateAddress = () => {
                             </Option>
                         ))}
                     </Select>
-                </Form.Item>
-                <Form.Item name="firstName">
-                    <Input placeholder="First name (optional)" />
-                </Form.Item>
-                <Form.Item name="lastName">
-                    <Input placeholder="Last name" />
                 </Form.Item>
                 <Form.Item
                     name="State"
@@ -400,9 +390,6 @@ const CreateAddress = () => {
                         value={userAddress.zipCode}
                         onChange={(e) => handleZipChange(e.target.value)}
                     />
-                </Form.Item>
-                <Form.Item name="saveInfo" valuePropName="checked">
-                    <Checkbox>Save this information for next time</Checkbox>
                 </Form.Item>
                 <Form.Item>
                     <button
