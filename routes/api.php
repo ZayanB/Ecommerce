@@ -5,9 +5,13 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\OrderAddressController;
+use App\Http\Controllers\OrderInfoController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserAddressController;
+use App\Models\OrderAddress;
+use App\Models\OrderInfo;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -34,3 +38,7 @@ Route::post('/addProductReview', [ProductReviewController::class, 'addProductRev
 
 Route::post('/addAddress', [UserAddressController::class, 'addAddress'])->middleware('auth:sanctum');
 Route::post('/getAddress', [UserAddressController::class, 'getAddress'])->middleware('auth:sanctum');
+
+Route::post('/createOrderAddress', [OrderAddressController::class, 'addOrderAddress'])->middleware(('auth:sanctum'));
+
+Route::post('/placeOrder', [OrderInfoController::class, 'createOrder'])->middleware(('auth:sanctum'));

@@ -45,4 +45,9 @@ class UserInfo extends Authenticatable
     {
         return $this->hasMany(ProductReview::class, 'user_id', 'user_id_pkey');
     }
+
+    public function order(): HasMany
+    {
+        return $this->hasMany(OrderInfo::class, 'user_id', 'user_id_pkey');
+    }
 }
