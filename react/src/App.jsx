@@ -16,7 +16,6 @@ import ProductView from "./Pages/ProductView";
 
 import SingleProductPage from "./Pages/SingleProductPage";
 import BuyProductPage from "./Pages/BuyProductPage";
-// import "./App.css";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -30,6 +29,7 @@ const router = createBrowserRouter(
                 element={<SingleProductPage />}
             />
             <Route path="/buyProduct/:productId" element={<BuyProductPage />} />
+            <Route path="/buyProduct/cart" element={<BuyProductPage />} />
         </Route>
     )
 );

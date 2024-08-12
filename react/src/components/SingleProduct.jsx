@@ -9,8 +9,11 @@ import AskAboutPopUp from "./AskAboutPopUp";
 import Spinner from "./Spinner";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import { LiaShippingFastSolid } from "react-icons/lia";
+import { useLocation } from "react-router-dom";
 
 const SingleProduct = () => {
+    const location = useLocation();
+    console.log(location);
     const { productId } = useParams();
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);

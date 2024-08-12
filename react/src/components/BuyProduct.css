@@ -10,7 +10,7 @@
     align-items: flex-start;
     margin-left: 7rem;
 }
-.buy-summary {
+.buy-summary-single {
     width: 100%;
     margin-top: 3rem;
     margin-right: 2rem;
@@ -52,4 +52,41 @@
     display: flex;
     flex-direction: row;
     gap: 0.1rem;
+}
+
+.buy-summary-cart {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    padding: 2rem;
+    border-left: solid 1px grey;
+    gap: 1rem;
+}
+.buy-product-image-cart {
+    display: flex;
+    flex-direction: row;
+    height: 5rem;
+    justify-content: flex-start;
+    gap: 2rem;
+    /* align-content: flex-start; */
+}
+
+.xyc {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 3rem;
+    width: 100%;
+}
+
+.buy-image-resize-cart {
+    width: 5vw;
+    height: 10vh;
+}
+
+.total-cart-shipping {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
 }

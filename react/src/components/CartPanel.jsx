@@ -4,6 +4,7 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import { PiXCircle } from "react-icons/pi";
 import axios from "../api/axios";
 import "./CartPanel.css";
+import { Link } from "react-router-dom";
 
 const CartPanel = () => {
     const [visible, setVisible] = useState(false);
@@ -81,6 +82,7 @@ const CartPanel = () => {
     const onClose = () => {
         setVisible(false);
     };
+    console.log(cartItems);
 
     return (
         <div>
@@ -151,7 +153,13 @@ const CartPanel = () => {
                         </div>
 
                         <button className="view-button">VIEW CART</button>
-                        <button className="checkout-button">CHECKOUT</button>
+                        <Link
+                            to={"/buyProduct/cart"}
+                        >
+                            <button className="checkout-button">
+                                CHECKOUT
+                            </button>
+                        </Link>
                     </div>
                 </div>
             </Drawer>
