@@ -33,3 +33,4 @@ Route::get('/productReviews', [ProductReviewController::class, 'getProductReview
 Route::post('/addProductReview', [ProductReviewController::class, 'addProductReview'])->middleware('auth:sanctum');
 
 Route::post('/addAddress', [UserAddressController::class, 'addAddress'])->middleware('auth:sanctum');
+Route::post('/getAddress', [UserAddressController::class, 'getAddress'])->middleware('auth:sanctum');

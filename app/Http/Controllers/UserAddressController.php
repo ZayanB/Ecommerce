@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserAddressController extends Controller {
+    
     public function getAddress() {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
@@ -16,6 +17,7 @@ class UserAddressController extends Controller {
 
         return response()->json($address);
     }
+
     public function addAddress(Request $request) {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
