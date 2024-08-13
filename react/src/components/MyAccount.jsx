@@ -93,6 +93,33 @@ const MyAccount = () => {
         fetchAddress();
     }, [hasAddress]);
 
+    useEffect(() => {
+        const token = localStorage.getItem("access_token");
+
+        const fetchOrderInfo = async () => {
+            try {
+                const response = await axios.post(
+                    "http://127.0.0.1:8000/api/getOrderInfo",
+                    {},
+                    {
+                        headers: {
+                            Accept: "application/json",
+                            Authorization: `Bearer ${token}`,
+                        },
+                    }
+                );
+
+                console.log("Fetched OrderInfo Data:", response.data);
+
+                setOrderInfo(response.data);
+            } catch (error) {
+                console.error("Error fetching order info:", error);
+            }
+        };
+
+        fetchOrderInfo();
+    }, [orderInfo]);
+
     const logout = async () => {
         try {
             const token = localStorage.getItem("access_token");
@@ -315,106 +342,129 @@ const MyAccount = () => {
                                 <>
                                     <div>
                                         <Row gutter={[16, 16]}>
-                                            {orderInfo.map(
-                                                (order, orderIndex) => (
-                                                    <Col
-                                                        key={orderIndex}
-                                                        flex="0 0 auto"
-                                                    >
-                                                        <Card
-                                                            title={`Order ${
-                                                                orderIndex + 1
-                                                            }`}
-                                                            bordered={false}
-                                                            style={{
-                                                                width: 350,
-                                                            }}
-                                                            key={orderIndex}
-                                                            value={
-                                                                order.order_id_pkey
-                                                            }
-                                                        >
-                                                            <h3>
-                                                                Order Total
-                                                                Price: $
-                                                                {
+                                            {orderInfo &&
+                                            orderInfo.length > 0 ? (
+                                                <>
+                                                    {orderInfo.map(
+                                                        (order, orderIndex) => (
+                                                            <Col
+                                                                key={orderIndex}
+                                                                flex="0 0 auto"
+                                                            >
+                                                                <Card
+                                                                    title={`Order ${
+                                                                        orderIndex +
+                                                                        1
+                                                                    }`}
+                                                                    bordered={
+                                                                        false
+                                                                    }
+                                                                    style={{
+                                                                        width: 350,
+                                                                    }}
+                                                                    value={
+                                                                        order.order_id_pkey
+                                                                    }
+                                                                >
+                                                                    <h3>
+                                                                        Order
+                                                                        Total
+                                                                        Price: $
+                                                                        {order.shopping_cart
+                                                                            ? order
+                                                                                  .shopping_cart
+                                                                                  .cart_total_price
+                                                                            : "N/A"}
+                                                                    </h3>
+
+                                                                    <h3>
+                                                                        Items:
+                                                                    </h3>
+                                                                    {order.shopping_cart &&
                                                                     order
                                                                         .shopping_cart
-                                                                        .cart_total_price
-                                                                }
-                                                            </h3>
-
-                                                            <h3>Items:</h3>
-                                                            {order.shopping_cart.cart_item.map(
-                                                                (
-                                                                    item,
-                                                                    itemIndex
-                                                                ) => (
-                                                                    <>
-                                                                        <div
-                                                                            key={
+                                                                        .cart_item
+                                                                        .length >
+                                                                        0 ? (
+                                                                        order.shopping_cart.cart_item.map(
+                                                                            (
+                                                                                item,
                                                                                 itemIndex
-                                                                            }
-                                                                            // style={{
-                                                                            //     marginLeft:
-                                                                            //         "20px",
-                                                                            // }}
-                                                                            className="order-item-summary"
-                                                                        >
-                                                                            <p>
-                                                                                Product
-                                                                                Name:{" "}
-                                                                                {
-                                                                                    item
-                                                                                        .product
-                                                                                        .product_name
-                                                                                }
-                                                                            </p>{" "}
-                                                                            {/* Display product name here */}
-                                                                            <p>
-                                                                                Price:{" "}
-                                                                                $
-                                                                                {
-                                                                                    item.cart_item_price
-                                                                                }
-                                                                            </p>
-                                                                            <p>
-                                                                                Quantity:{" "}
-                                                                                {
-                                                                                    item.cart_item_quantity
-                                                                                }
-                                                                            </p>
-                                                                        </div>
-                                                                    </>
-                                                                )
-                                                            )}
-                                                            <h3>
-                                                                Ordered At:{" "}
-                                                                {new Date(
-                                                                    order.created_at
-                                                                ).toLocaleString()}
-                                                            </h3>
-                                                            <h3>
-                                                                Payment Method:{" "}
-                                                                {
-                                                                    order.payment_details_id
-                                                                }
-                                                            </h3>
-                                                            <h3>
-                                                                Shipping Method:{" "}
-                                                                {
-                                                                    order.shipping_details_id
-                                                                }
-                                                            </h3>
-                                                            <h3>
-                                                                Order Address:{" "}
-                                                                {
-                                                                    order.order_address_id
-                                                                }
-                                                            </h3>
-                                                        </Card>
-                                                    </Col>
-                                                )
+                                                                            ) => (
+                                                                                <div
+                                                                                    key={
+                                                                                        itemIndex
+                                                                                    }
+                                                                                    className="order-item-summary"
+                                                                                >
+                                                                                    <p>
+                                                                                        Product
+                                                                                        Name:{" "}
+                                                                                        {
+                                                                                            item
+                                                                                                .product
+                                                                                                .product_name
+                                                                                        }
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Price:
+                                                                                        $
+                                                                                        {
+                                                                                            item.cart_item_price
+                                                                                        }
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        Quantity:{" "}
+                                                                                        {
+                                                                                            item.cart_item_quantity
+                                                                                        }
+                                                                                    </p>
+                                                                                </div>
+                                                                            )
+                                                                        )
+                                                                    ) : (
+                                                                        <p>
+                                                                            No
+                                                                            items
+                                                                            found
+                                                                        </p>
+                                                                    )}
+
+                                                                    <h3>
+                                                                        Ordered
+                                                                        At:{" "}
+                                                                        {new Date(
+                                                                            order.created_at
+                                                                        ).toLocaleString()}
+                                                                    </h3>
+                                                                    <h3>
+                                                                        Payment
+                                                                        Method:{" "}
+                                                                        {
+                                                                            order.payment_details_id
+                                                                        }
+                                                                    </h3>
+                                                                    <h3>
+                                                                        Shipping
+                                                                        Method:{" "}
+                                                                        {
+                                                                            order.shipping_details_id
+                                                                        }
+                                                                    </h3>
+                                                                    <h3>
+                                                                        Order
+                                                                        Address:{" "}
+                                                                        {
+                                                                            order.order_address_id
+                                                                        }
+                                                                    </h3>
+                                                                </Card>
+                                                            </Col>
+                                                        )
+                                                    )}
+                                                </>
+                                            ) : (
+                                                <>No Orders</>
                                             )}
                                         </Row>
                                     </div>
