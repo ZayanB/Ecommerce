@@ -9,6 +9,9 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import CartPanel from "./CartPanel";
 
+
+// import useSectionObserver from "./useSectionObserver";
+
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(false);
     const onMouseOver = () => setHoverDrop(true);
@@ -17,6 +20,8 @@ const NavBar = () => {
     const [signDrop, setSignDrop] = useState(false);
     const onSignOver = () => setSignDrop(true);
     const onSignLeave = () => setSignDrop(false);
+
+    // const isSectionOneVisible = useSectionObserver("reviews-section");
 
     const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
 
@@ -35,14 +40,19 @@ const NavBar = () => {
             <div onMouseLeave={onMouseLeave}>
                 <div className="ListContainer">
                     <ul className="uList">
+                        <li className="arrowDown">
+                            <NavLink className={linkClass} to="/">
+                                HOME
+                            </NavLink>
+                        </li>
+
                         <li
                             onMouseOver={onMouseOver}
                             className={`arrowDown dropDown`}
                         >
-                            <NavLink className={linkClass} to="/">
-                                HOME
+                            <NavLink className={linkClass} to="/allProducts">
+                                PRODUCT
                             </NavLink>
-                            {<MdKeyboardArrowDown />}
                             <div
                                 onMouseOver={onMouseOver}
                                 onMouseLeave={onMouseLeave}
@@ -57,25 +67,12 @@ const NavBar = () => {
                                 />
                             </div>
                         </li>
-
                         <li className="arrowDown">
-                            SHOP {<MdKeyboardArrowDown />}
-                        </li>
-                        <li className="arrowDown">
-                            <NavLink className={linkClass} to="/allProducts">
-                                PRODUCTS
+                            <NavLink to="/#reviews-section" className="nav-non">
+                                REVIEWS
                             </NavLink>
-                            {<MdKeyboardArrowDown />}
                         </li>
-                        <li className="arrowDown">
-                            PAGES {<MdKeyboardArrowDown />}
-                        </li>
-                        <li className="arrowDown">
-                            BLOG {<MdKeyboardArrowDown />}
-                        </li>
-                        <li className="arrowDown">
-                            BUY {<MdKeyboardArrowDown />}
-                        </li>
+                        <li className="arrowDown">BLOG</li>
                     </ul>
                 </div>
             </div>

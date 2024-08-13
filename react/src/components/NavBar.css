@@ -80,7 +80,9 @@
     display: none;
     position: absolute;
     z-index: 1;
-    transform: translate(-19%, 65%);
+    transform: translate(-35%, 65%);
+    width: 99%;
+    overflow: hidden;
 }
 
 .d-block {
@@ -92,8 +94,9 @@
     position: absolute;
     background-color: white;
     color: black;
-    transform: translate(-19%, 13%);
+    transform: translate(-10%, 10%);
     z-index: 1;
+    right: 0;
 }
 
 .dropdown-content ul {
