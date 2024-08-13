@@ -73,7 +73,7 @@ const CartPanel = () => {
         };
 
         fetchData();
-    }, [cartItems]);
+    }, []);
 
     const showDrawer = () => {
         setVisible(true);

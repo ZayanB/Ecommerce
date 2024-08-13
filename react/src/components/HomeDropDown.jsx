@@ -1,62 +1,180 @@
-import React from "react";
+import { React, useState, useEffect } from "react";
 import "./HomeDropDown.css";
-import column1Data from "../assets/data/MenuData1.json";
-import column2Data from "../assets/data/MenuData2.json";
+import axios from "../api/axios";
+// import { Link } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
+import Spinner from "./Spinner";
+import { parseISO, isWithinInterval, subDays } from "date-fns";
+// import { useParams } from "react-router-dom";
 
 const HomeDropDown = () => {
+    const [products, setProducts] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        const fetchProducts = async () => {
+            try {
+                const response = await axios.get("/products");
+                setProducts(response.data);
+            } catch (error) {
+                setError(error.message);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchProducts();
+    }, []);
+
+    const isNewProduct = (createdAt) => {
+        const createdDate = parseISO(createdAt);
+        return isWithinInterval(createdDate, {
+            start: subDays(new Date(), 30),
+            end: new Date(),
+        });
+    };
+
+    const parseProductSize = (sizeString) => {
+        if (!sizeString) {
+            return [];
+        }
+        return sizeString.replace(/[{}]/g, "").split(",");
+    };
+
+    const indexToRemove = 1;
+
+    const updatedProducts = [
+        ...products.slice(0, indexToRemove),
+        ...products.slice(indexToRemove + 1),
+    ];
+
+    // const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
+    const myData = {
+        sort: "dateNewOld",
+    };
+
     return (
         <>
             <div className="MainContainerDropdown">
                 <div>
-                    <ul className="columnList ">
-                        {column1Data.map((item, index) => {
-                            return <li key={index}> {item.menuItem}</li>;
-                        })}
-                    </ul>
-                </div>
-                <div>
-                    <ul className="columnList ">
-                        {column2Data.map((item, index) => {
-                            return <li key={index}> {item.menuItem}</li>;
-                        })}
-                    </ul>
-                </div>
-
-                <div>
-                    <ul className="column3List">
-                        <li style={{ width: "25vw", height: "25vh" }}>
-                            <img
-                                src="https://cleversoft-moleez.myshopify.com/cdn/shop/files/1_22322189-608a-4d80-a626-781680d0448c_2048x.jpg?v=1614715091"
-                                alt="shoes"
-                                style={{ width: "100%", height: "100%" }}
-                            />
-                        </li>
-                        <li style={{ fontWeight: "400", color: "black" }}>
-                            NEW ARRIVALS
-                        </li>
-                        <li style={{ fontSize: "15px" }}>
-                            Summer 2019 Collection
-                        </li>
-                    </ul>
-                </div>
-                <div>
-                    <ul className="columnList">
-                        <li
-                            style={{
-                                width: "25vw",
-                                height: "25vh",
-                                marginRight: "2rem",
-                                marginBottom: "5rem",
-                                marginTop: "1.5rem",
-                            }}
+                    <ul className="columnList-dropdown">
+                        <NavLink
+                            className="dropdown-categories"
+                            to="/allProducts"
                         >
-                            <img
-                                src="https://cleversoft-moleez.myshopify.com/cdn/shop/files/2_28707f42-3055-41a0-a94c-26e579bd68d6_2048x.jpg?v=1614715091"
-                                alt="phone"
-                                style={{ width: "100%", height: "100%" }}
-                            />
-                        </li>
+                            <li>SHOP</li>
+                        </NavLink>
+                        <NavLink className="dropdown-categories">
+                                <li>OUR FAVORITES</li>
+                        </NavLink>
+
+                        <NavLink
+                            className="dropdown-categories"
+                            to="/allProducts"
+                            state={myData}
+                        >
+                            <li>NEW ARRIVALS</li>
+                        </NavLink>
                     </ul>
+                </div>
+                <div className="dropdown-align-rows">
+                    <div style={{ paddingLeft: "3rem" }}>FEATURED PRODUCTS</div>
+                    <div className="dropdown-products">
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            <>
+                                {updatedProducts.map((product, index) => {
+                                    return (
+                                        <div className="all-products">
+                                            <figure className="figureContainer">
+                                                <div className="imageContainer">
+                                                    <div className="image-size">
+                                                        <Link
+                                                            to={`/allProducts/${product.product_id_pkey}`}
+                                                        >
+                                                            <img
+                                                                key={index}
+                                                                src={
+                                                                    product.image &&
+                                                                    product
+                                                                        .image
+                                                                        .length >
+                                                                        0
+                                                                        ? product
+                                                                              .image[0]
+                                                                              .image_url
+                                                                        : "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950"
+                                                                }
+                                                                alt="product"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                    transform:
+                                                                        "scale(0.9)",
+                                                                }}
+                                                            />
+                                                        </Link>
+                                                    </div>
+
+                                                    <div className="statusContainer">
+                                                        <div
+                                                            key={index}
+                                                            className={
+                                                                product.product_sale
+                                                                    ? "saleContainer"
+                                                                    : "saleContainer-hidden"
+                                                            }
+                                                        >
+                                                            SALE
+                                                        </div>
+                                                        <div
+                                                            key={index}
+                                                            className={
+                                                                isNewProduct(
+                                                                    product.created_at
+                                                                )
+                                                                    ? "newContainer"
+                                                                    : "newContainer-hidden"
+                                                            }
+                                                        >
+                                                            NEW
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <figcaption className="featured-figcaption">
+                                                    <p
+                                                        style={{
+                                                            marginBottom:
+                                                                "0rem",
+                                                        }}
+                                                        key={index}
+                                                    >
+                                                        <strong>
+                                                            {
+                                                                product.product_name
+                                                            }
+                                                        </strong>
+                                                    </p>
+                                                    <p
+                                                        style={{
+                                                            marginTop: "0rem",
+                                                            marginBottom:
+                                                                "0rem",
+                                                            fontSize: "15px",
+                                                        }}
+                                                        key={index}
+                                                    >
+                                                        ${product.product_price}
+                                                    </p>
+                                                </figcaption>
+                                            </figure>
+                                        </div>
+                                    );
+                                })}
+                            </>
+                        )}
+                    </div>
                 </div>
             </div>
         </>

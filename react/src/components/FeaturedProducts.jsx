@@ -209,7 +209,7 @@ const FeaturedProducts = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <figcaption>
+                                        <figcaption className="featured-figcaption">
                                             <h3
                                                 style={{ marginBottom: "0rem" }}
                                                 key={index}

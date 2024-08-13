@@ -9,12 +9,16 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
-import { notification} from "antd";
+import { notification } from "antd";
 import { Link } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 const ProductsPage = () => {
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
+    const location = useLocation();
+    const data = location.state;
+    console.log(data);
 
     const onMenuClick = () => setMenu(!menu);
     const onMenuSizeClick = () => setMenuSize(!menuSize);
@@ -29,7 +33,12 @@ const ProductsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    const [filters, setFilters] = useState({});
+    let initialFilter = {}
+    if (location.state) {
+        initialFilter = {'sort': 'dateNewOld'}
+    }
+
+    const [filters, setFilters] = useState(initialFilter);
 
     const onCategoryClicked = (categoryId, categoryName) => {
         setFilters((prevState) => ({
@@ -46,6 +55,13 @@ const ProductsPage = () => {
         }));
     };
 
+    const onSortClicked = (sort) => {
+        setFilters((prevState) => ({
+            ...prevState,
+            sort: sort,
+        }));
+    };
+
     const keysToMap = ["categoryName", "size"];
     const filteredKeys = Object.keys(filters).filter((key) =>
         keysToMap.includes(key)
@@ -57,14 +73,21 @@ const ProductsPage = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
+            console.log(filters)
             try {
                 let url = `/test?`;
+
+                console.log('testttt')
                 if (filters?.categoryId) {
                     url += `categoryId=${filters.categoryId}&`;
                 }
 
                 if (filters?.size) {
                     url += `size=${filters.size}&`;
+                }
+
+                if (filters?.sort) {
+                    url += `sort=${filters.sort}&`;
                 }
 
                 const response = await axios.get(url);
@@ -93,6 +116,16 @@ const ProductsPage = () => {
 
         fetchCategories();
     }, []);
+
+    // useEffect( () => {
+    //     if (location.state) {
+    //         setFilters((prevState) => ({
+    //             ...prevState,
+    //             sort: data.sort,
+    //         }));
+    //     }
+    // }, [])
+
 
     const [cartItem, setCartItem] = useState({
         productid: "",
@@ -186,6 +219,8 @@ const ProductsPage = () => {
     // console.log(cartItem);
     // console.log(products);
     // console.log(categories);
+    console.log(filters);
+    const keysToInclude = ["categoryName", "size"];
 
     return (
         <div className="productsMainContainer">
@@ -193,26 +228,28 @@ const ProductsPage = () => {
                 <ul className="filter-panel">
                     <li
                         className={
-                            Object.keys(filters).length === 0
-                                ? "hide-filters"
-                                : "show-filters"
+                            filters.categoryName || filters.size
+                                ? "show-filters"
+                                : "hide-filters"
                         }
                     >
                         <div className="filter-by-box">Filter By:</div>
 
                         <div>
-                            {filteredKeys.map((key, index) => (
-                                <div key={index} className="filter-box">
-                                    {filters[key]}
-                                </div>
-                            ))}
+                            {Object.keys(filters)
+                                .filter((key) => keysToInclude.includes(key))
+                                .map((key, index) => (
+                                    <div key={index} className="filter-box">
+                                        {filters[key]}
+                                    </div>
+                                ))}
                         </div>
                     </li>
                     <li
                         className={
-                            Object.keys(filters).length === 0
-                                ? "hide-filters"
-                                : "show-filters"
+                            filters.categoryName || filters.size
+                                ? "show-filters"
+                                : "hide-filters"
                         }
                         style={{ cursor: "pointer" }}
                         onClick={clearFilter}
@@ -292,7 +329,26 @@ const ProductsPage = () => {
                         </div>
                     </div>
                     <div style={{ cursor: "pointer", marginRight: "20px" }}>
-                        SORT BY ALPHABETICALLY,A-Z <PiCaretDown />
+                        <select onChange={(e) => onSortClicked(e.target.value)}>
+                            <option value="az">
+                                SORT BY ALPHABETICALLY,A-Z
+                            </option>
+                            <option value="za">
+                                SORT BY ALPHABETICALLY,Z-A
+                            </option>
+                            <option value="priceLowHigh">
+                                SORT BY PRICE: LOW TO HIGH
+                            </option>
+                            <option value="priceHighLow">
+                                SORT BY PRICE: HIGH TO LOW
+                            </option>
+                            <option value="dateOldNew">
+                                SORT BY DATE: OLD TO NEW
+                            </option>
+                            <option value="dateNewOld">
+                                SORT BY DATE: NEW TO OLD
+                            </option>
+                        </select>
                     </div>
                 </div>
                 <div className="rowProductContainer">
