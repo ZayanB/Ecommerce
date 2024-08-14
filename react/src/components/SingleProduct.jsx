@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "../api/axios";
 import "./SingleProduct.css";
-import { Tabs, notification, Rate, Input } from "antd";
+import { Tabs, Rate, Input } from "antd";
 import SizePopUp from "./SizePopUp";
 import DeliveryPopUp from "./DeliveryPopUp";
 import AskAboutPopUp from "./AskAboutPopUp";
@@ -10,6 +10,7 @@ import Spinner from "./Spinner";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import { LiaShippingFastSolid } from "react-icons/lia";
 import { useCart } from "../../Contexts/CartContext";
+import { ReviewsContext } from "../../Contexts/ReviewContext";
 
 const SingleProduct = () => {
     const { productId } = useParams();
@@ -19,11 +20,6 @@ const SingleProduct = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isDeliveryVisible, setIsDeliveryVisible] = useState(false);
     const [isAskVisible, setIsAskVisible] = useState(false);
-    const [addReview, setAddReview] = useState({
-        productid: productId,
-        rating: "",
-        description: "",
-    });
 
     const { TabPane } = Tabs;
 
@@ -98,75 +94,30 @@ const SingleProduct = () => {
         });
     };
 
+    const { addReview } = useContext(ReviewsContext);
+    const [addReviewData, setAddReviewData] = useState({
+        productid: productId,
+        rating: "",
+        description: "",
+    });
+
     const handleRateChange = (value) => {
-        setAddReview({
-            ...addReview,
+        setAddReviewData({
+            ...addReviewData,
             rating: value,
         });
     };
 
     const handleDescriptionChange = (e) => {
-        setAddReview({
-            ...addReview,
+        setAddReviewData({
+            ...addReviewData,
             description: e.target.value,
         });
     };
 
-    const submitReview = async () => {
-        try {
-            const token = localStorage.getItem("access_token");
-
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/addProductReview",
-                addReview,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            notification.success({
-                message: "Success",
-                description: "Review added successfully!",
-                placement: "topRight",
-                duration: 2,
-            });
-            setAddReview({
-                productid: productId,
-                rating: "",
-                description: "",
-            });
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                const errorMessage = Object.values(
-                    error.response.data.errors
-                ).join(", ");
-                notification.error({
-                    message: "Error",
-                    description: `Cannot add review: ${errorMessage}`,
-                    placement: "topRight",
-                    duration: 2,
-                });
-            } else {
-                errorMessage = "User not authenticated";
-                notification.error({
-                    message: "Error",
-                    description: `Cannot add review: ${errorMessage}`,
-                    placement: "topRight",
-                    duration: 2,
-                });
-            }
-
-            notification.error({
-                message: "Error",
-                description: `Cannot add review: ${errorMessage}`,
-                placement: "topRight",
-                duration: 2,
-            });
-        }
+    const handleSubmitReview = () => {
+        addReview(addReviewData);
     };
-
     return (
         <>
             {loading ? (
@@ -354,7 +305,7 @@ const SingleProduct = () => {
                                         />
                                         <button
                                             className="submit-review-button"
-                                            onClick={submitReview}
+                                            onClick={handleSubmitReview}
                                         >
                                             SUBMIT REVIEW
                                         </button>

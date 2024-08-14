@@ -13,6 +13,7 @@ import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
 
+
 const ProductsPage = ({ product }) => {
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
