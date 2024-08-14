@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Drawer, Button } from "antd";
-import { RiShoppingCartLine } from "react-icons/ri";
-import { PiXCircle } from "react-icons/pi";
+import { PiXCircle, PiShoppingCart } from "react-icons/pi";
 import axios from "../api/axios";
 import "./CartPanel.css";
 import { Link } from "react-router-dom";
@@ -94,7 +93,7 @@ const CartPanel = () => {
                 style={{ color: "black" }}
                 className="cart-button"
             >
-                <RiShoppingCartLine size={25} className="cart-hover" />
+                <PiShoppingCart size={25} className="cart-hover" />
                 <div>Cart: {totalCartItems}</div>
             </Button>
             <Drawer
@@ -153,9 +152,7 @@ const CartPanel = () => {
                         </div>
 
                         <button className="view-button">VIEW CART</button>
-                        <Link
-                            to={"/buyProduct/cart"}
-                        >
+                        <Link to={"/buyProduct/cart"}>
                             <button className="checkout-button">
                                 CHECKOUT
                             </button>

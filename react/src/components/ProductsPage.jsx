@@ -1,10 +1,5 @@
 import React from "react";
 import "./ProductsPage.css";
-import { GoEye } from "react-icons/go";
-import { CiHeart } from "react-icons/ci";
-import { FaBalanceScale } from "react-icons/fa";
-import { SlBag } from "react-icons/sl";
-import { PiSquaresFour, PiList, PiCaretDown } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
@@ -12,6 +7,15 @@ import Spinner from "./Spinner";
 import { notification } from "antd";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import {
+    PiScales,
+    PiHeart,
+    PiEye,
+    PiBag,
+    PiSquaresFour,
+    PiList,
+    PiCaretDown,
+} from "react-icons/pi";
 
 const ProductsPage = () => {
     const [menu, setMenu] = useState(false);
@@ -33,9 +37,9 @@ const ProductsPage = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
 
-    let initialFilter = {}
+    let initialFilter = {};
     if (location.state) {
-        initialFilter = {'sort': 'dateNewOld'}
+        initialFilter = { sort: "dateNewOld" };
     }
 
     const [filters, setFilters] = useState(initialFilter);
@@ -73,11 +77,11 @@ const ProductsPage = () => {
 
     useEffect(() => {
         const fetchProducts = async () => {
-            console.log(filters)
+            console.log(filters);
             try {
                 let url = `/test?`;
 
-                console.log('testttt')
+                console.log("testttt");
                 if (filters?.categoryId) {
                     url += `categoryId=${filters.categoryId}&`;
                 }
@@ -125,7 +129,6 @@ const ProductsPage = () => {
     //         }));
     //     }
     // }, [])
-
 
     const [cartItem, setCartItem] = useState({
         productid: "",
@@ -410,13 +413,13 @@ const ProductsPage = () => {
                                                     </div>
                                                     <div className="overlayButtons">
                                                         <button className="overlayButton">
-                                                            <GoEye className="overlayIcons" />
+                                                            <PiEye className="overlayIcons" />
                                                         </button>
                                                         <button className="overlayButton">
-                                                            <CiHeart className="overlayIcons" />
+                                                            <PiHeart className="overlayIcons" />
                                                         </button>
                                                         <button className="overlayButton">
-                                                            <FaBalanceScale className="overlayIcons" />
+                                                            <PiScales className="overlayIcons" />
                                                         </button>
                                                     </div>
                                                     <div className="addToCart">
@@ -430,7 +433,7 @@ const ProductsPage = () => {
                                                             }
                                                         >
                                                             <div className="overlayCart">
-                                                                <SlBag
+                                                                <PiBag
                                                                     size={20}
                                                                 />
                                                             </div>
