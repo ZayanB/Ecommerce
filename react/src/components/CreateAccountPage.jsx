@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./CreateAccountPage.css";
 import { useNavigate } from "react-router-dom";
+import { notification } from "antd";
 
 const CreateAccountPage = () => {
     const navigate = useNavigate();
@@ -17,8 +18,6 @@ const CreateAccountPage = () => {
         password: "",
         birthday: "",
     });
-    const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -30,8 +29,6 @@ const CreateAccountPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSuccessMessage("");
-        setErrorMessage("");
         try {
             const response = await axios.post(
                 "http://127.0.0.1:8000/api/register",
@@ -43,18 +40,22 @@ const CreateAccountPage = () => {
                     },
                 }
             );
-            setSuccessMessage("Account created successfully!");
+            notification.success({
+                message: "Success",
+                description: "Account created successfully!",
+                placement: "topRight",
+                duration: 2,
+            });
+            navigate("/signIn");
         } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrorMessage(
+            notification.error({
+                message: "Error",
+                description:
                     "Failed to create account: " +
-                        Object.values(error.response.data.errors).join(", ")
-                );
-            } else {
-                setErrorMessage(
-                    "Failed to create account: An unknown error occurred."
-                );
-            }
+                    Object.values(error.response.data.errors).join(" "),
+                placement: "topRight",
+                duration: 5,
+            });
         }
     };
 
@@ -63,12 +64,7 @@ const CreateAccountPage = () => {
             <div className="Inputs">
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Create An Account</div>
-                    {successMessage && (
-                        <div className="SuccessMessage">{successMessage}</div>
-                    )}
-                    {errorMessage && (
-                        <div className="ErrorMessage">{errorMessage}</div>
-                    )}
+
                     <div className="pd-0">
                         <label htmlFor="firstname">
                             First Name <span style={{ color: "red" }}>*</span>

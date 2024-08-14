@@ -274,6 +274,7 @@ const CreateAddress = () => {
                 });
             })
             .catch((error) => {
+                setLoading(false);
                 if (error.response && error.response.status === 422) {
                     const errors = error.response.data.errors;
                     for (const field in errors) {
@@ -306,31 +307,8 @@ const CreateAddress = () => {
                 <>
                     <div>
                         <Form layout="vertical" style={{ width: "40vw" }}>
-                            {/* Contact Section */}
-                            <h2>Contact</h2>
-                            <Form.Item
-                                name="Phone"
-                                label="Mobile phone number"
-                                rules={[
-                                    {
-                                        message:
-                                            "Please enter your mobile phone number",
-                                    },
-                                ]}
-                            >
-                                <Input placeholder="Mobile phone number" />
-                            </Form.Item>
-                            <Form.Item
-                                name="newsOffers"
-                                valuePropName="checked"
-                            >
-                                <Checkbox>
-                                    Email me with news and offers
-                                </Checkbox>
-                            </Form.Item>
-
                             {/* Delivery Section */}
-                            <h2>Delivery</h2>
+                            <h2>Address</h2>
                             <Form.Item
                                 name="country"
                                 label="Country"
@@ -397,7 +375,7 @@ const CreateAddress = () => {
                             </Form.Item>
                             <Form.Item name="postalCode">
                                 <Input
-                                    placeholder="Postal code (optional)"
+                                    placeholder="Postal code"
                                     value={userAddress.zipCode}
                                     onChange={(e) =>
                                         handleZipChange(e.target.value)

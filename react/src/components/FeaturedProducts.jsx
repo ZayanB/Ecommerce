@@ -1,20 +1,19 @@
+
 import React, { useEffect, useState } from "react";
 import { PiScales, PiHeart, PiEye, PiBag } from "react-icons/pi";
+
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import { Link } from "react-router-dom";
-import { notification } from "antd";
+
 import axios from "../api/axios";
 import "./FeaturedProducts.css";
 import Spinner from "./Spinner";
+import { useCart } from "../../Contexts/CartContext";
 
-const FeaturedProducts = () => {
+const FeaturedProducts = ({ product }) => {
+
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
-    const [error, setError] = useState(null);
-    const [cartItem, setCartItem] = useState({
-        productid: "",
-        productprice: "",
-    });
 
     useEffect(() => {
         const fetchProducts = async () => {
@@ -31,70 +30,6 @@ const FeaturedProducts = () => {
         fetchProducts();
     }, []);
 
-    const handleSubmit = async (cartItem, token) => {
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/createItem",
-                cartItem,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            notification.success({
-                message: "Success",
-                description: "Item added to cart successfully!",
-                placement: "topRight",
-                duration: 2,
-            });
-        } catch (error) {
-            notification.error({
-                message: "Error",
-                description: "Cannot add item to cart",
-                placement: "topRight",
-                duration: 2,
-            });
-        }
-    };
-
-    const addToCart = (productid, productprice) => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem("access_token");
-
-            if (!token) {
-                notification.error({
-                    message: "Error",
-                    description: "Cannot add item to cart",
-                    placement: "topRight",
-                    duration: 2,
-                });
-                reject("User not authenticated");
-                return;
-            }
-
-            const newCartItem = {
-                productid: productid,
-                productprice: productprice,
-            };
-
-            setCartItem(newCartItem);
-            resolve({ cartItem: newCartItem, token });
-        });
-    };
-    const handleClick = async (productid, productprice) => {
-        try {
-            const { cartItem, token } = await addToCart(
-                productid,
-                productprice
-            );
-            handleSubmit(cartItem, token);
-        } catch (error) {
-            console.error("Error adding item to cart:", error);
-        }
-    };
-
     const isNewProduct = (createdAt) => {
         const createdDate = parseISO(createdAt);
         return isWithinInterval(createdDate, {
@@ -108,6 +43,12 @@ const FeaturedProducts = () => {
             return [];
         }
         return sizeString.replace(/[{}]/g, "").split(",");
+    };
+
+    const { handleAddToCart } = useCart();
+
+    const handleClick = (product) => {
+        handleAddToCart(product.product_id_pkey, product.product_price);
     };
 
     return (
@@ -167,10 +108,7 @@ const FeaturedProducts = () => {
                                                 <button
                                                     className="addToCart"
                                                     onClick={() =>
-                                                        handleClick(
-                                                            product.product_id_pkey,
-                                                            product.product_price
-                                                        )
+                                                        handleClick(product)
                                                     }
                                                 >
                                                     <div className="overlayCart">
