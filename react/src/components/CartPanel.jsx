@@ -33,10 +33,17 @@ const CartPanel = () => {
                 className="cart-button"
             >
                 <RiShoppingCartLine size={25} className="cart-hover" />
-                <div>Cart: {items.totalItemCount}</div>
+                <div>
+                    {" "}
+                    {items.totalItemCount ? `Cart: ${items.totalItemCount}` : 0}
+                </div>
             </Button>
             <Drawer
-                title={`My Cart (${items.totalItemCount})`}
+                title={
+                    items.totalItemCount
+                        ? `My Cart (${items.totalItemCount})`
+                        : "My Cart (0)"
+                }
                 placement="right"
                 onClose={onClose}
                 visible={visible}
@@ -97,7 +104,11 @@ const CartPanel = () => {
                     <div className="cart-total">
                         <div className="pg">
                             <div>Total Price:</div>
-                            <div>$ {items.totalPrice}</div>
+                            <div>
+                                {items.totalPrice
+                                    ? `$ ${items.totalPrice}`
+                                    : "$ 0"}
+                            </div>
                         </div>
 
                         <button className="view-button">VIEW CART</button>

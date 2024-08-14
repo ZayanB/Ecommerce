@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import { Layout, Menu, Card, Row, Col } from "antd";
+import { Layout, Menu, Card, Row, Col, notification } from "antd";
 import {
     IoPersonCircleSharp,
     IoLocationOutline,
@@ -12,6 +12,7 @@ import Spinner from "./Spinner";
 const { Sider, Content } = Layout;
 import CreateAddressPopUp from "./CreateAddressPopUp";
 import { useNavigate } from "react-router-dom";
+import { useCart } from "../../Contexts/CartContext";
 
 const MyAccount = () => {
     const [selectedMenu, setSelectedMenu] = useState("1");
@@ -120,6 +121,12 @@ const MyAccount = () => {
         fetchOrderInfo();
     }, [orderInfo]);
 
+    const { dispatch } = useCart();
+
+    const clearCart = () => {
+        dispatch({ type: "CLEAR_CART" });
+    };
+
     const logout = async () => {
         try {
             const token = localStorage.getItem("access_token");
@@ -134,10 +141,16 @@ const MyAccount = () => {
                     },
                 }
             );
-
+            clearCart();
             localStorage.removeItem("access_token");
 
-            navigate("/signIn");
+            notification.success({
+                message: "Success",
+                description: "Signed Out!",
+                placement: "topRight",
+                duration: 2,
+            });
+            navigate("/");
         } catch (error) {
             console.error("Logout failed:", error);
         }
