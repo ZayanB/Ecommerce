@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useParams, Link } from "react-router-dom";
 import axios from "../api/axios";
 import "./SingleProduct.css";
-import { Tabs, notification, Rate, Input } from "antd";
+import { Tabs, Rate, Input } from "antd";
 import SizePopUp from "./SizePopUp";
 import DeliveryPopUp from "./DeliveryPopUp";
 import AskAboutPopUp from "./AskAboutPopUp";
@@ -12,8 +12,6 @@ import { PiTruckLight } from "react-icons/pi";
 import { useLocation } from "react-router-dom";
 
 const SingleProduct = () => {
-    const location = useLocation();
-    console.log(location);
     const { productId } = useParams();
     const [product, setProduct] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -21,15 +19,6 @@ const SingleProduct = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [isDeliveryVisible, setIsDeliveryVisible] = useState(false);
     const [isAskVisible, setIsAskVisible] = useState(false);
-    const [cartItem, setCartItem] = useState({
-        productid: "",
-        productprice: "",
-    });
-    const [addReview, setAddReview] = useState({
-        productid: productId,
-        rating: "",
-        description: "",
-    });
 
     const { TabPane } = Tabs;
 
@@ -61,6 +50,12 @@ const SingleProduct = () => {
         setIsAskVisible(false);
     };
 
+    const { handleAddToCart } = useCart();
+
+    const handleClick = (product) => {
+        handleAddToCart(product.product_id_pkey, product.product_price);
+    };
+
     const parseProductSize = (sizeString) => {
         if (!sizeString) {
             return [];
@@ -76,7 +71,7 @@ const SingleProduct = () => {
                 );
 
                 setProduct(response.data);
-                console.log(response.data);
+                // console.log(response.data);
                 // setLoading(false);
             } catch (error) {
                 console.error("Error fetching product data:", error);
@@ -89,75 +84,6 @@ const SingleProduct = () => {
         fetchProduct();
     }, [productId]);
 
-    const handleSubmit = async (cartItem, token) => {
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/createItem",
-                cartItem,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            notification.success({
-                message: "Success",
-                description: "Item added to cart successfully!",
-                placement: "topRight",
-                duration: 2,
-            });
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                const errorMessage = Object.values(
-                    error.response.data.errors
-                ).join(", ");
-                notification.error({
-                    message: "Error",
-                    description: `Cannot add item to cart ${errorMessage}`,
-                    placement: "topRight",
-                    duration: 2,
-                });
-            }
-        }
-    };
-
-    const addToCart = (productid, productprice) => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem("access_token");
-
-            if (!token) {
-                notification.error({
-                    message: "Error",
-                    description:
-                        "Cannot add item to cart. User not authenticated",
-                    placement: "topRight",
-                    duration: 2,
-                });
-                reject("User not authenticated");
-                return;
-            }
-
-            const newCartItem = {
-                productid: productid,
-                productprice: productprice,
-            };
-
-            setCartItem(newCartItem);
-            resolve({ cartItem: newCartItem, token });
-        });
-    };
-    const handleClick = async (productid, productprice) => {
-        try {
-            const { cartItem, token } = await addToCart(
-                productid,
-                productprice
-            );
-            handleSubmit(cartItem, token);
-        } catch (error) {
-            console.error("Error adding item to cart:", error);
-        }
-    };
     const sizes = parseProductSize(product.product_size);
     const isNewProduct = (createdAt) => {
         const createdDate = parseISO(createdAt);
@@ -167,75 +93,30 @@ const SingleProduct = () => {
         });
     };
 
+    const { addReview } = useContext(ReviewsContext);
+    const [addReviewData, setAddReviewData] = useState({
+        productid: productId,
+        rating: "",
+        description: "",
+    });
+
     const handleRateChange = (value) => {
-        setAddReview({
-            ...addReview,
-            rating: value, // Update the rating in the state
+        setAddReviewData({
+            ...addReviewData,
+            rating: value,
         });
     };
 
     const handleDescriptionChange = (e) => {
-        setAddReview({
-            ...addReview,
-            description: e.target.value, // Update the description in the state
+        setAddReviewData({
+            ...addReviewData,
+            description: e.target.value,
         });
     };
 
-    const submitReview = async () => {
-        try {
-            const token = localStorage.getItem("access_token");
-
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/addProductReview",
-                addReview,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            notification.success({
-                message: "Success",
-                description: "Review added successfully!",
-                placement: "topRight",
-                duration: 2,
-            });
-            setAddReview({
-                productid: productId,
-                rating: "",
-                description: "",
-            });
-        } catch (error) {
-            if (error.response && error.response.data.errors) {
-                const errorMessage = Object.values(
-                    error.response.data.errors
-                ).join(", ");
-                notification.error({
-                    message: "Error",
-                    description: `Cannot add review: ${errorMessage}`,
-                    placement: "topRight",
-                    duration: 2,
-                });
-            } else {
-                errorMessage = "User not authenticated";
-                notification.error({
-                    message: "Error",
-                    description: `Cannot add review: ${errorMessage}`,
-                    placement: "topRight",
-                    duration: 2,
-                });
-            }
-
-            notification.error({
-                message: "Error",
-                description: `Cannot add review: ${errorMessage}`,
-                placement: "topRight",
-                duration: 2,
-            });
-        }
+    const handleSubmitReview = () => {
+        addReview(addReviewData);
     };
-
     return (
         <>
             {loading ? (
@@ -362,12 +243,7 @@ const SingleProduct = () => {
                                 <li>
                                     <button
                                         className="single-add-to-cart"
-                                        onClick={() =>
-                                            handleClick(
-                                                product.product_id_pkey,
-                                                product.product_price
-                                            )
-                                        }
+                                        onClick={() => handleClick(product)}
                                     >
                                         ADD TO CART
                                     </button>
@@ -428,7 +304,7 @@ const SingleProduct = () => {
                                         />
                                         <button
                                             className="submit-review-button"
-                                            onClick={submitReview}
+                                            onClick={handleSubmitReview}
                                         >
                                             SUBMIT REVIEW
                                         </button>

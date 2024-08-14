@@ -4,7 +4,6 @@ import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
-import { notification } from "antd";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import {
@@ -16,8 +15,10 @@ import {
     PiList,
     PiCaretDown,
 } from "react-icons/pi";
+import { useCart } from "../../Contexts/CartContext";
 
-const ProductsPage = () => {
+
+const ProductsPage = ({ product }) => {
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
     const location = useLocation();
@@ -188,17 +189,17 @@ const ProductsPage = () => {
         });
     };
 
-    const handleClick = async (productid, productprice) => {
-        try {
-            const { cartItem, token } = await addToCart(
-                productid,
-                productprice
-            );
-            handleSubmit(cartItem, token);
-        } catch (error) {
-            console.error("Error adding item to cart:", error);
-        }
-    };
+    // const handleClick = async (productid, productprice) => {
+    //     try {
+    //         const { cartItem, token } = await addToCart(
+    //             productid,
+    //             productprice
+    //         );
+    //         handleSubmit(cartItem, token);
+    //     } catch (error) {
+    //         console.error("Error adding item to cart:", error);
+    //     }
+    // };
 
     if (error) return <p>Error: {error}</p>;
 
@@ -219,11 +220,13 @@ const ProductsPage = () => {
 
     const productsCount = products.length;
 
-    // console.log(cartItem);
-    // console.log(products);
-    // console.log(categories);
-    console.log(filters);
     const keysToInclude = ["categoryName", "size"];
+
+    const { handleAddToCart } = useCart();
+
+    const handleClick = (product) => {
+        handleAddToCart(product.product_id_pkey, product.product_price);
+    };
 
     return (
         <div className="productsMainContainer">
@@ -427,8 +430,7 @@ const ProductsPage = () => {
                                                             className="addToCart"
                                                             onClick={() =>
                                                                 handleClick(
-                                                                    product.product_id_pkey,
-                                                                    product.product_price
+                                                                    product
                                                                 )
                                                             }
                                                         >

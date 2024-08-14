@@ -17,6 +17,7 @@ import ProductView from "./Pages/ProductView";
 import SingleProductPage from "./Pages/SingleProductPage";
 import BuyProductPage from "./Pages/BuyProductPage";
 import MyAccountPage from "./Pages/MyAccountPage";
+// import { CartProvider } from "../Contexts/CartContext";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -39,7 +40,9 @@ const router = createBrowserRouter(
 const App = () => {
     return (
         <>
-            <RouterProvider router={router} />
+            {/* <CartProvider> */}
+                <RouterProvider router={router} />
+            {/* </CartProvider> */}
         </>
     );
 };
