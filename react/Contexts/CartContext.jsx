@@ -24,6 +24,12 @@ const cartReducer = (state, action) => {
                 ...state,
                 totalItems: state.totalItems - 1,
             };
+        case "CLEAR_CART":
+            return {
+                items: [],
+                totalItemCount: 0,
+                totalPrice: 0,
+            };
         default:
             return state;
     }
@@ -105,7 +111,8 @@ export const CartProvider = ({ children }) => {
             if (!token) {
                 notification.error({
                     message: "Error",
-                    description: "Cannot add item to cart",
+                    description:
+                        "Cannot add item to cart. Please log in and try again later.",
                     placement: "topRight",
                     duration: 2,
                 });
@@ -186,6 +193,7 @@ export const CartProvider = ({ children }) => {
         <CartContext.Provider
             value={{
                 ...state,
+                dispatch,
                 handleAddToCart,
                 handleRemoveItem,
                 fetchCartItems,

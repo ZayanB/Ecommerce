@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { notification } from "antd";
 
 const LoginPage = () => {
     const navigate = useNavigate();
@@ -15,9 +16,6 @@ const LoginPage = () => {
         password: "",
     });
 
-    const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData((prevData) => ({
@@ -28,8 +26,6 @@ const LoginPage = () => {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setSuccessMessage("");
-        setErrorMessage("");
 
         try {
             await axios.get("http://127.0.0.1:8000/sanctum/csrf-cookie");
@@ -44,26 +40,23 @@ const LoginPage = () => {
                     },
                 }
             );
-            if (response.data.access_token) {
-                localStorage.setItem(
-                    "access_token",
-                    response.data.access_token
-                );
-                setSuccessMessage("Login successful!");
-                navigate("/");
-            } else {
-                setErrorMessage("Failed to log in: Invalid credentials.");
-            }
-            console.log(response.data.access_token);
+            localStorage.setItem("access_token", response.data.access_token);
+            navigate("/");
+            notification.success({
+                message: "Success",
+                description: "Login successful!!",
+                placement: "topRight",
+                duration: 2,
+            });
         } catch (error) {
-            if (error.response && error.response.data.errors) {
-                setErrorMessage(
-                    "Failed to log in: " +
-                        Object.values(error.response.data.errors).join(", ")
-                );
-            } else {
-                setErrorMessage("Failed to log in: An unknown error occurred.");
-            }
+            notification.error({
+                message: "Error",
+                description:
+                    "Failed to sign in: " +
+                    Object.values(error.response.data.errors).join(" "),
+                placement: "topRight",
+                duration: 5,
+            });
         }
     };
 
@@ -72,12 +65,6 @@ const LoginPage = () => {
             <div className="Inputs">
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Sign In</div>
-                    {successMessage && (
-                        <div className="SuccessMessage">{successMessage}</div>
-                    )}
-                    {errorMessage && (
-                        <div className="ErrorMessage">{errorMessage}</div>
-                    )}
                     <div className="pd-0">
                         <label htmlFor="email">
                             Email Address{" "}

@@ -54,20 +54,25 @@ const ReviewsProvider = ({ children }) => {
             });
             fetchReviews();
         } catch (error) {
-            let errorMessage = "Cannot add review";
             if (error.response && error.response.data.errors) {
                 errorMessage = Object.values(error.response.data.errors).join(
                     ", "
                 );
-            } else if (!token) {
-                errorMessage = "User not authenticated";
+                notification.error({
+                    message: "Error",
+                    description: errorMessage,
+                    placement: "topRight",
+                    duration: 2,
+                });
+            } else {
+                notification.error({
+                    message: "Error",
+                    description:
+                        "User Not Authenticated. Please log in and try again later. ",
+                    placement: "topRight",
+                    duration: 2,
+                });
             }
-            notification.error({
-                message: "Error",
-                description: errorMessage,
-                placement: "topRight",
-                duration: 2,
-            });
         }
     };
 
