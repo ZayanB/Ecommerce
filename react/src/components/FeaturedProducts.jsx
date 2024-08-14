@@ -34,8 +34,6 @@ const FeaturedProducts = () => {
         fetchProducts();
     }, []);
 
-    if (error) return <p>Error: {error}</p>;
-
     const handleSubmit = async (cartItem, token) => {
         try {
             const response = await axios.post(
