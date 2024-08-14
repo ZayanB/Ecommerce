@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\OrderInfoController;
 use App\Http\Controllers\ProductReviewController;
@@ -30,9 +31,9 @@ Route::post('/login', [AuthenticationController::class, 'login']);
 Route::post('/logout', [AuthenticationController::class, 'logout'])->middleware('auth:sanctum');
 
 
-Route::post('/createItem', [ShoppingCartController::class, 'createCartItem'])->middleware('auth:sanctum');
+Route::post('/createItem', [CartItemController::class, 'createCartItem'])->middleware('auth:sanctum');
+Route::post('/removeCartItem', [CartItemController::class, 'removeCartItem'])->middleware('auth:sanctum');
 Route::post('/getCart', [ShoppingCartController::class, 'getCartItems'])->middleware('auth:sanctum');
-Route::post('/removeCartItem', [ShoppingCartController::class, 'removeCartItem'])->middleware('auth:sanctum');
 
 Route::get('/productReviews', [ProductReviewController::class, 'getProductReview']);
 Route::post('/addProductReview', [ProductReviewController::class, 'addProductReview'])->middleware('auth:sanctum');
