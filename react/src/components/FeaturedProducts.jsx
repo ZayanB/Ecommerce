@@ -1,15 +1,12 @@
 import React from "react";
 import "./FeaturedProducts.css";
-import { GoEye } from "react-icons/go";
-import { CiHeart } from "react-icons/ci";
-import { FaBalanceScale } from "react-icons/fa";
-import { SlBag } from "react-icons/sl";
 import axios from "../api/axios";
 import { useState, useEffect } from "react";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
+import { PiScales, PiHeart, PiEye, PiBag } from "react-icons/pi";
 
 const FeaturedProducts = ({ product }) => {
     const [products, setProducts] = useState([]);
@@ -95,13 +92,13 @@ const FeaturedProducts = ({ product }) => {
                                             </div>
                                             <div className="overlayButtons">
                                                 <button className="overlayButton">
-                                                    <GoEye className="overlayIcons" />
+                                                    <PiEye className="overlayIcons" />
                                                 </button>
                                                 <button className="overlayButton">
-                                                    <CiHeart className="overlayIcons" />
+                                                    <PiHeart className="overlayIcons" />
                                                 </button>
                                                 <button className="overlayButton">
-                                                    <FaBalanceScale className="overlayIcons" />
+                                                    <PiScales className="overlayIcons" />
                                                 </button>
                                             </div>
                                             <div className="addToCart">
@@ -112,7 +109,7 @@ const FeaturedProducts = ({ product }) => {
                                                     }
                                                 >
                                                     <div className="overlayCart">
-                                                        <SlBag size={20} />
+                                                        <PiBag size={20} />
                                                     </div>
                                                     ADD TO CART
                                                 </button>

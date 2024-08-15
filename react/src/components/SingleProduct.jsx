@@ -8,7 +8,7 @@ import DeliveryPopUp from "./DeliveryPopUp";
 import AskAboutPopUp from "./AskAboutPopUp";
 import Spinner from "./Spinner";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
-import { LiaShippingFastSolid } from "react-icons/lia";
+import { PiTruckLight } from "react-icons/pi";
 import { useCart } from "../../Contexts/CartContext";
 import { ReviewsContext } from "../../Contexts/ReviewContext";
 
@@ -273,7 +273,7 @@ const SingleProduct = () => {
                                 </li>
                                 <li className="single-shipping-free">
                                     <div>
-                                        <LiaShippingFastSolid size={22} />{" "}
+                                        <PiTruckLight size={22} />{" "}
                                     </div>
                                     <div>
                                         Spend{" "}
