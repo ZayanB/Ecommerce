@@ -1,13 +1,8 @@
 import { React, useState, useEffect } from "react";
 import { Layout, Menu, Card, Row, Col, notification } from "antd";
-import {
-    IoPersonCircleSharp,
-    IoLocationOutline,
-    IoBagHandleOutline,
-} from "react-icons/io5";
 import axios from "../api/axios";
 import "./MyAccount.css";
-// import { Link } from "react-router-dom";
+import { PiUserCircle, PiBag, PiMapPin } from "react-icons/pi";
 import Spinner from "./Spinner";
 const { Sider, Content } = Layout;
 import CreateAddressPopUp from "./CreateAddressPopUp";
@@ -167,13 +162,13 @@ const MyAccount = () => {
                     onClick={handleMenuClick}
                 >
                     <Menu.Item key="1">
-                        <IoPersonCircleSharp /> My Account
+                        <PiUserCircle /> My Account
                     </Menu.Item>
                     <Menu.Item key="2">
-                        <IoLocationOutline /> My Addresses
+                        <PiMapPin /> My Addresses
                     </Menu.Item>
                     <Menu.Item key="3">
-                        <IoBagHandleOutline /> My Order
+                        <PiBag /> My Order
                     </Menu.Item>
                     <button className="sign-out-button" onClick={logout}>
                         Sign Out

@@ -6,6 +6,7 @@ import "./NavBar.css";
 import CartPanel from "./CartPanel";
 import useScreenWidth from "./useScreenWidth";
 import { PiUserCircle, PiScales } from "react-icons/pi";
+import UserDropDown from "./UserDropDown";
 
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(true);
@@ -84,7 +85,7 @@ const NavBar = () => {
 
             <div id="XYZ" onMouseLeave={onSignLeave}>
                 <div className="navbar-addToCart">
-                    <div onMouseOver={onSignOver} className="dropdown">
+                    {/* <div onMouseOver={onSignOver} className="dropdown">
                         <div>
                             <PiUserCircle className="CartHover" />
                         </div>
@@ -124,7 +125,8 @@ const NavBar = () => {
                                 </li>
                             </ul>
                         </div>
-                    </div>
+                    </div> */}
+                    <UserDropDown />
                     <div>
                         <PiScales className="CartHover" />
                     </div>

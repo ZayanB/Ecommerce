@@ -22,7 +22,7 @@ const ProductsPage = ({ product }) => {
     const [menuSize, setMenuSize] = useState(false);
     const location = useLocation();
     const data = location.state;
-    console.log(data);
+    // console.log(data);
 
     const onMenuClick = () => setMenu(!menu);
     const onMenuSizeClick = () => setMenuSize(!menuSize);
