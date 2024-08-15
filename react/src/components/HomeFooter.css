@@ -1,9 +1,10 @@
 .home-footer-parent {
     display: flex;
     flex-direction: row;
-    padding: 3rem 9rem 0rem 10rem;
+    padding-top: 3rem;
     gap: 2rem;
     border-top: solid rgba(128, 128, 128, 0.315) 1px;
+    justify-content: center;
 }
 
 .home-footer-col {
