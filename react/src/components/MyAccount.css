@@ -34,3 +34,7 @@
     border: transparent;
     transition: ease 500ms;
 }
+
+.ant-card-head-title {
+    font-weight: bold;
+}

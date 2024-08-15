@@ -20,7 +20,8 @@ class UserAddress extends Model {
         'city',
         'street',
         'building',
-        'zip_code'
+        'zip_code',
+        'label'
     ]);
 
     public $timestamps = true;
@@ -29,6 +30,6 @@ class UserAddress extends Model {
         return $this->belongsTo(UserInfo::class, 'user_id', 'user_id_pkey');
     }
     public function orderAddress(): HasOne {
-        return $this->hasOne(OrderAddress::class);
+        return $this->hasOne(OrderAddress::class, 'address_id', 'user_address_id');
     }
 }

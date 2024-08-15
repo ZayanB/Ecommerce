@@ -71,8 +71,8 @@ const BuyProduct = () => {
         shippingMethod: "5",
         paymentMethod: "",
         cartId: "",
+        total: "",
     });
-
     const productPrice = parseFloat(product.product_price);
     const shippingFee = parseFloat(placeOrder.shippingMethod);
     const totalPrice = (productPrice + shippingFee).toFixed(2);
@@ -140,7 +140,7 @@ const BuyProduct = () => {
                     }
                 );
                 setHasAddress(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             } catch (error) {
                 console.error("error", error);
             }
@@ -249,6 +249,7 @@ const BuyProduct = () => {
                         duration: 2,
                     });
                 } else {
+                    // console.log(status);
                     notification.error({
                         message: "Error",
                         description: `An error occurred (${status}): ${
@@ -275,6 +276,13 @@ const BuyProduct = () => {
     const totalCartePriceShipping = (
         totalCartPriceUpdated + shippingFee
     ).toFixed(2);
+
+    useEffect(() => {
+        setPlaceOrder(() => ({
+            ...placeOrder,
+            total: totalCartePriceShipping,
+        }));
+    }, [totalCartePriceShipping]);
 
     return (
         <>
@@ -329,6 +337,19 @@ const BuyProduct = () => {
                                                                         {
                                                                             address.country
                                                                         }
+                                                                        ,{" "}
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                                fontWeight:
+                                                                                    "bold",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                address.label
+                                                                            }
+                                                                        </span>
                                                                     </div>
                                                                     <div className="radio-button-style">
                                                                         <div>

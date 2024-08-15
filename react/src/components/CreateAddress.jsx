@@ -214,6 +214,7 @@ const CreateAddress = () => {
         street: "",
         building: "",
         zipCode: "",
+        label: "",
     });
 
     const handleCountryChange = (value) => {
@@ -250,6 +251,12 @@ const CreateAddress = () => {
         setUserAddress({
             ...userAddress,
             zipCode: value,
+        });
+    };
+    const handleLabelChange = (value) => {
+        setUserAddress({
+            ...userAddress,
+            label: value,
         });
     };
 
@@ -329,6 +336,23 @@ const CreateAddress = () => {
                                         </Option>
                                     ))}
                                 </Select>
+                            </Form.Item>
+                            <Form.Item
+                                name="label"
+                                rules={[
+                                    {
+                                        message:
+                                            "Please enter a label for this address",
+                                    },
+                                ]}
+                            >
+                                <Input
+                                    placeholder="label"
+                                    value={userAddress.label}
+                                    onChange={(e) =>
+                                        handleLabelChange(e.target.value)
+                                    }
+                                />
                             </Form.Item>
                             <Form.Item
                                 name="State"

@@ -54,7 +54,7 @@ const MyAccount = () => {
                     }
                 );
                 setUserInfo(response.data);
-                console.log(userInfo);
+                // console.log(userInfo);
                 setLoading(false);
             } catch (error) {
                 console.error("Error fetching data:", error);
@@ -287,7 +287,7 @@ const MyAccount = () => {
                                             handleCancel={hideNewAddress}
                                         />
                                     </div>
-                                    <Row gutter={[16, 16]} wrap={false}>
+                                    <Row gutter={[16, 16]} wrap={true}>
                                         {hasAddress && hasAddress.length > 0 ? (
                                             hasAddress.map((address, index) => (
                                                 <Col
@@ -295,12 +295,12 @@ const MyAccount = () => {
                                                     flex="0 0 auto"
                                                 >
                                                     <Card
-                                                        title={`Address ${
-                                                            index + 1
-                                                        }`}
+                                                        title={`${address.label} Address`}
                                                         bordered={false}
                                                         style={{
                                                             width: 300,
+                                                            textTransform:
+                                                                "capitalize",
                                                         }}
                                                         key={index}
                                                         value={
@@ -378,23 +378,19 @@ const MyAccount = () => {
                                                                         Order
                                                                         Total
                                                                         Price: $
-                                                                        {order.shopping_cart
-                                                                            ? order
-                                                                                  .shopping_cart
-                                                                                  .cart_total_price
-                                                                            : "N/A"}
+                                                                        {
+                                                                            order.order_total
+                                                                        }
                                                                     </h3>
 
                                                                     <h3>
                                                                         Items:
                                                                     </h3>
-                                                                    {order.shopping_cart &&
-                                                                    order
-                                                                        .shopping_cart
-                                                                        .cart_item
+                                                                    {order
+                                                                        .order_items
                                                                         .length >
-                                                                        0 ? (
-                                                                        order.shopping_cart.cart_item.map(
+                                                                        0 &&
+                                                                        order.order_items.map(
                                                                             (
                                                                                 item,
                                                                                 itemIndex
@@ -409,34 +405,19 @@ const MyAccount = () => {
                                                                                         Product
                                                                                         Name:{" "}
                                                                                         {
-                                                                                            item
-                                                                                                .product
-                                                                                                .product_name
+                                                                                            item.name
                                                                                         }
                                                                                     </p>
                                                                                     <p>
                                                                                         Price:
                                                                                         $
                                                                                         {
-                                                                                            item.cart_item_price
-                                                                                        }
-                                                                                    </p>
-                                                                                    <p>
-                                                                                        Quantity:{" "}
-                                                                                        {
-                                                                                            item.cart_item_quantity
+                                                                                            item.price
                                                                                         }
                                                                                     </p>
                                                                                 </div>
                                                                             )
-                                                                        )
-                                                                    ) : (
-                                                                        <p>
-                                                                            No
-                                                                            items
-                                                                            found
-                                                                        </p>
-                                                                    )}
+                                                                        )}
 
                                                                     <h3>
                                                                         Ordered
@@ -448,23 +429,53 @@ const MyAccount = () => {
                                                                     <h3>
                                                                         Payment
                                                                         Method:{" "}
-                                                                        {
-                                                                            order.payment_details_id
-                                                                        }
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                                fontWeight:
+                                                                                    "normal ",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                order.payment_details_id
+                                                                            }
+                                                                        </span>
                                                                     </h3>
                                                                     <h3>
                                                                         Shipping
                                                                         Method:{" "}
-                                                                        {
-                                                                            order.shipping_details_id
-                                                                        }
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                                fontWeight:
+                                                                                    "normal ",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                order.shipping_details
+                                                                            }
+                                                                        </span>
                                                                     </h3>
                                                                     <h3>
                                                                         Order
                                                                         Address:{" "}
-                                                                        {
-                                                                            order.order_address_id
-                                                                        }
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                                fontWeight:
+                                                                                    "normal",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                order
+                                                                                    .order_address
+                                                                                    .address
+                                                                                    .label
+                                                                            }
+                                                                        </span>
                                                                     </h3>
                                                                 </Card>
                                                             </Col>
