@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Http\Request;
 
 class UserAddressController extends Controller {
-    
+
     public function getAddress() {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
@@ -21,7 +21,6 @@ class UserAddressController extends Controller {
     public function addAddress(Request $request) {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
-        $zipCode = $request->input('zipCode');
 
         $validatedData = $request->validate([
             'country' => 'required',
@@ -29,6 +28,8 @@ class UserAddressController extends Controller {
             'city' => 'required',
             'street' => 'required',
             'building' => 'required',
+            'label' => 'required',
+            'zipCode' => 'required'
         ]);
 
         try {
@@ -40,7 +41,8 @@ class UserAddressController extends Controller {
                 'city' => $validatedData['city'],
                 'street' => $validatedData['street'],
                 'building' => $validatedData['building'],
-                'zip_code' => $zipCode,
+                'zip_code' => $validatedData['zipCode'],
+                'label' => $validatedData['label'],
             ]);
 
             return response()->json(['message' => 'Address added succesfully'], 201);
