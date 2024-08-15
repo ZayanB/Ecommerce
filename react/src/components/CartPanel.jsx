@@ -32,7 +32,7 @@ const CartPanel = () => {
                 style={{ color: "black" }}
                 className="cart-button"
             >
-                <RiShoppingCartLine size={25} className="cart-hover" />
+                <RiShoppingCartLine size={22} className="cart-hover" />
                 <div>
                     {" "}
                     {items.totalItemCount ? `Cart: ${items.totalItemCount}` : 0}
