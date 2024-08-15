@@ -1,4 +1,20 @@
-.MainContainerNavBar {
+.MainContainerNavBar-desktop-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    align-items: center;
+    overflow: visible;
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-size: 24px;
+}
+
+.MainContainerNavBar-mobile-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -12,7 +28,7 @@
     top: 0;
     z-index: 1000;
 }
-.ShopName {
+.ShopName-desktop {
     display: flex;
     margin-right: 1rem;
     margin-left: 1.5rem;
@@ -20,29 +36,26 @@
     margin-bottom: 0.5rem;
     font-size: 45px;
 }
-.ListContainer {
+.ShopName-desktop {
+    display: flex;
+    align-self: center;
+}
+.ListContainer-desktop-list {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-    align-items: flex-start;
-    gap: 0.5rem;
+    /* align-items: flex-start; */
+    gap: 5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
     margin-right: 15rem;
     flex: 1;
     height: 100%;
 }
-
-.uList {
-    display: flex;
-    flex-direction: row;
-    list-style-type: none;
-    justify-content: space-between;
-    align-items: center;
-    align-content: center;
-    gap: 1rem;
-    font-size: 18px;
+.ListContainer-mobile-list {
+    display: none;
 }
+
 .arrowDown {
     display: flex;
     flex-direction: row;
@@ -54,11 +67,14 @@
     color: orange;
 }
 
-.uCart {
-    font-size: 25px;
-    margin-right: 1.5rem;
+.navbar-addToCart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-right: 0.5rem;
 }
-
 .CartHover:hover {
     color: orange;
     cursor: pointer;
@@ -80,9 +96,11 @@
     display: none;
     position: absolute;
     z-index: 1;
-    transform: translate(-35%, 65%);
-    width: 99%;
+    transform: translate(-32%, 52%);
+    width: 98%;
     overflow: hidden;
+    padding-top: 40px;
+    padding-bottom: 40px;
 }
 
 .d-block {
@@ -94,7 +112,163 @@
     position: absolute;
     background-color: white;
     color: black;
-    transform: translate(-10%, 10%);
+    transform: translate(-10%, 0%);
+    z-index: 1;
+    right: 0;
+}
+
+.dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content ul li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-content ul li:hover {
+    color: orange;
+}
+
+.signIn-drop {
+    color: black;
+}
+
+.signIn-drop:hover {
+    color: orange;
+}
+
+.nav-active {
+    color: orange;
+}
+.nav-active:hover {
+    color: orange;
+}
+
+.nav-non {
+    color: black;
+}
+
+.nav-non:hover {
+    color: orange;
+}
+.MainContainerNavBar-desktop-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    align-items: center;
+    overflow: visible;
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-size: 24px;
+}
+
+.MainContainerNavBar-mobile-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    align-items: center;
+    overflow: visible;
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.ShopName-desktop {
+    display: flex;
+    margin-right: 1rem;
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 45px;
+}
+.ShopName-desktop {
+    display: flex;
+    align-self: center;
+}
+.ListContainer-desktop-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    /* align-items: flex-start; */
+    gap: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 15rem;
+    flex: 1;
+    height: 100%;
+}
+.ListContainer-mobile-list {
+    display: none;
+}
+
+.arrowDown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrowDown:hover {
+    color: orange;
+}
+
+.navbar-addToCart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-right: 0.5rem;
+}
+.CartHover:hover {
+    color: orange;
+    cursor: pointer;
+}
+
+.cartFont {
+    font-size: 15px;
+    margin-left: 0rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-right: 2rem;
+}
+
+.dropDown {
+    display: flex;
+    flex-direction: row;
+}
+.dropDownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-32%, 52%);
+    width: 98%;
+    overflow: hidden;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: white;
+    color: black;
+    transform: translate(-10%, 0%);
     z-index: 1;
     right: 0;
 }

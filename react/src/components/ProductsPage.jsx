@@ -1,18 +1,21 @@
 import React from "react";
 import "./ProductsPage.css";
-import { GoEye } from "react-icons/go";
-import { CiHeart } from "react-icons/ci";
-import { FaBalanceScale } from "react-icons/fa";
-import { SlBag } from "react-icons/sl";
-import { PiSquaresFour, PiList, PiCaretDown } from "react-icons/pi";
 import { useState, useEffect } from "react";
 import axios from "../api/axios";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import {
+    PiScales,
+    PiHeart,
+    PiEye,
+    PiBag,
+    PiSquaresFour,
+    PiList,
+    PiCaretDown,
+} from "react-icons/pi";
 import { useCart } from "../../Contexts/CartContext";
-
 
 const ProductsPage = ({ product }) => {
     const [menu, setMenu] = useState(false);
@@ -330,13 +333,13 @@ const ProductsPage = ({ product }) => {
                                                     </div>
                                                     <div className="overlayButtons">
                                                         <button className="overlayButton">
-                                                            <GoEye className="overlayIcons" />
+                                                            <PiEye className="overlayIcons" />
                                                         </button>
                                                         <button className="overlayButton">
-                                                            <CiHeart className="overlayIcons" />
+                                                            <PiHeart className="overlayIcons" />
                                                         </button>
                                                         <button className="overlayButton">
-                                                            <FaBalanceScale className="overlayIcons" />
+                                                            <PiScales className="overlayIcons" />
                                                         </button>
                                                     </div>
                                                     <div className="addToCart">
@@ -349,7 +352,7 @@ const ProductsPage = ({ product }) => {
                                                             }
                                                         >
                                                             <div className="overlayCart">
-                                                                <SlBag
+                                                                <PiBag
                                                                     size={20}
                                                                 />
                                                             </div>
