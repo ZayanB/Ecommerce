@@ -193,7 +193,12 @@ const ProductsPage = ({ product }) => {
                             cursor: "pointer",
                         }}
                     >
-                        COLLECTIONS <PiCaretDown onClick={onMenuClick} />
+                        <span className="sidebar-hover" onClick={onMenuClick}>
+                            COLLECTIONS{" "}
+                            <PiCaretDown
+                                style={{ transform: "translateY(2px)" }}
+                            />
+                        </span>
                         <div
                             className={
                                 menu
@@ -222,7 +227,15 @@ const ProductsPage = ({ product }) => {
                             cursor: "pointer",
                         }}
                     >
-                        SIZE <PiCaretDown onClick={onMenuSizeClick} />
+                        <span
+                            className="sidebar-hover"
+                            onClick={onMenuSizeClick}
+                        >
+                            SIZE{" "}
+                            <PiCaretDown
+                                style={{ transform: "translateY(2px)" }}
+                            />
+                        </span>
                         <div
                             className={
                                 menuSize
@@ -279,7 +292,7 @@ const ProductsPage = ({ product }) => {
                                     transform: "translateY(3px)",
                                 }}
                                 onClick={onGridClick}
-                                color={view == "grid" ? "black" : "gray"}
+                                color={view == "grid" ? "orange" : "gray"}
                             />
                         </div>
                         <div>
@@ -290,7 +303,7 @@ const ProductsPage = ({ product }) => {
                                     transform: "translateY(2px)",
                                 }}
                                 onClick={onListClick}
-                                color={view == "list" ? "black" : "gray"}
+                                color={view == "list" ? "orange" : "gray"}
                             />
                         </div>
                     </div>

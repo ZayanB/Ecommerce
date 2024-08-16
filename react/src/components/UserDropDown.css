@@ -6,19 +6,16 @@
 .ant-dropdown-menu {
     background-color: #f0f0f0;
     transform: translate(-40%, 14%);
-    
 }
 
 .ant-dropdown-menu-item {
     height: 40px;
     line-height: 40px;
     padding: 0 20px;
-    
 }
 
 .ant-dropdown-link {
     color: black;
-    
 }
 
 .ant-dropdown-link:hover {
@@ -31,5 +28,4 @@
 
 .dropdown-menu-item {
     border-bottom: solid rgba(128, 128, 128, 0.279) 1px;
-    
 }
