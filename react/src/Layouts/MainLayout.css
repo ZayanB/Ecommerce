@@ -1,9 +1,21 @@
 .layout-main-container {
+    width: 100vw;
+    height: 100vh;
+    overflow-x: hidden;
+}
+/* .layout-main-container {
     width: calc(100vw - 17px);
     height: 100vh;
-}
+} */
+
 .nav-lay {
     position: sticky;
     top: 0;
     z-index: 1000;
 }
+
+/* @media (max-width: 1024px) {
+    .layout-main-container {
+        width: 100vw;
+    }
+} */

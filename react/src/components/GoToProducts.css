@@ -12,6 +12,20 @@
     color: white;
     text-align: center;
 }
+.parallax-container-mobile {
+    position: relative;
+    background-image: url("https://cleversoft-moleez.myshopify.com/cdn/shop/files/moleez-img-79_2048x.jpg?v=1613753250");
+    height: 75vh;
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    text-align: center;
+}
 
 .content h1 {
     font-size: 4rem;

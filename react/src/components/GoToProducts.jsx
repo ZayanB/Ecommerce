@@ -3,8 +3,9 @@ import "./GoToProducts.css";
 import { Link } from "react-router-dom";
 import { BsArrowRight } from "react-icons/bs";
 import { useEffect } from "react";
-
+import useScreenWidth from "./useScreenWidth";
 const GoToProducts = () => {
+    const screenWidth = useScreenWidth();
     useEffect(() => {
         const handleScroll = () => {
             const parallax = document.querySelector(".parallax-container");
@@ -20,7 +21,7 @@ const GoToProducts = () => {
     }, []);
 
     return (
-        <div className="parallax-container">
+        <div className={screenWidth>800?"parallax-container":"parallax-container-mobile"}>
             <div className="content">
                 <h1>Home Plant</h1>
                 <h3>Fresh your home space</h3>

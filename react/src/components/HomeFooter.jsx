@@ -6,11 +6,18 @@ import {
     PiHeadset,
 } from "react-icons/pi";
 import "./HomeFooter.css";
-import {} from "react-icons/pi";
+import useScreenWidth from "./useScreenWidth";
 
 const HomeFooter = () => {
+    const screenWidth = useScreenWidth();
     return (
-        <div className="home-footer-parent">
+        <div
+            className={
+                screenWidth > 800
+                    ? "home-footer-parent"
+                    : "home-footer-parent-mobile"
+            }
+        >
             <div className="home-footer-col">
                 <div>
                     <PiShoppingCartSimple
