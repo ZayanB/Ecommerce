@@ -25,7 +25,7 @@
 }
 
 .sign-out-button {
-    width: 97%;
+    width: 100%;
     transition: ease 500ms;
 }
 
@@ -39,9 +39,20 @@
     font-weight: bold;
 }
 
-
 .ant-card .ant-card-head {
     border-bottom: solid 1px rgba(128, 128, 128, 0.527);
     /* background-color: rgb(255, 219, 153); */
     background-color: rgb(255, 213, 135);
+}
+
+/* .menu-hover:hover {
+    color: orange;
+} */
+
+.ant-menu-title-content:hover {
+    color: orange;
+}
+
+.ant-menu-item-selected .ant-menu-title-content:hover {
+    color: white;
 }

@@ -35,7 +35,9 @@ const CartPanel = () => {
                 <RiShoppingCartLine size={22} className="cart-hover" />
                 <div>
                     {" "}
-                    {items.totalItemCount ? `Cart: ${items.totalItemCount}` : 0}
+                    {items.totalItemCount
+                        ? `Cart: ${items.totalItemCount}`
+                        : "Cart: 0"}
                 </div>
             </Button>
             <Drawer
