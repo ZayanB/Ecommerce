@@ -90,3 +90,40 @@
     width: 100%;
     justify-content: space-between;
 }
+
+.ant-radio-button-wrapper-checked {
+    color: orange !important;
+    border: solid 1px orange !important;
+}
+.ant-radio-button-wrapper:hover {
+    color: orange;
+    border: solid 1px orange !important;
+    transition: ease 200ms;
+}
+
+.ant-btn-primary.ant-btn-background-ghost:hover {
+    color: orange !important;
+    border-color: orange !important;
+}
+
+.place-order-button {
+    width: 100%;
+    height: 2.5rem;
+    margin-top: 1rem;
+}
+
+.place-order-button:hover {
+    color: orange;
+    border-color: orange;
+    transition: ease 200ms;
+}
+
+.checkout-total {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 2rem;
+}
+.ant-spin-dot-item {
+    color: orange;
+}

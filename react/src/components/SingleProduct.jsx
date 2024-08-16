@@ -137,6 +137,7 @@ const SingleProduct = () => {
                                     style={{
                                         height: "100%",
                                         width: "95%",
+                                        overflow: "hidden",
                                     }}
                                 >
                                     {product.image.map((img, index) => (
@@ -148,6 +149,7 @@ const SingleProduct = () => {
                                                 height: "100%",
                                                 width: "100%",
                                             }}
+                                            className="product-image-single"
                                         />
                                     ))}
                                 </div>
@@ -175,7 +177,9 @@ const SingleProduct = () => {
                                 </div>
                                 {/* <div> In Stock</div> */}
                             </div>
-                            <h2>{product.product_name}</h2>
+                            <h2 style={{ fontSize: "28px" }}>
+                                {product.product_name}
+                            </h2>
                             <ul
                                 className="single-product-list"
                                 style={{ paddingLeft: "0" }}

@@ -1,11 +1,7 @@
 import { React, useState } from "react";
 import axios from "../api/axios";
-import { Form, Input, Checkbox, Select, Spin, notification } from "antd";
-
-import { PiMoney } from "react-icons/pi";
-import { PiPaypalLogo } from "react-icons/pi";
-import { RiVisaLine } from "react-icons/ri";
-import { FaCcMastercard } from "react-icons/fa";
+import { Form, Input, Select, Spin, notification } from "antd";
+import "./CreateAddress.css";
 
 const CreateAddress = () => {
     const { Option } = Select;
@@ -260,6 +256,18 @@ const CreateAddress = () => {
         });
     };
 
+    const clearUserAddress = () => {
+        setUserAddress({
+            country: "",
+            state: "",
+            city: "",
+            street: "",
+            building: "",
+            zipCode: "",
+            label: "",
+        });
+    };
+
     const submitAddress = async () => {
         const token = localStorage.getItem("access_token");
         setLoading(true);
@@ -279,26 +287,26 @@ const CreateAddress = () => {
                     placement: "topRight",
                     duration: 2,
                 });
+                clearUserAddress();
             })
             .catch((error) => {
                 setLoading(false);
+                clearUserAddress();
                 if (error.response && error.response.status === 422) {
                     const errors = error.response.data.errors;
                     for (const field in errors) {
                         notification.error({
                             message: "Validation Error",
-                            description: `${field}: ${errors[field].join(
-                                ", "
-                            )}`,
+                            description: ` ${errors[field].join(", ")}`,
                             placement: "topRight",
                             duration: 2,
                         });
                     }
-                } else {
+                } else if (!token) {
                     notification.error({
                         message: "Error",
                         description:
-                            "An unexpected error occurred. Please try again later.",
+                            "User not authenticated. Please log in and try again later.",
                         placement: "topRight",
                         duration: 2,
                     });
@@ -408,8 +416,8 @@ const CreateAddress = () => {
                             </Form.Item>
                             <Form.Item>
                                 <button
-                                    style={{ width: "100%", height: "2rem" }}
                                     onClick={submitAddress}
+                                    className="submit-new-address-button"
                                 >
                                     Add Address
                                 </button>

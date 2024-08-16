@@ -11,8 +11,10 @@ use App\Models\OrderPayment;
 use App\Models\ShippingDetails;
 use App\Models\ShoppingCart;
 
-class OrderInfoController extends Controller {
-    public function createOrder(Request $request) {
+class OrderInfoController extends Controller
+{
+    public function createOrder(Request $request)
+    {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 
@@ -21,11 +23,17 @@ class OrderInfoController extends Controller {
 
         $cartItems = $shoppingCart->cartItem;
 
-        $validatedData = $request->validate([
-            'addressId' => 'required',
-            'shippingMethod' => 'required',
-            'paymentMethod' => 'required',
-        ]);
+        $validatedData = $request->validate(
+            [
+                'addressId' => 'required',
+                'shippingMethod' => 'required',
+                'paymentMethod' => 'required',
+            ],
+            [
+                'addressId.required' => 'Please select an address',
+                'paymentMethod.required' => 'Please select a payment method',
+            ]
+        );
 
         $orderAddress = OrderAddress::where('address_id', $validatedData['addressId'])->first();
         $orderAddressId = $orderAddress->order_address_id_pkey;
@@ -72,7 +80,8 @@ class OrderInfoController extends Controller {
     }
 
 
-    public function getOrderInfo() {
+    public function getOrderInfo()
+    {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 

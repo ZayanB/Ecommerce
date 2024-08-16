@@ -70,7 +70,6 @@ const BuyProduct = () => {
         addressId: "",
         shippingMethod: "5",
         paymentMethod: "",
-        cartId: "",
         total: "",
     });
     const productPrice = parseFloat(product.product_price);
@@ -232,10 +231,8 @@ const BuyProduct = () => {
                     const errors = error.response.data.errors;
                     for (const field in errors) {
                         notification.error({
-                            message: "Validation Error",
-                            description: `${field}: ${errors[field].join(
-                                ", "
-                            )}`,
+                            message: "Cannot Place Order!",
+                            description: ` ${errors[field].join(", ")}`,
                             placement: "topRight",
                             duration: 2,
                         });
@@ -315,6 +312,7 @@ const BuyProduct = () => {
                                                         transform:
                                                             "translateX(290px)",
                                                         marginBottom: "0.5rem",
+                                                        
                                                     }}
                                                 />
                                             ) : (
@@ -526,12 +524,8 @@ const BuyProduct = () => {
                                     </Flex>
                                     <Form.Item>
                                         <button
-                                            style={{
-                                                width: "100%",
-                                                height: "2.5rem",
-                                                marginTop: "1rem",
-                                            }}
                                             onClick={submitOrder}
+                                            className="place-order-button"
                                         >
                                             {buyLoading ? (
                                                 <Spin />
@@ -573,20 +567,24 @@ const BuyProduct = () => {
                                         <div>{product.product_name}</div>
                                     </div>
                                     <div>${product.product_price}</div>
-                                    <div>Subtotal</div>
-                                    <div>${product.product_price}</div>
-                                    <div>Shipping</div>
-                                    <div>${placeOrder.shippingMethod}</div>
-                                    <div style={{ fontWeight: "bold" }}>
-                                        Total
-                                    </div>
-                                    <div>
-                                        <span style={{ fontSize: "11px" }}>
-                                            USD
-                                        </span>{" "}
-                                        <span style={{ fontWeight: "bold" }}>
-                                            ${totalPrice}
-                                        </span>
+                                    <div style={{ marginTop: "2rem" }}>
+                                        <div>Subtotal</div>
+                                        <div>${product.product_price}</div>
+                                        <div>Shipping</div>
+                                        <div>${placeOrder.shippingMethod}</div>
+                                        <div style={{ fontWeight: "bold" }}>
+                                            Total
+                                        </div>
+                                        <div>
+                                            <span style={{ fontSize: "11px" }}>
+                                                USD
+                                            </span>{" "}
+                                            <span
+                                                style={{ fontWeight: "bold" }}
+                                            >
+                                                ${totalPrice}
+                                            </span>
+                                        </div>
                                     </div>
                                 </>
                             ) : (
@@ -626,27 +624,35 @@ const BuyProduct = () => {
                                             </>
                                         );
                                     })}
-                                    <div className="total-cart-shipping">
-                                        <div>Subtotal</div>
-                                        <div>${totalCartPrice}</div>
-                                    </div>
-                                    <div className="total-cart-shipping">
-                                        <div>Shipping</div>
-                                        <div>${placeOrder.shippingMethod}</div>
-                                    </div>
-                                    <div className="total-cart-shipping">
-                                        <div style={{ fontWeight: "bold" }}>
-                                            Total
+                                    <div className="checkout-total">
+                                        <div className="total-cart-shipping">
+                                            <div>Subtotal</div>
+                                            <div>${totalCartPrice}</div>
                                         </div>
-                                        <div>
-                                            <span style={{ fontSize: "11px" }}>
-                                                USD
-                                            </span>{" "}
-                                            <span
-                                                style={{ fontWeight: "bold" }}
-                                            >
-                                                ${totalCartePriceShipping}
-                                            </span>
+                                        <div className="total-cart-shipping">
+                                            <div>Shipping</div>
+                                            <div>
+                                                ${placeOrder.shippingMethod}
+                                            </div>
+                                        </div>
+                                        <div className="total-cart-shipping">
+                                            <div style={{ fontWeight: "bold" }}>
+                                                Total
+                                            </div>
+                                            <div>
+                                                <span
+                                                    style={{ fontSize: "11px" }}
+                                                >
+                                                    USD
+                                                </span>{" "}
+                                                <span
+                                                    style={{
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    ${totalCartePriceShipping}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </>

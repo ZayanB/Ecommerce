@@ -10,7 +10,7 @@ const CreateAddressPopUp = ({ isModalVisible, showModal, handleCancel }) => {
                 onClick={showModal}
                 // className="size-popup-style"
                 ghost="true"
-                style={{ color: "black", width: "100%" }}
+                style={{ color: "black", width: "auto" }}
             >
                 Add New Address
             </Button>

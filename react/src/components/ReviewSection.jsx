@@ -35,7 +35,7 @@ const ReviewSection = () => {
                         alt="photo"
                         className="review-image"
                     />
-                </div>  
+                </div>
                 {loading ? (
                     <Spinner />
                 ) : (
@@ -86,7 +86,10 @@ const ReviewSection = () => {
                                         </div>
                                     ))
                                 ) : (
-                                    <div>No reviews</div>
+                                    <>
+                                        {" "}
+                                        <Spinner />
+                                    </>
                                 )}
                             </Carousel>
                             <div className="custom-dots">

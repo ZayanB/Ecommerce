@@ -7,9 +7,11 @@ use Illuminate\Support\Facades\Auth;
 
 use Illuminate\Http\Request;
 
-class UserAddressController extends Controller {
+class UserAddressController extends Controller
+{
 
-    public function getAddress() {
+    public function getAddress()
+    {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 
@@ -18,7 +20,8 @@ class UserAddressController extends Controller {
         return response()->json($address);
     }
 
-    public function addAddress(Request $request) {
+    public function addAddress(Request $request)
+    {
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 
@@ -30,6 +33,14 @@ class UserAddressController extends Controller {
             'building' => 'required',
             'label' => 'required',
             'zipCode' => 'required'
+        ], [
+            'country.required' => 'Please select a country',
+            'state.required' => 'Please enter a state',
+            'city.required' => 'Please enter a city',
+            'street.required' => 'Please enter a street',
+            'building.required' => 'Please enter a building',
+            'label.required' => 'Please enter a label',
+            'zipCode.required' => 'Please enter a Zip Code',
         ]);
 
         try {

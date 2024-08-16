@@ -16,7 +16,7 @@ import {
     PiCaretDown,
 } from "react-icons/pi";
 import { useCart } from "../../Contexts/CartContext";
-import { Select } from "antd";
+import { Select, Tag } from "antd";
 const { Option } = Select;
 
 const ProductsPage = ({ product }) => {
@@ -77,9 +77,16 @@ const ProductsPage = ({ product }) => {
         setFilters({});
     };
 
+    // const clearSort = () => {
+    //     setFilters((prevState) => ({
+    //         ...prevState,
+    //         sort: null, // or whatever the default value is for sort
+    //     }));
+    // };
+
     useEffect(() => {
         const fetchProducts = async () => {
-            console.log(filters);
+            //console.log(filters);
             try {
                 let url = `/test?`;
 
@@ -97,7 +104,7 @@ const ProductsPage = ({ product }) => {
 
                 const response = await axios.get(url);
                 setProducts(response.data);
-                console.log(response.data);
+                // console.log(response.data);
             } catch (error) {
                 setError(error.message);
             } finally {
@@ -287,16 +294,31 @@ const ProductsPage = ({ product }) => {
                             />
                         </div>
                     </div>
+                    {/* <div style={{ marginLeft: "550px" }}>
+                        {filters.sort && (
+                            <Tag
+                                closable
+                                onClose={clearSort}
+                                style={{
+                                    height: "32px",
+                                    marginTop: "1px",
+                                    paddingTop: "4px",
+                                }}
+                            >
+                                {filters.sort}
+                            </Tag>
+                        )}
+                    </div> */}
                     <div style={{ cursor: "pointer", marginRight: "20px" }}>
                         <Select
-                            defaultValue="az"
+                            defaultValue="A-Z"
                             onChange={onSortClicked}
                             style={{ width: 240 }}
                         >
-                            <Option value="az">
+                            <Option value="A-Z">
                                 SORT BY ALPHABETICALLY, A-Z
                             </Option>
-                            <Option value="za">
+                            <Option value="Z-A">
                                 SORT BY ALPHABETICALLY, Z-A
                             </Option>
                             <Option value="priceLowHigh">
