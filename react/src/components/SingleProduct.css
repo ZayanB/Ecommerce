@@ -169,3 +169,11 @@ ul li {
     background-color: black;
     transition: ease 500ms;
 }
+
+.product-image-single {
+    transition: transform 2s ease;
+}
+
+.product-image-single:hover {
+    transform: scale(1.2); /* Scale the image to 1.2 times its original size */
+}

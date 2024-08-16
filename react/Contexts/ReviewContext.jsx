@@ -55,12 +55,11 @@ const ReviewsProvider = ({ children }) => {
             fetchReviews();
         } catch (error) {
             if (error.response && error.response.data.errors) {
-                errorMessage = Object.values(error.response.data.errors).join(
-                    ", "
-                );
                 notification.error({
                     message: "Error",
-                    description: errorMessage,
+                    description: Object.values(error.response.data.errors).join(
+                        ", "
+                    ),
                     placement: "topRight",
                     duration: 2,
                 });

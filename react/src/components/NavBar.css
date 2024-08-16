@@ -44,6 +44,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+<<<<<<< HEAD
+    /* align-items: flex-start; */
+=======
+>>>>>>> 947395c5842162fd07ced13d88b08f3c2b0320b4
     gap: 5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;

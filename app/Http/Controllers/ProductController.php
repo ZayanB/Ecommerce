@@ -45,10 +45,10 @@ class ProductController extends Controller
         if ($request->has('sort')) {
             $sort = $request->input('sort');
             switch ($sort) {
-                case 'az':
+                case 'A-Z':
                     $products->orderBy('product_name', 'asc');
                     break;
-                case 'za':
+                case 'Z-A':
                     $products->orderBy('product_name', 'desc');
                     break;
                 case 'priceLowHigh':

@@ -15,7 +15,7 @@
 }
 
 .review-image:hover {
-    transform: scale(1.2); /* Scale the image to 1.2 times its original size */
+    transform: scale(1.2);
 }
 
 .carousel-page {

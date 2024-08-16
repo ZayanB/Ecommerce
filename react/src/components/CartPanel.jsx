@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import { Drawer, Button } from "antd";
+import { PiXCircle, PiShoppingCart } from "react-icons/pi";
+import axios from "../api/axios";
 import { RiShoppingCartLine } from "react-icons/ri";
-import { PiXCircle } from "react-icons/pi";
-
 import "./CartPanel.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";

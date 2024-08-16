@@ -65,7 +65,7 @@ const HomeDropDown = () => {
                             <li>SHOP</li>
                         </NavLink>
                         <NavLink className="dropdown-categories">
-                                <li>OUR FAVORITES</li>
+                            <li>OUR FAVORITES</li>
                         </NavLink>
 
                         <NavLink
@@ -107,12 +107,7 @@ const HomeDropDown = () => {
                                                                         : "https://cleversoft-moleez.myshopify.com/cdn/shop/products/moleez-product-2a.jpg?v=1524713950"
                                                                 }
                                                                 alt="product"
-                                                                style={{
-                                                                    width: "100%",
-                                                                    height: "100%",
-                                                                    transform:
-                                                                        "scale(0.9)",
-                                                                }}
+                                                                className="dropdown-product-image"
                                                             />
                                                         </Link>
                                                     </div>
@@ -147,14 +142,12 @@ const HomeDropDown = () => {
                                                         style={{
                                                             marginBottom:
                                                                 "0rem",
+                                                            fontSize: "20px",
+                                                            fontWeight: "500",
                                                         }}
                                                         key={index}
                                                     >
-                                                        <strong>
-                                                            {
-                                                                product.product_name
-                                                            }
-                                                        </strong>
+                                                        {product.product_name}
                                                     </p>
                                                     <p
                                                         style={{

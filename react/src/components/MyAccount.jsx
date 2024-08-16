@@ -105,7 +105,7 @@ const MyAccount = () => {
                     }
                 );
 
-                console.log("Fetched OrderInfo Data:", response.data);
+                // console.log("Fetched OrderInfo Data:", response.data);
 
                 setOrderInfo(response.data);
             } catch (error) {
@@ -153,7 +153,7 @@ const MyAccount = () => {
 
     return (
         <Layout style={{ minHeight: "100vh" }}>
-            <Sider>
+            <Sider style={{ padding: "1rem 0.5rem 0 0.5rem" }}>
                 <Menu
                     theme="dark"
                     // color="black"
@@ -225,9 +225,16 @@ const MyAccount = () => {
                                                                 <strong>
                                                                     First Name:
                                                                 </strong>{" "}
-                                                                {
-                                                                    userInfo.user_first_name
-                                                                }
+                                                                <span
+                                                                    style={{
+                                                                        textTransform:
+                                                                            "capitalize",
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        userInfo.user_first_name
+                                                                    }
+                                                                </span>
                                                             </Card>
                                                         </Col>
                                                         <Col span={12}>
@@ -237,9 +244,16 @@ const MyAccount = () => {
                                                                 <strong>
                                                                     Last Name:
                                                                 </strong>{" "}
-                                                                {
-                                                                    userInfo.user_last_name
-                                                                }
+                                                                <span
+                                                                    style={{
+                                                                        textTransform:
+                                                                            "capitalize",
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        userInfo.user_last_name
+                                                                    }
+                                                                </span>
                                                             </Card>
                                                         </Col>
 
@@ -301,6 +315,7 @@ const MyAccount = () => {
                                                             width: 300,
                                                             textTransform:
                                                                 "capitalize",
+                                                            border: "solid 1px rgba(128, 128, 128, 0.527)",
                                                         }}
                                                         key={index}
                                                         value={
@@ -369,6 +384,7 @@ const MyAccount = () => {
                                                                     }
                                                                     style={{
                                                                         width: 350,
+                                                                        border: "solid 1px rgba(128, 128, 128, 0.527)",
                                                                     }}
                                                                     value={
                                                                         order.order_id_pkey
@@ -402,17 +418,46 @@ const MyAccount = () => {
                                                                                     className="order-item-summary"
                                                                                 >
                                                                                     <p>
-                                                                                        Product
-                                                                                        Name:{" "}
+                                                                                        <span
+                                                                                            style={{
+                                                                                                fontWeight:
+                                                                                                    "620",
+                                                                                            }}
+                                                                                        >
+                                                                                            Product
+                                                                                            Name:{" "}
+                                                                                        </span>
                                                                                         {
                                                                                             item.name
                                                                                         }
                                                                                     </p>
                                                                                     <p>
-                                                                                        Price:
+                                                                                        <span
+                                                                                            style={{
+                                                                                                fontWeight:
+                                                                                                    "620",
+                                                                                            }}
+                                                                                        >
+                                                                                            Price
+                                                                                            per
+                                                                                            unit:
+                                                                                        </span>{" "}
                                                                                         $
                                                                                         {
                                                                                             item.price
+                                                                                        }
+                                                                                    </p>
+                                                                                    <p>
+                                                                                        <span
+                                                                                            style={{
+                                                                                                fontWeight:
+                                                                                                    "620",
+                                                                                            }}
+                                                                                        >
+                                                                                            Quantity:{" "}
+                                                                                        </span>
+                                                                                        {
+                                                                                            item.quantity
                                                                                         }
                                                                                     </p>
                                                                                 </div>

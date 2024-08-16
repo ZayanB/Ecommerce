@@ -3,10 +3,10 @@ import "./FeaturedProducts.css";
 import axios from "../api/axios";
 import { useState, useEffect } from "react";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
-import Spinner from "./Spinner";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
 import { PiScales, PiHeart, PiEye, PiBag } from "react-icons/pi";
+import Spinner from "./Spinner";
 
 const FeaturedProducts = ({ product }) => {
     const [products, setProducts] = useState([]);
