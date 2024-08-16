@@ -82,7 +82,6 @@ const ProductsPage = ({ product }) => {
             try {
                 let url = `/test?`;
 
-                console.log("testttt");
                 if (filters?.categoryId) {
                     url += `categoryId=${filters.categoryId}&`;
                 }
@@ -121,87 +120,6 @@ const ProductsPage = ({ product }) => {
 
         fetchCategories();
     }, []);
-
-    // useEffect( () => {
-    //     if (location.state) {
-    //         setFilters((prevState) => ({
-    //             ...prevState,
-    //             sort: data.sort,
-    //         }));
-    //     }
-    // }, [])
-
-    const [cartItem, setCartItem] = useState({
-        productid: "",
-        productprice: "",
-    });
-
-    const handleSubmit = async (cartItem, token) => {
-        try {
-            const response = await axios.post(
-                "http://127.0.0.1:8000/api/createItem",
-                cartItem,
-                {
-                    headers: {
-                        Accept: "application/json",
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
-            notification.success({
-                message: "Success",
-                description: "Item added to cart successfully!",
-                placement: "topRight",
-                duration: 2,
-            });
-        } catch (error) {
-            notification.error({
-                message: "Error",
-                description: "Cannot add item to cart",
-                placement: "topRight",
-                duration: 2,
-            });
-        }
-    };
-
-    const addToCart = (productid, productprice) => {
-        return new Promise((resolve, reject) => {
-            const token = localStorage.getItem("access_token");
-
-            if (!token) {
-                notification.error({
-                    message: "Error",
-                    description: "Cannot add item to cart",
-                    placement: "topRight",
-                    duration: 2,
-                });
-                reject("User not authenticated");
-                return;
-            }
-
-            const newCartItem = {
-                productid: productid,
-                productprice: productprice,
-            };
-
-            setCartItem(newCartItem);
-            resolve({ cartItem: newCartItem, token });
-        });
-    };
-
-    // const handleClick = async (productid, productprice) => {
-    //     try {
-    //         const { cartItem, token } = await addToCart(
-    //             productid,
-    //             productprice
-    //         );
-    //         handleSubmit(cartItem, token);
-    //     } catch (error) {
-    //         console.error("Error adding item to cart:", error);
-    //     }
-    // };
-
-    if (error) return <p>Error: {error}</p>;
 
     const isNewProduct = (createdAt) => {
         const createdDate = parseISO(createdAt);

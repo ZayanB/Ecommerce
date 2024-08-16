@@ -9,7 +9,8 @@ import AskAboutPopUp from "./AskAboutPopUp";
 import Spinner from "./Spinner";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import { PiTruckLight } from "react-icons/pi";
-import { useLocation } from "react-router-dom";
+import { useCart } from "../../Contexts/CartContext";
+import { ReviewsContext } from "../../Contexts/ReviewContext";
 
 const SingleProduct = () => {
     const { productId } = useParams();
