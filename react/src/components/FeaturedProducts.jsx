@@ -5,13 +5,8 @@ import { useState, useEffect } from "react";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
+import { PiScales, PiHeart, PiEye, PiBag } from "react-icons/pi";
 import Spinner from "./Spinner";
-import {
-    PiScales,
-    PiHeart,
-    PiEye,
-    PiBag,
-} from "react-icons/pi";
 
 const FeaturedProducts = ({ product }) => {
     const [products, setProducts] = useState([]);

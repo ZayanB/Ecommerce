@@ -5,16 +5,13 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import CartPanel from "./CartPanel";
 import useScreenWidth from "./useScreenWidth";
-import { PiUserCircle, PiScales } from "react-icons/pi";
+import { PiScales } from "react-icons/pi";
+import UserDropDown from "./UserDropDown";
 
 const NavBar = () => {
     const [hoverDrop, setHoverDrop] = useState(true);
     const onMouseOver = () => setHoverDrop(true);
     const onMouseLeave = () => setHoverDrop(false);
-
-    const [signDrop, setSignDrop] = useState(false);
-    const onSignOver = () => setSignDrop(true);
-    const onSignLeave = () => setSignDrop(false);
 
     const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
 
@@ -82,49 +79,9 @@ const NavBar = () => {
                 </div>
             </div>
 
-            <div id="XYZ" onMouseLeave={onSignLeave}>
+            <div>
                 <div className="navbar-addToCart">
-                    <div onMouseOver={onSignOver} className="dropdown">
-                        <div>
-                            <PiUserCircle className="CartHover" />
-                        </div>
-                        <div
-                            onMouseOver={onSignOver}
-                            onMouseLeave={onSignLeave}
-                            className={`dropdown-content ${
-                                signDrop ? "d-block" : ""
-                            }`}
-                        >
-                            <ul>
-                                <li>My Wishlist</li>
-                                <li>Checkout</li>
-                                <li>
-                                    <NavLink
-                                        className={"signIn-drop"}
-                                        to="/MyAccount"
-                                    >
-                                        My Account
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        className="signIn-drop"
-                                        to="/signIn"
-                                    >
-                                        Sign In
-                                    </NavLink>
-                                </li>
-                                <li>
-                                    <NavLink
-                                        className="signIn-drop"
-                                        to="/createAcc"
-                                    >
-                                        Create Account
-                                    </NavLink>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
+                    <UserDropDown />
                     <div>
                         <PiScales className="CartHover" />
                     </div>

@@ -44,7 +44,10 @@
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+<<<<<<< HEAD
     /* align-items: flex-start; */
+=======
+>>>>>>> 947395c5842162fd07ced13d88b08f3c2b0320b4
     gap: 5rem;
     margin-top: 1rem;
     margin-bottom: 1rem;
@@ -137,6 +140,139 @@
 }
 
 .signIn-drop:hover {
+    color: orange;
+}
+
+.nav-active {
+    color: orange;
+}
+.nav-active:hover {
+    color: orange;
+}
+
+.nav-non {
+    color: black;
+}
+
+.nav-non:hover {
+    color: orange;
+}
+.MainContainerNavBar-desktop-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    align-items: center;
+    overflow: visible;
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    font-size: 24px;
+}
+
+.MainContainerNavBar-mobile-nav {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    background-color: whitesmoke;
+    color: black;
+    width: 100%;
+    align-items: center;
+    overflow: visible;
+    height: 12vh;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+.ShopName-desktop {
+    display: flex;
+    margin-right: 1rem;
+    margin-left: 1.5rem;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 45px;
+}
+.ShopName-desktop {
+    display: flex;
+    align-self: center;
+}
+.ListContainer-desktop-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    gap: 5rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    margin-right: 15rem;
+    flex: 1;
+    height: 100%;
+}
+.ListContainer-mobile-list {
+    display: none;
+}
+
+.arrowDown {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    cursor: pointer;
+}
+
+.arrowDown:hover {
+    color: orange;
+}
+
+.navbar-addToCart {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    margin-right: 0.5rem;
+}
+.CartHover:hover {
+    color: orange;
+    cursor: pointer;
+}
+
+.cartFont {
+    font-size: 15px;
+    margin-left: 0rem;
+    margin-bottom: 0.5rem;
+    margin-top: 0.5rem;
+    margin-right: 2rem;
+}
+
+.dropDownContent {
+    display: none;
+    position: absolute;
+    z-index: 1;
+    transform: translate(-32%, 52%);
+    width: 98%;
+    overflow: hidden;
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.d-block {
+    display: block !important;
+}
+
+.dropdown-content ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-content ul li {
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.dropdown-content ul li:hover {
     color: orange;
 }
 

@@ -16,14 +16,15 @@ import {
     PiCaretDown,
 } from "react-icons/pi";
 import { useCart } from "../../Contexts/CartContext";
-
+import { Select } from "antd";
+const { Option } = Select;
 
 const ProductsPage = ({ product }) => {
     const [menu, setMenu] = useState(false);
     const [menuSize, setMenuSize] = useState(false);
     const location = useLocation();
     const data = location.state;
-    console.log(data);
+    // console.log(data);
 
     const onMenuClick = () => setMenu(!menu);
     const onMenuSizeClick = () => setMenuSize(!menuSize);
@@ -148,9 +149,9 @@ const ProductsPage = ({ product }) => {
 
     return (
         <div className="productsMainContainer">
-            <div style={{ marginTop: "2rem" }}>
-                <ul className="filter-panel">
-                    <li
+            <div className="products-sidebar">
+                <div className="filter-panel">
+                    <div
                         className={
                             filters.categoryName || filters.size
                                 ? "show-filters"
@@ -168,8 +169,8 @@ const ProductsPage = ({ product }) => {
                                     </div>
                                 ))}
                         </div>
-                    </li>
-                    <li
+                    </div>
+                    <div
                         className={
                             filters.categoryName || filters.size
                                 ? "show-filters"
@@ -179,14 +180,14 @@ const ProductsPage = ({ product }) => {
                         onClick={clearFilter}
                     >
                         <div className="clear-filter-box">CLEAR FILTER</div>
-                    </li>
-                    <li
+                    </div>
+                    <div
                         style={{
                             cursor: "pointer",
                         }}
                     >
                         COLLECTIONS <PiCaretDown onClick={onMenuClick} />
-                        <ul
+                        <div
                             className={
                                 menu
                                     ? "collectionContent"
@@ -194,8 +195,9 @@ const ProductsPage = ({ product }) => {
                             }
                         >
                             {categories.map((category, index) => (
-                                <li
+                                <div
                                     key={index}
+                                    className="sidebar-categories"
                                     onClick={() =>
                                         onCategoryClicked(
                                             category.category_id_pkey,
@@ -204,29 +206,56 @@ const ProductsPage = ({ product }) => {
                                     }
                                 >
                                     {category.category_name}
-                                </li>
+                                </div>
                             ))}
-                        </ul>
-                    </li>
-                    <li
+                        </div>
+                    </div>
+                    <div
                         style={{
                             cursor: "pointer",
                         }}
                     >
                         SIZE <PiCaretDown onClick={onMenuSizeClick} />
-                        <ul
+                        <div
                             className={
-                                menuSize ? "sizeContent" : "sizeContent-hidden"
+                                menuSize
+                                    ? "collectionContent"
+                                    : "collectionContent-hidden"
                             }
                         >
-                            <li onClick={() => onSizesClicked("XS")}>XS</li>
-                            <li onClick={() => onSizesClicked("S")}>S</li>
-                            <li onClick={() => onSizesClicked("M")}>M</li>
-                            <li onClick={() => onSizesClicked("L")}>L</li>
-                            <li onClick={() => onSizesClicked("XL")}>XL</li>
-                        </ul>
-                    </li>
-                </ul>
+                            <div
+                                className="sidebar-categories"
+                                onClick={() => onSizesClicked("XS")}
+                            >
+                                XS
+                            </div>
+                            <div
+                                className="sidebar-categories"
+                                onClick={() => onSizesClicked("S")}
+                            >
+                                S
+                            </div>
+                            <div
+                                className="sidebar-categories"
+                                onClick={() => onSizesClicked("M")}
+                            >
+                                M
+                            </div>
+                            <div
+                                className="sidebar-categories"
+                                onClick={() => onSizesClicked("L")}
+                            >
+                                L
+                            </div>
+                            <div
+                                className="sidebar-categories"
+                                onClick={() => onSizesClicked("XL")}
+                            >
+                                XL
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="rowColProd">
                 <div className="category-Name">
@@ -238,7 +267,10 @@ const ProductsPage = ({ product }) => {
                         <div>
                             <PiSquaresFour
                                 size={30}
-                                style={{ cursor: "pointer" }}
+                                style={{
+                                    cursor: "pointer",
+                                    transform: "translateY(3px)",
+                                }}
                                 onClick={onGridClick}
                                 color={view == "grid" ? "black" : "gray"}
                             />
@@ -246,33 +278,40 @@ const ProductsPage = ({ product }) => {
                         <div>
                             <PiList
                                 size={30}
-                                style={{ cursor: "pointer" }}
+                                style={{
+                                    cursor: "pointer",
+                                    transform: "translateY(2px)",
+                                }}
                                 onClick={onListClick}
                                 color={view == "list" ? "black" : "gray"}
                             />
                         </div>
                     </div>
                     <div style={{ cursor: "pointer", marginRight: "20px" }}>
-                        <select onChange={(e) => onSortClicked(e.target.value)}>
-                            <option value="az">
-                                SORT BY ALPHABETICALLY,A-Z
-                            </option>
-                            <option value="za">
-                                SORT BY ALPHABETICALLY,Z-A
-                            </option>
-                            <option value="priceLowHigh">
+                        <Select
+                            defaultValue="az"
+                            onChange={onSortClicked}
+                            style={{ width: 240 }}
+                        >
+                            <Option value="az">
+                                SORT BY ALPHABETICALLY, A-Z
+                            </Option>
+                            <Option value="za">
+                                SORT BY ALPHABETICALLY, Z-A
+                            </Option>
+                            <Option value="priceLowHigh">
                                 SORT BY PRICE: LOW TO HIGH
-                            </option>
-                            <option value="priceHighLow">
+                            </Option>
+                            <Option value="priceHighLow">
                                 SORT BY PRICE: HIGH TO LOW
-                            </option>
-                            <option value="dateOldNew">
+                            </Option>
+                            <Option value="dateOldNew">
                                 SORT BY DATE: OLD TO NEW
-                            </option>
-                            <option value="dateNewOld">
+                            </Option>
+                            <Option value="dateNewOld">
                                 SORT BY DATE: NEW TO OLD
-                            </option>
-                        </select>
+                            </Option>
+                        </Select>
                     </div>
                 </div>
                 <div className="rowProductContainer">
@@ -293,155 +332,175 @@ const ProductsPage = ({ product }) => {
                                                     : "allProducts-grid"
                                             }
                                         >
-                                            <figure
+                                            <div
                                                 className={
                                                     view == "list"
                                                         ? "productFigureContainerList"
                                                         : "productFigureContainerGrid"
                                                 }
                                             >
-                                                <div className="product-card">
+                                                <div
+                                                    className={
+                                                        view == "list"
+                                                            ? "image-caption-list"
+                                                            : "image-caption-grid"
+                                                    }
+                                                >
                                                     <div
                                                         className={
                                                             view == "list"
-                                                                ? "image-list"
-                                                                : "image-grid"
+                                                                ? "product-card-list"
+                                                                : "product-card"
                                                         }
                                                     >
-                                                        <Link
-                                                            to={`/allProducts/${product.product_id_pkey}`}
-                                                        >
-                                                            <img
-                                                                key={index}
-                                                                src={
-                                                                    product.image &&
-                                                                    product
-                                                                        .image
-                                                                        .length >
-                                                                        0
-                                                                        ? product
-                                                                              .image[0]
-                                                                              .image_url
-                                                                        : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
-                                                                }
-                                                                alt="photo"
-                                                                style={{
-                                                                    width: "100%",
-                                                                    height: "100%",
-                                                                }}
-                                                            />
-                                                        </Link>
-                                                    </div>
-                                                    <div className="overlayButtons">
-                                                        <button className="overlayButton">
-                                                            <PiEye className="overlayIcons" />
-                                                        </button>
-                                                        <button className="overlayButton">
-                                                            <PiHeart className="overlayIcons" />
-                                                        </button>
-                                                        <button className="overlayButton">
-                                                            <PiScales className="overlayIcons" />
-                                                        </button>
-                                                    </div>
-                                                    <div className="addToCart">
-                                                        <button
-                                                            className="addToCart"
-                                                            onClick={() =>
-                                                                handleClick(
-                                                                    product
-                                                                )
-                                                            }
-                                                        >
-                                                            <div className="overlayCart">
-                                                                <PiBag
-                                                                    size={20}
-                                                                />
-                                                            </div>
-                                                            ADD TO CART
-                                                        </button>
-                                                    </div>
-                                                    <div className="statusContainer">
                                                         <div
-                                                            key={index}
                                                             className={
-                                                                product.product_sale
-                                                                    ? "saleContainer"
-                                                                    : "saleContainer-hidden"
+                                                                view == "list"
+                                                                    ? "image-list"
+                                                                    : "image-grid"
                                                             }
                                                         >
-                                                            SALE
+                                                            <Link
+                                                                to={`/allProducts/${product.product_id_pkey}`}
+                                                            >
+                                                                <img
+                                                                    key={index}
+                                                                    src={
+                                                                        product.image &&
+                                                                        product
+                                                                            .image
+                                                                            .length >
+                                                                            0
+                                                                            ? product
+                                                                                  .image[0]
+                                                                                  .image_url
+                                                                            : "https://png.pngtree.com/png-vector/20190820/ourmid/pngtree-no-image-vector-illustration-isolated-png-image_1694547.jpg"
+                                                                    }
+                                                                    alt="photo"
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        height: "100%",
+                                                                    }}
+                                                                />
+                                                            </Link>
+                                                        </div>
+                                                        <div className="overlayButtons">
+                                                            <button className="overlayButton">
+                                                                <PiEye className="overlayIcons" />
+                                                            </button>
+                                                            <button className="overlayButton">
+                                                                <PiHeart className="overlayIcons" />
+                                                            </button>
+                                                            <button className="overlayButton">
+                                                                <PiScales className="overlayIcons" />
+                                                            </button>
+                                                        </div>
+                                                        <div className="addToCart">
+                                                            <button
+                                                                className="addToCart"
+                                                                onClick={() =>
+                                                                    handleClick(
+                                                                        product
+                                                                    )
+                                                                }
+                                                            >
+                                                                <div className="overlayCart">
+                                                                    <PiBag
+                                                                        size={
+                                                                            20
+                                                                        }
+                                                                    />
+                                                                </div>
+                                                                ADD TO CART
+                                                            </button>
+                                                        </div>
+                                                        <div className="statusContainer">
+                                                            <div
+                                                                key={index}
+                                                                className={
+                                                                    product.product_sale
+                                                                        ? "saleContainer"
+                                                                        : "saleContainer-hidden"
+                                                                }
+                                                            >
+                                                                SALE
+                                                            </div>
+                                                            <div
+                                                                key={index}
+                                                                className={
+                                                                    isNewProduct(
+                                                                        product.created_at
+                                                                    )
+                                                                        ? "newContainer"
+                                                                        : "newContainer-hidden"
+                                                                }
+                                                            >
+                                                                NEW
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            view == "list"
+                                                                ? "price-size-list"
+                                                                : "price-size-grid"
+                                                        }
+                                                    >
+                                                        <div
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                            }}
+                                                            key={index}
+                                                        >
+                                                            {
+                                                                product.product_name
+                                                            }
+                                                        </div>
+                                                        <div
+                                                            className={
+                                                                view == "list"
+                                                                    ? "description-list"
+                                                                    : "description-grid"
+                                                            }
+                                                        >
+                                                            {
+                                                                product.product_description
+                                                            }
+                                                        </div>
+                                                        <div key={index}>
+                                                            $
+                                                            {
+                                                                product.product_price
+                                                            }
                                                         </div>
                                                         <div
                                                             key={index}
                                                             className={
-                                                                isNewProduct(
-                                                                    product.created_at
-                                                                )
-                                                                    ? "newContainer"
-                                                                    : "newContainer-hidden"
+                                                                sizes.length ===
+                                                                0
+                                                                    ? "sizeOptions-hidden"
+                                                                    : "sizeOptions"
                                                             }
                                                         >
-                                                            NEW
+                                                            {sizes.map(
+                                                                (
+                                                                    size,
+                                                                    sizeIndex
+                                                                ) => (
+                                                                    <button
+                                                                        key={
+                                                                            sizeIndex
+                                                                        }
+                                                                    >
+                                                                        {size}
+                                                                    </button>
+                                                                )
+                                                            )}
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <figcaption
-                                                    className={
-                                                        view == "list"
-                                                            ? "figCapList"
-                                                            : "figCapGrid"
-                                                    }
-                                                >
-                                                    <h3
-                                                        style={{
-                                                            marginBottom:
-                                                                "0rem",
-                                                        }}
-                                                        key={index}
-                                                    >
-                                                        {product.product_name}
-                                                    </h3>
-                                                    <p
-                                                        style={{
-                                                            textAlign: "left",
-                                                        }}
-                                                        className={
-                                                            view == "list"
-                                                                ? "prod-description"
-                                                                : "prod-description-hidden"
-                                                        }
-                                                    >
-                                                        {
-                                                            product.product_description
-                                                        }
-                                                    </p>
-                                                    <p key={index}>
-                                                        ${product.product_price}
-                                                    </p>
-                                                    <div
-                                                        className={
-                                                            sizes.length === 0
-                                                                ? "sizeOptions-hidden"
-                                                                : "sizeOptions"
-                                                        }
-                                                    >
-                                                        {sizes.map(
-                                                            (
-                                                                size,
-                                                                sizeIndex
-                                                            ) => (
-                                                                <button
-                                                                    key={
-                                                                        sizeIndex
-                                                                    }
-                                                                >
-                                                                    {size}
-                                                                </button>
-                                                            )
-                                                        )}
-                                                    </div>
-                                                </figcaption>
-                                            </figure>
+                                            </div>
                                         </div>
                                     );
                                 })
