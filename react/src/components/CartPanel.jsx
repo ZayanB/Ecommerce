@@ -6,8 +6,10 @@ import { RiShoppingCartLine } from "react-icons/ri";
 import "./CartPanel.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
+import useScreenWidth from "./useScreenWidth";
 
 const CartPanel = () => {
+    const screenWidth = useScreenWidth();
     const [visible, setVisible] = useState(false);
 
     const { items, handleRemoveItem } = useCart();
@@ -33,7 +35,7 @@ const CartPanel = () => {
                 className="cart-button"
             >
                 <RiShoppingCartLine size={22} className="cart-hover" />
-                <div>
+                <div className={screenWidth>800?"":"cart-qty-hide"}>
                     {" "}
                     {items.totalItemCount
                         ? `Cart: ${items.totalItemCount}`
@@ -41,6 +43,7 @@ const CartPanel = () => {
                 </div>
             </Button>
             <Drawer
+                s
                 title={
                     items.totalItemCount
                         ? `My Cart (${items.totalItemCount})`

@@ -7,10 +7,18 @@ import {
     FaYoutube,
 } from "react-icons/fa";
 import { FaXTwitter } from "react-icons/fa6";
+import useScreenWidth from "./useScreenWidth";
 const Footer = () => {
+    const screenWidth = useScreenWidth();
     return (
         <div className="footer-parent">
-            <div className="footer-main-container">
+            <div
+                className={
+                    screenWidth > 800
+                        ? "footer-main-container"
+                        : "footer-main-container-mobile"
+                }
+            >
                 <div className="footer-store">
                     <ul>
                         <span style={{ fontWeight: "600" }}>STORE</span>
@@ -42,7 +50,11 @@ const Footer = () => {
                                     <input
                                         type="email"
                                         placeholder="Enter Your Email Address"
-                                        className="subscribe-email"
+                                        className={
+                                            screenWidth > 800
+                                                ? "subscribe-email"
+                                                : "subscribe-email-mobile"
+                                        }
                                     />
                                 </div>
                                 <div>
@@ -98,7 +110,13 @@ const Footer = () => {
                     </ul>
                 </div>
             </div>
-            <div className="footer-copyright">
+            <div
+                className={
+                    screenWidth > 800
+                        ? "footer-copyright"
+                        : "footer-copyright-mobile"
+                }
+            >
                 Copyright © 2019 ZooTemplate. All rights reserved.
             </div>
         </div>

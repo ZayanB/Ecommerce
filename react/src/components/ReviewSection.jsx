@@ -4,8 +4,10 @@ import { Carousel } from "antd";
 import { FaRegCircle } from "react-icons/fa";
 import { ReviewsContext } from "../../Contexts/ReviewContext";
 import Spinner from "./Spinner";
+import useScreenWidth from "./useScreenWidth";
 
 const ReviewSection = () => {
+    const screenWidth = useScreenWidth();
     const [currentSlide, setCurrentSlide] = useState(0);
     const carouselRef = React.useRef(null);
     const [loading, setLoading] = useState(true);
@@ -28,8 +30,20 @@ const ReviewSection = () => {
 
     return (
         <section id="reviews-section">
-            <div className="review-section-parent">
-                <div className="review-section-image">
+            <div
+                className={
+                    screenWidth > 800
+                        ? "review-section-parent"
+                        : "review-section-parent-mobile"
+                }
+            >
+                <div
+                    className={
+                        screenWidth > 800
+                            ? "review-section-image"
+                            : "review-section-image-mobile"
+                    }
+                >
                     <img
                         src="https://cleversoft-moleez.myshopify.com/cdn/shop/files/moleez-img-80_2048x.jpg?v=1613753272"
                         alt="photo"
@@ -42,7 +56,10 @@ const ReviewSection = () => {
                     <>
                         <div
                             className="review-feedback"
-                            style={{ width: "50%", height: "100%" }}
+                            style={{
+                                width: screenWidth > 800 ? "50%" : "100%",
+                                height: "100%",
+                            }}
                         >
                             <Carousel
                                 style={{ width: "100%", height: "100%" }}
@@ -56,13 +73,23 @@ const ReviewSection = () => {
                                 state.reviews.length > 0 ? (
                                     state.reviews.map((review, index) => (
                                         <div key={index}>
-                                            <div className="contentStyle">
+                                            <div
+                                                className={
+                                                    screenWidth > 800
+                                                        ? "contentStyle"
+                                                        : "contentStyle-mobile"
+                                                }
+                                            >
                                                 <div className="carousel-text">
                                                     {
                                                         review.product_review_description
                                                     }
                                                 </div>
-                                                <div>
+                                                <div
+                                                    style={{
+                                                        textAlign: "center",
+                                                    }}
+                                                >
                                                     <span
                                                         style={{
                                                             textTransform:
@@ -92,7 +119,13 @@ const ReviewSection = () => {
                                     </>
                                 )}
                             </Carousel>
-                            <div className="custom-dots">
+                            <div
+                                className={
+                                    screenWidth > 800
+                                        ? "custom-dots"
+                                        : "custom-dots-mobile"
+                                }
+                            >
                                 {[0, 1, 2].map((index) => (
                                     <FaRegCircle
                                         key={index}

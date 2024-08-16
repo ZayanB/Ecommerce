@@ -6,8 +6,10 @@ import { NavLink, Link } from "react-router-dom";
 import Spinner from "./Spinner";
 import { parseISO, isWithinInterval, subDays } from "date-fns";
 // import { useParams } from "react-router-dom";
+import useScreenWidth from "./useScreenWidth";
 
-const HomeDropDown = () => {
+const HomeDropDown = ({ onClose }) => {
+    const screenWidth = useScreenWidth();
     const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(true);
 
@@ -61,10 +63,11 @@ const HomeDropDown = () => {
                         <NavLink
                             className="dropdown-categories"
                             to="/allProducts"
+                            
                         >
                             <li>SHOP</li>
                         </NavLink>
-                        <NavLink className="dropdown-categories">
+                        <NavLink className="dropdown-categories" >
                             <li>OUR FAVORITES</li>
                         </NavLink>
 
@@ -77,7 +80,13 @@ const HomeDropDown = () => {
                         </NavLink>
                     </ul>
                 </div>
-                <div className="dropdown-align-rows">
+                <div
+                    className={
+                        screenWidth > 800
+                            ? "dropdown-align-rows"
+                            : "hide-display"
+                    }
+                >
                     <div style={{ paddingLeft: "3rem" }}>FEATURED PRODUCTS</div>
                     <div className="dropdown-products">
                         {loading ? (

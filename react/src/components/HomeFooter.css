@@ -6,6 +6,16 @@
     border-top: solid rgba(128, 128, 128, 0.315) 1px;
     justify-content: center;
 }
+.home-footer-parent-mobile {
+    display: flex;
+    flex-direction: column;
+    padding-top: 3rem;
+    gap: 1rem;
+    border-top: solid rgba(128, 128, 128, 0.315) 1px;
+    width: 100%;
+    justify-content: center;
+    padding-left: 6rem;
+}
 
 .home-footer-col {
     display: flex;
