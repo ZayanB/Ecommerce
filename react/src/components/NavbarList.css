@@ -60,3 +60,28 @@
 .d-block {
     display: block !important;
 }
+
+.product-plus-container {
+    display: flex;
+    flex-direction: column;
+}
+.product-plus {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.product-plus-list-style {
+    margin-left: 0;
+    list-style-type: none;
+    padding-left: 1rem;
+}
+
+.product-plus-list-items {
+    color: grey;
+}
+
+.product-plus-list-items:hover{
+    color:orange;
+    transform: ease 300ms;
+}

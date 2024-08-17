@@ -35,7 +35,7 @@ const CartPanel = () => {
                 className="cart-button"
             >
                 <RiShoppingCartLine size={22} className="cart-hover" />
-                <div className={screenWidth>800?"":"cart-qty-hide"}>
+                <div className={screenWidth > 800 ? "" : "cart-qty-hide"}>
                     {" "}
                     {items.totalItemCount
                         ? `Cart: ${items.totalItemCount}`
@@ -118,7 +118,10 @@ const CartPanel = () => {
 
                         <button className="view-button">VIEW CART</button>
                         <Link to={"/buyProduct/cart"}>
-                            <button className="checkout-button">
+                            <button
+                                className="checkout-button"
+                                onClick={onClose}
+                            >
                                 CHECKOUT
                             </button>
                         </Link>
