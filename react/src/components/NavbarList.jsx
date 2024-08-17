@@ -4,6 +4,11 @@ import { NavLink } from "react-router-dom";
 import HomeDropDown from "./HomeDropDown";
 import useScreenWidth from "./useScreenWidth";
 import { PiPlus, PiMinus } from "react-icons/pi";
+import { useNavigate } from "react-router-dom";
+import axios from "../api/axios";
+import { useCart } from "../../Contexts/CartContext";
+import { notification } from "antd";
+import { Link } from "react-router-dom";
 
 const NavbarList = ({ onClose }) => {
     const [hoverDrop, setHoverDrop] = useState(true);
@@ -18,6 +23,43 @@ const NavbarList = ({ onClose }) => {
 
     const myData = {
         sort: "dateNewOld",
+    };
+
+    const { dispatch } = useCart();
+    const navigate = useNavigate();
+
+    const clearCart = () => {
+        dispatch({ type: "CLEAR_CART" });
+    };
+
+    const token = localStorage.getItem("access_token");
+    const logout = async () => {
+        try {
+            const token = localStorage.getItem("access_token");
+            if (!token) throw new Error("No access token found");
+
+            await axios.post(
+                "http://127.0.0.1:8000/api/logout",
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            clearCart();
+            localStorage.removeItem("access_token");
+
+            notification.success({
+                message: "Success",
+                description: "Signed Out!",
+                placement: "topRight",
+                duration: 2,
+            });
+            navigate("/");
+        } catch (error) {
+            console.error("Logout failed:", error);
+        }
     };
 
     return (
@@ -138,6 +180,65 @@ const NavbarList = ({ onClose }) => {
                     <div className="arrowDown" onClick={onClose}>
                         <NavLink className="nav-non">BLOG</NavLink>
                     </div>
+                    <span className={token ? "" : "hide-display"}>
+                        <div
+                            className={
+                                screenWidth < 800 ? "arrowDown" : "hide-display"
+                            }
+                            onClick={onClose}
+                        >
+                            <NavLink className="nav-non" to="/buyProduct/cart">
+                                CHECKOUT
+                            </NavLink>
+                        </div>
+                    </span>
+                    <span className={token ? "" : "hide-display"}>
+                        <div
+                            className={
+                                screenWidth < 800 ? "arrowDown" : "hide-display"
+                            }
+                            onClick={onClose}
+                        >
+                            <NavLink to="/MyAccount" className="nav-non">
+                                MY ACCOUNT
+                            </NavLink>
+                        </div>
+                    </span>
+                    <span className={!token ? "" : "hide-display"}>
+                        <div
+                            className={
+                                screenWidth < 800 ? "arrowDown" : "hide-display"
+                            }
+                            onClick={onClose}
+                        >
+                            <NavLink to="/signIn" className="nav-non">
+                                SIGN IN
+                            </NavLink>
+                        </div>
+                    </span>
+
+                    <div
+                        className={
+                            screenWidth < 800 ? "arrowDown" : "hide-display"
+                        }
+                        onClick={onClose}
+                    >
+                        <NavLink to="/createAcc" className="nav-non">
+                            CREATE ACCOUNT
+                        </NavLink>
+                    </div>
+                    <span className={token ? "" : "hide-display"}>
+                        <div
+                            className={
+                                screenWidth < 800 ? "arrowDown" : "hide-display"
+                            }
+                            onClick={onClose}
+                        >
+                            <NavLink className="nav-non" onClick={logout}>
+                                SIGN OUT
+                            </NavLink>
+                        </div>
+                    </span>
                 </div>
             </div>
         </>
