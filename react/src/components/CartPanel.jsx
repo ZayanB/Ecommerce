@@ -1,8 +1,7 @@
 import React, { useState } from "react";
-import { Drawer, Button } from "antd";
+import { Drawer, Button, Badge } from "antd";
 import { PiXCircle, PiShoppingCart } from "react-icons/pi";
 import axios from "../api/axios";
-import { RiShoppingCartLine } from "react-icons/ri";
 import "./CartPanel.css";
 import { Link } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
@@ -34,7 +33,14 @@ const CartPanel = () => {
                 style={{ color: "black" }}
                 className="cart-button"
             >
-                <RiShoppingCartLine size={22} className="cart-hover" />
+                {screenWidth > 800 ? (
+                    <PiShoppingCart size={22} className="cart-hover" />
+                ) : (
+                    <Badge count={items.totalItemCount} showZero>
+                        <PiShoppingCart size={22} className="cart-hover" />
+                    </Badge>
+                )}
+
                 <div className={screenWidth > 800 ? "" : "cart-qty-hide"}>
                     {" "}
                     {items.totalItemCount
