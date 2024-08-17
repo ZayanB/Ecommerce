@@ -16,6 +16,7 @@
 .allProducts-grid {
     width: 33.333%;
 }
+
 .allProducts-list {
     width: 100%;
     border-bottom: solid 1px rgb(199, 193, 193);
@@ -90,6 +91,10 @@
 .productFigureContainerList:hover .addToCart {
     opacity: 1;
 }
+.product-card-mobile:hover .overlayButtons,
+.product-card-mobile:hover .addToCart {
+    opacity: 1;
+}
 
 .addToCart {
     position: absolute;
@@ -136,6 +141,18 @@
     align-items: center;
     background-color: rgb(243, 243, 243);
     margin-left: 40px;
+}
+
+.viewContainer-mobile {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 85vw;
+    margin-top: 1rem;
+    align-items: center;
+    background-color: rgb(243, 243, 243);
+    margin-left: 40px;
+    height: 2.5rem;
 }
 
 .viewGridList {
@@ -371,4 +388,45 @@
 .sidebar-hover:hover {
     color: orange;
     transition: ease 300ms;
+}
+
+.mobile-products-page {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    margin-left: 4rem;
+}
+.allProducts-grid-mobile {
+    width: 100%;
+}
+
+.image-caption-grid-mobile {
+    display: flex;
+    flex-direction: column;
+    margin-top: 2rem;
+    justify-content: center;
+    align-items: center;
+    margin-left: 2rem;
+}
+.product-card-mobile {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+.image-size-mobile {
+    height: 28vh;
+    width: 50vw;
+}
+
+.mobile-filter {
+    left: 0;
+    padding-left: 0;
+    margin-left: 0;
+    color: black;
 }
