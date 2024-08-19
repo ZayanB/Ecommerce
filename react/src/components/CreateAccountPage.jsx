@@ -3,9 +3,11 @@ import axios from "axios";
 import "./CreateAccountPage.css";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
+import useScreenWidth from "./useScreenWidth";
 
 const CreateAccountPage = () => {
     const navigate = useNavigate();
+    const screeWidth = useScreenWidth();
 
     const handleClick = () => {
         navigate("/signIn");
@@ -61,7 +63,7 @@ const CreateAccountPage = () => {
 
     return (
         <div className="MainContainerCreateAcc">
-            <div className="Inputs">
+            <div className={screeWidth>800?"Inputs":"inputs-mobile"}>
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Create An Account</div>
 
@@ -70,7 +72,7 @@ const CreateAccountPage = () => {
                             First Name <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-create"
                             type="text"
                             id="firstname"
                             name="firstname"
@@ -84,7 +86,7 @@ const CreateAccountPage = () => {
                             Last Name <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-create"
                             type="text"
                             id="lastname"
                             name="lastname"
@@ -99,7 +101,7 @@ const CreateAccountPage = () => {
                             <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-create"
                             type="email"
                             id="email"
                             name="email"
@@ -114,7 +116,7 @@ const CreateAccountPage = () => {
                             <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-create"
                             type="password"
                             id="password"
                             name="password"
@@ -128,7 +130,7 @@ const CreateAccountPage = () => {
                             Birthday <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-create"
                             type="date"
                             id="birthday"
                             name="birthday"
@@ -138,7 +140,7 @@ const CreateAccountPage = () => {
                         />
                     </div>
                     <div style={{ width: "100%" }}>
-                        <button type="submit" className="CreateAccButton">
+                        <button type="submit" className="CreateAccButton-createPage">
                             CREATE AN ACCOUNT
                         </button>
                     </div>
@@ -147,7 +149,7 @@ const CreateAccountPage = () => {
                     <span className="divider-text">Or</span>
                 </div>
                 <div style={{ width: "100%" }}>
-                    <button onClick={handleClick} className="SignInButton">
+                    <button onClick={handleClick} className="SignInButton-createPage">
                         SIGN IN
                     </button>
                 </div>
