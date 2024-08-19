@@ -123,13 +123,7 @@ const SingleProduct = () => {
             {loading ? (
                 <Spinner />
             ) : (
-                <div
-                    className={
-                        loading
-                            ? "prod-main-container-loading"
-                            : "prod-main-container"
-                    }
-                >
+                <div className="prod-main-container">
                     <div className="single-prod-main">
                         <div className="single-prod-img">
                             {product.image && product.image.length > 0 && (

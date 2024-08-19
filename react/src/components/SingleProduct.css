@@ -5,9 +5,9 @@
     gap: 2rem;
     align-items: center;
 }
-.prod-main-container-loading {
+/* .prod-main-container-loading {
     display: none;
-}
+} */
 .single-prod-main {
     display: flex;
     flex-direction: row;
