@@ -14,7 +14,7 @@ const NavBar = () => {
 
     const screenWidth = useScreenWidth();
     const mainContainerClass =
-        screenWidth < 768
+        screenWidth < 800
             ? "MainContainerNavBar-mobile-nav"
             : "MainContainerNavBar-desktop-nav";
     const listContainerClass =
@@ -29,7 +29,6 @@ const NavBar = () => {
             <div
                 className={screenWidth > 800 ? "hide-display" : "show-nav-list"}
             >
-                {/* <PiList size={32} style={{ transform: "translateY(6px)" }} /> */}
                 <NavListPanel />
             </div>
             <div>
@@ -42,7 +41,11 @@ const NavBar = () => {
                     </NavLink>
                 </h1>
             </div>
-            <div className={screenWidth < 800 ? "hide-display" : ""}>
+            <div
+                className={
+                    screenWidth < 800 ? "hide-display" : "center-nav-list"
+                }
+            >
                 <NavbarList />
             </div>
 

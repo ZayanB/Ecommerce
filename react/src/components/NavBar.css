@@ -12,6 +12,7 @@
     top: 0;
     z-index: 1000;
     font-size: 24px;
+    /* gap: 2rem; */
 }
 
 .MainContainerNavBar-mobile-nav {
@@ -36,10 +37,11 @@
     margin-bottom: 0.5rem;
     font-size: 45px;
 }
-.ShopName-desktop {
-    display: flex;
-    align-self: center;
+
+.center-nav-list {
+    width: 40%;
 }
+
 /* .ListContainer-desktop-list {
     display: flex;
     flex-direction: row;
@@ -150,7 +152,7 @@
 .nav-non:hover {
     color: orange;
 }
-.MainContainerNavBar-desktop-nav {
+/* .MainContainerNavBar-desktop-nav {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -164,7 +166,7 @@
     top: 0;
     z-index: 1000;
     font-size: 24px;
-}
+} */
 
 .MainContainerNavBar-mobile-nav {
     display: flex;

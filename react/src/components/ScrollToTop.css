@@ -1,8 +1,9 @@
 .scroll-to-top {
-    position: fixed;
-    bottom: 30px;
-    right: 30px;
-    z-index: 1000;
+    position: fixed !important;
+    bottom: 40px !important;
+    right: 40px !important;
+
+    /* padding-right: 5rem; */
 }
 
 .ant-btn-primary.ant-btn-background-ghost {

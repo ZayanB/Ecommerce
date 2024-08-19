@@ -1,8 +1,10 @@
 import React from "react";
 import { Button, Modal } from "antd";
 import "./SizePopUp.css";
+import useScreenWidth from "../components/useScreenWidth";
 
 const SizePopUp = ({ isModalVisible, showModal, handleCancel }) => {
+    const screenWidth = useScreenWidth();
     return (
         <div>
             <Button
@@ -24,6 +26,12 @@ const SizePopUp = ({ isModalVisible, showModal, handleCancel }) => {
                 <img
                     src="https://cdn.shopify.com/s/files/1/2430/0687/files/size.png?2736223395040126550"
                     alt="size-guide"
+                    style={{
+                        transform:
+                            screenWidth < 800
+                                ? "scale(0.5) translateX(-55%)"
+                                : "",
+                    }}
                 />
             </Modal>
         </div>
