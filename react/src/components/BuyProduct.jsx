@@ -694,6 +694,7 @@ const BuyProduct = () => {
                                         vertical
                                         gap="middle"
                                         style={{ width: "100%" }}
+                                        className="custom-payment-buttons"
                                     >
                                         <Radio.Group
                                             onChange={handlePaymentChange}
