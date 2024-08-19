@@ -1,6 +1,7 @@
 import React from "react";
 import { Button, Modal } from "antd";
 import CreateAddress from "./CreateAddress";
+import { PiPlus } from "react-icons/pi";
 
 const CreateAddressPopUp = ({ isModalVisible, showModal, handleCancel }) => {
     return (
@@ -12,7 +13,7 @@ const CreateAddressPopUp = ({ isModalVisible, showModal, handleCancel }) => {
                 ghost="true"
                 style={{ color: "black", width: "auto" }}
             >
-                Add New Address
+                <PiPlus /> Add New Address
             </Button>
             <Modal
                 title=""

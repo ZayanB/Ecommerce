@@ -1,13 +1,23 @@
 import { React, useState, useEffect } from "react";
-import { Layout, Menu, Card, Row, Col, notification } from "antd";
+import {
+    Layout,
+    Menu,
+    Card,
+    Row,
+    Col,
+    notification,
+    Button,
+    Drawer,
+} from "antd";
 import axios from "../api/axios";
 import "./MyAccount.css";
-import { PiUserCircle, PiBag, PiMapPin } from "react-icons/pi";
+import { PiUserCircle, PiBag, PiMapPin, PiUserList } from "react-icons/pi";
 import Spinner from "./Spinner";
 const { Sider, Content } = Layout;
 import CreateAddressPopUp from "./CreateAddressPopUp";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
+import useScreenWidth from "./useScreenWidth";
 
 const MyAccount = () => {
     const [selectedMenu, setSelectedMenu] = useState("1");
@@ -17,9 +27,18 @@ const MyAccount = () => {
     const [newAddress, setNewAddress] = useState(false);
     const [orderInfo, setOrderInfo] = useState([]);
     const navigate = useNavigate();
+    const screenWidth = useScreenWidth();
+    const [open, setOpen] = useState(false);
+    const showDrawer = () => {
+        setOpen(true);
+    };
+    const onClose = () => {
+        setOpen(false);
+    };
 
     const handleMenuClick = (e) => {
         setSelectedMenu(e.key);
+        onClose();
     };
     const showNewAddress = () => {
         setNewAddress(true);
@@ -152,393 +171,591 @@ const MyAccount = () => {
     };
 
     return (
-        <Layout style={{ minHeight: "100vh" }}>
-            <Sider style={{ padding: "1rem 0.5rem 0 0.5rem" }}>
-                <Menu
-                    theme="dark"
-                    // color="black"
-                    mode="inline"
-                    defaultSelectedKeys={["1"]}
-                    onClick={handleMenuClick}
-                >
-                    <Menu.Item key="1">
-                        <PiUserCircle /> My Account
-                    </Menu.Item>
-                    <Menu.Item key="2">
-                        <PiMapPin /> My Addresses
-                    </Menu.Item>
-                    <Menu.Item key="3">
-                        <PiBag /> My Order
-                    </Menu.Item>
-                    <button className="sign-out-button" onClick={logout}>
-                        Sign Out
+        <div className={screenWidth < 800 ? "my-account-parent" : ""}>
+            <div
+                className={
+                    screenWidth < 800 ? "my-account-dash" : "hide-display"
+                }
+            >
+                <div style={{ marginTop: "1rem", marginLeft: "1.2rem" }}>
+                    <button className="dash-button" onClick={showDrawer}>
+                        <PiUserList size={20} />
+                        Dashboard
                     </button>
-                </Menu>
-            </Sider>
-            <Layout>
-                {loading ? (
-                    <Spinner />
-                ) : (
-                    <>
-                        <Content
+
+                    <Drawer
+                        title="ACCOUNT INFO"
+                        onClose={onClose}
+                        open={open}
+                        placement="left"
+                        style={{
+                            backgroundColor: "black",
+                            color: "white",
+                        }}
+                        width={240}
+                        className="custom-dash-drawer"
+                    >
+                        <Sider
                             style={{
-                                margin: "16px",
-                                padding: "24px",
-                                background: "#fff",
+                                height: "100vh",
                             }}
                         >
-                            {selectedMenu === "1" && (
-                                <div>
-                                    {userInfo ? (
-                                        <>
-                                            {/* <h2>User Information</h2> */}
-                                            <h1>
-                                                Welcome,{" "}
-                                                <span
-                                                    style={{
-                                                        textTransform:
-                                                            "capitalize",
-                                                    }}
-                                                >
-                                                    {userInfo.user_first_name}
-                                                </span>{" "}
-                                                <span
-                                                    style={{
-                                                        textTransform:
-                                                            "capitalize",
-                                                    }}
-                                                >
-                                                    {" "}
-                                                    {userInfo.user_last_name}
-                                                </span>
-                                            </h1>
-                                            <div>
-                                                <Card
-                                                    title="User Information"
-                                                    style={{ width: 1000 }}
-                                                >
-                                                    <Row gutter={[16, 16]}>
-                                                        <Col span={12}>
-                                                            <Card
-                                                                bordered={false}
-                                                            >
-                                                                <strong>
-                                                                    First Name:
-                                                                </strong>{" "}
-                                                                <span
-                                                                    style={{
-                                                                        textTransform:
-                                                                            "capitalize",
-                                                                    }}
-                                                                >
-                                                                    {
-                                                                        userInfo.user_first_name
-                                                                    }
-                                                                </span>
-                                                            </Card>
-                                                        </Col>
-                                                        <Col span={12}>
-                                                            <Card
-                                                                bordered={false}
-                                                            >
-                                                                <strong>
-                                                                    Last Name:
-                                                                </strong>{" "}
-                                                                <span
-                                                                    style={{
-                                                                        textTransform:
-                                                                            "capitalize",
-                                                                    }}
-                                                                >
-                                                                    {
-                                                                        userInfo.user_last_name
-                                                                    }
-                                                                </span>
-                                                            </Card>
-                                                        </Col>
+                            <Menu
+                                theme="dark"
+                                mode="inline"
+                                defaultSelectedKeys={["1"]}
+                                onClick={handleMenuClick}
+                                style={{ width: "100%" }}
+                            >
+                                <Menu.Item key="1">
+                                    <PiUserCircle /> My Account
+                                </Menu.Item>
+                                <Menu.Item key="2">
+                                    <PiMapPin /> My Addresses
+                                </Menu.Item>
+                                <Menu.Item key="3">
+                                    <PiBag /> My Order
+                                </Menu.Item>
+                                <button
+                                    className="sign-out-button"
+                                    onClick={logout}
+                                >
+                                    Sign Out
+                                </button>
+                            </Menu>
+                        </Sider>
+                    </Drawer>
+                </div>
+                <div className="dash-user-name">
+                    {userInfo ? (
+                        <>
+                            <span
+                                style={{
+                                    color: "black",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                {userInfo.user_first_name}
+                            </span>{" "}
+                            <span
+                                style={{
+                                    color: "black",
+                                    textTransform: "capitalize",
+                                }}
+                            >
+                                {userInfo.user_last_name}
+                            </span>
+                        </>
+                    ) : (
+                        <></>
+                    )}
+                </div>
+            </div>
+            <div>
+                <Layout style={{ minHeight: "100vh" }}>
+                    {screenWidth > 800 ? (
+                        <>
+                            <Sider style={{ padding: "1rem 0.5rem 0 0.5rem" }}>
+                                <Menu
+                                    theme="dark"
+                                    // color="black"
+                                    mode="inline"
+                                    defaultSelectedKeys={["1"]}
+                                    onClick={handleMenuClick}
+                                >
+                                    <Menu.Item key="1">
+                                        <PiUserCircle /> My Account
+                                    </Menu.Item>
+                                    <Menu.Item key="2">
+                                        <PiMapPin /> My Addresses
+                                    </Menu.Item>
+                                    <Menu.Item key="3">
+                                        <PiBag /> My Order
+                                    </Menu.Item>
+                                    <button
+                                        className="sign-out-button"
+                                        onClick={logout}
+                                    >
+                                        Sign Out
+                                    </button>
+                                </Menu>
+                            </Sider>
+                        </>
+                    ) : (
+                        <></>
+                    )}
 
-                                                        <Col span={24}>
-                                                            <Card
-                                                                bordered={false}
-                                                            >
-                                                                <strong>
-                                                                    Email:
-                                                                </strong>{" "}
-                                                                {
-                                                                    userInfo.user_email
-                                                                }
-                                                            </Card>
-                                                        </Col>
-
-                                                        <Col span={24}>
-                                                            <Card
-                                                                bordered={false}
-                                                            >
-                                                                <strong>
-                                                                    Date of
-                                                                    Birth:
-                                                                </strong>{" "}
-                                                                {
-                                                                    userInfo.user_birth_date
-                                                                }
-                                                            </Card>
-                                                        </Col>
-                                                    </Row>
-                                                </Card>
-                                            </div>
-                                        </>
-                                    ) : (
-                                        <Spinner />
-                                    )}
-                                </div>
-                            )}
-                            {selectedMenu === "2" && (
-                                <>
-                                    <div style={{ marginBottom: "2rem" }}>
-                                        <CreateAddressPopUp
-                                            isModalVisible={newAddress}
-                                            showModal={showNewAddress}
-                                            handleCancel={hideNewAddress}
-                                        />
-                                    </div>
-                                    <Row gutter={[16, 16]} wrap={true}>
-                                        {hasAddress && hasAddress.length > 0 ? (
-                                            hasAddress.map((address, index) => (
-                                                <Col
-                                                    key={index}
-                                                    flex="0 0 auto"
-                                                >
-                                                    <Card
-                                                        title={`${address.label} Address`}
-                                                        bordered={false}
-                                                        style={{
-                                                            width: 300,
-                                                            textTransform:
-                                                                "capitalize",
-                                                            border: "solid 1px rgba(128, 128, 128, 0.527)",
-                                                        }}
-                                                        key={index}
-                                                        value={
-                                                            address.user_address_id
+                    <Layout>
+                        {loading ? (
+                            <Spinner />
+                        ) : (
+                            <>
+                                <Content
+                                    style={{
+                                        margin: "16px",
+                                        padding: "24px",
+                                        background: "#fff",
+                                    }}
+                                >
+                                    {selectedMenu === "1" && (
+                                        <div>
+                                            {userInfo ? (
+                                                <>
+                                                    <h2
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "hide-display"
+                                                                : ""
                                                         }
                                                     >
-                                                        <p>
-                                                            <strong>
-                                                                Country:
-                                                            </strong>{" "}
-                                                            {address.country}
-                                                        </p>
-                                                        <p>
-                                                            <strong>
-                                                                State:
-                                                            </strong>{" "}
-                                                            {address.state}
-                                                        </p>
-                                                        <p>
-                                                            <strong>
-                                                                City:
-                                                            </strong>{" "}
-                                                            {address.city}
-                                                        </p>
-                                                        <p>
-                                                            <strong>
-                                                                Street:
-                                                            </strong>{" "}
-                                                            {address.street}
-                                                        </p>
-                                                        <p>
-                                                            <strong>
-                                                                Zip Code:
-                                                            </strong>{" "}
-                                                            {address.zip_code}
-                                                        </p>
-                                                    </Card>
-                                                </Col>
-                                            ))
-                                        ) : (
-                                            <p>No addresses found.</p>
-                                        )}
-                                    </Row>
-                                </>
-                            )}
-                            {selectedMenu === "3" && (
-                                <>
-                                    <div>
-                                        <Row gutter={[16, 16]}>
-                                            {orderInfo &&
-                                            orderInfo.length > 0 ? (
-                                                <>
-                                                    {orderInfo.map(
-                                                        (order, orderIndex) => (
+                                                        My Account
+                                                    </h2>
+                                                    <h1
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? ""
+                                                                : "hide-display "
+                                                        }
+                                                    >
+                                                        Welcome,{" "}
+                                                        <span
+                                                            style={{
+                                                                textTransform:
+                                                                    "capitalize",
+                                                            }}
+                                                        >
+                                                            {
+                                                                userInfo.user_first_name
+                                                            }
+                                                        </span>{" "}
+                                                        <span
+                                                            style={{
+                                                                textTransform:
+                                                                    "capitalize",
+                                                            }}
+                                                        >
+                                                            {" "}
+                                                            {
+                                                                userInfo.user_last_name
+                                                            }
+                                                        </span>
+                                                    </h1>
+                                                    <div>
+                                                        <Card
+                                                            title="User Information"
+                                                            style={{
+                                                                width:
+                                                                    screenWidth >
+                                                                    800
+                                                                        ? "1000"
+                                                                        : "300",
+                                                            }}
+                                                        >
+                                                            <Row
+                                                                gutter={[
+                                                                    16, 16,
+                                                                ]}
+                                                            >
+                                                                <Col span={12}>
+                                                                    <Card
+                                                                        bordered={
+                                                                            false
+                                                                        }
+                                                                    >
+                                                                        <strong>
+                                                                            First
+                                                                            Name:
+                                                                        </strong>{" "}
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                userInfo.user_first_name
+                                                                            }
+                                                                        </span>
+                                                                    </Card>
+                                                                </Col>
+                                                                <Col span={12}>
+                                                                    <Card
+                                                                        bordered={
+                                                                            false
+                                                                        }
+                                                                    >
+                                                                        <strong>
+                                                                            Last
+                                                                            Name:
+                                                                        </strong>{" "}
+                                                                        <span
+                                                                            style={{
+                                                                                textTransform:
+                                                                                    "capitalize",
+                                                                            }}
+                                                                        >
+                                                                            {
+                                                                                userInfo.user_last_name
+                                                                            }
+                                                                        </span>
+                                                                    </Card>
+                                                                </Col>
+
+                                                                <Col span={24}>
+                                                                    <Card
+                                                                        bordered={
+                                                                            false
+                                                                        }
+                                                                    >
+                                                                        <strong>
+                                                                            Email:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            userInfo.user_email
+                                                                        }
+                                                                    </Card>
+                                                                </Col>
+
+                                                                <Col span={24}>
+                                                                    <Card
+                                                                        bordered={
+                                                                            false
+                                                                        }
+                                                                    >
+                                                                        <strong>
+                                                                            Date
+                                                                            of
+                                                                            Birth:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            userInfo.user_birth_date
+                                                                        }
+                                                                    </Card>
+                                                                </Col>
+                                                            </Row>
+                                                        </Card>
+                                                    </div>
+                                                </>
+                                            ) : (
+                                                <Spinner />
+                                            )}
+                                        </div>
+                                    )}
+                                    {selectedMenu === "2" && (
+                                        <>
+                                            <h2
+                                                className={
+                                                    screenWidth > 800
+                                                        ? "hide-display"
+                                                        : ""
+                                                }
+                                                style={{
+                                                    marginBottom: "2rem",
+                                                    marginLeft:
+                                                        screenWidth > 800
+                                                            ? "0.5rem"
+                                                            : "1.6rem",
+                                                }}
+                                            >
+                                                My Addresses
+                                            </h2>
+                                            <div
+                                                style={{
+                                                    marginBottom: "2rem",
+                                                    marginLeft:
+                                                        screenWidth > 800
+                                                            ? "0.5rem"
+                                                            : "1.6rem",
+                                                }}
+                                            >
+                                                <CreateAddressPopUp
+                                                    isModalVisible={newAddress}
+                                                    showModal={showNewAddress}
+                                                    handleCancel={
+                                                        hideNewAddress
+                                                    }
+                                                />
+                                            </div>
+                                            <Row
+                                                gutter={[16, 16]}
+                                                wrap={true}
+                                                style={{
+                                                    marginLeft:
+                                                        screenWidth > 800
+                                                            ? "0"
+                                                            : "1rem",
+                                                }}
+                                            >
+                                                {hasAddress &&
+                                                hasAddress.length > 0 ? (
+                                                    hasAddress.map(
+                                                        (address, index) => (
                                                             <Col
-                                                                key={orderIndex}
+                                                                key={index}
                                                                 flex="0 0 auto"
                                                             >
                                                                 <Card
-                                                                    title={`Order ${
-                                                                        orderIndex +
-                                                                        1
-                                                                    }`}
+                                                                    title={`${address.label} Address`}
                                                                     bordered={
                                                                         false
                                                                     }
                                                                     style={{
-                                                                        width: 350,
+                                                                        width: 300,
+                                                                        textTransform:
+                                                                            "capitalize",
                                                                         border: "solid 1px rgba(128, 128, 128, 0.527)",
                                                                     }}
+                                                                    key={index}
                                                                     value={
-                                                                        order.order_id_pkey
+                                                                        address.user_address_id
                                                                     }
                                                                 >
-                                                                    <h3>
-                                                                        Order
-                                                                        Total
-                                                                        Price: $
+                                                                    <p>
+                                                                        <strong>
+                                                                            Country:
+                                                                        </strong>{" "}
                                                                         {
-                                                                            order.order_total
+                                                                            address.country
                                                                         }
-                                                                    </h3>
-
-                                                                    <h3>
-                                                                        Items:
-                                                                    </h3>
-                                                                    {order
-                                                                        .order_items
-                                                                        .length >
-                                                                        0 &&
-                                                                        order.order_items.map(
-                                                                            (
-                                                                                item,
-                                                                                itemIndex
-                                                                            ) => (
-                                                                                <div
-                                                                                    key={
-                                                                                        itemIndex
-                                                                                    }
-                                                                                    className="order-item-summary"
-                                                                                >
-                                                                                    <p>
-                                                                                        <span
-                                                                                            style={{
-                                                                                                fontWeight:
-                                                                                                    "620",
-                                                                                            }}
-                                                                                        >
-                                                                                            Product
-                                                                                            Name:{" "}
-                                                                                        </span>
-                                                                                        {
-                                                                                            item.name
-                                                                                        }
-                                                                                    </p>
-                                                                                    <p>
-                                                                                        <span
-                                                                                            style={{
-                                                                                                fontWeight:
-                                                                                                    "620",
-                                                                                            }}
-                                                                                        >
-                                                                                            Price
-                                                                                            per
-                                                                                            unit:
-                                                                                        </span>{" "}
-                                                                                        $
-                                                                                        {
-                                                                                            item.price
-                                                                                        }
-                                                                                    </p>
-                                                                                    <p>
-                                                                                        <span
-                                                                                            style={{
-                                                                                                fontWeight:
-                                                                                                    "620",
-                                                                                            }}
-                                                                                        >
-                                                                                            Quantity:{" "}
-                                                                                        </span>
-                                                                                        {
-                                                                                            item.quantity
-                                                                                        }
-                                                                                    </p>
-                                                                                </div>
-                                                                            )
-                                                                        )}
-
-                                                                    <h3>
-                                                                        Ordered
-                                                                        At:{" "}
-                                                                        {new Date(
-                                                                            order.created_at
-                                                                        ).toLocaleString()}
-                                                                    </h3>
-                                                                    <h3>
-                                                                        Payment
-                                                                        Method:{" "}
-                                                                        <span
-                                                                            style={{
-                                                                                textTransform:
-                                                                                    "capitalize",
-                                                                                fontWeight:
-                                                                                    "normal ",
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                order.payment_details_id
-                                                                            }
-                                                                        </span>
-                                                                    </h3>
-                                                                    <h3>
-                                                                        Shipping
-                                                                        Method:{" "}
-                                                                        <span
-                                                                            style={{
-                                                                                textTransform:
-                                                                                    "capitalize",
-                                                                                fontWeight:
-                                                                                    "normal ",
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                order.shipping_details
-                                                                            }
-                                                                        </span>
-                                                                    </h3>
-                                                                    <h3>
-                                                                        Order
-                                                                        Address:{" "}
-                                                                        <span
-                                                                            style={{
-                                                                                textTransform:
-                                                                                    "capitalize",
-                                                                                fontWeight:
-                                                                                    "normal",
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                order
-                                                                                    .order_address
-                                                                                    .address
-                                                                                    .label
-                                                                            }
-                                                                        </span>
-                                                                    </h3>
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>
+                                                                            State:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            address.state
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>
+                                                                            City:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            address.city
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>
+                                                                            Street:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            address.street
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>
+                                                                            Zip
+                                                                            Code:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            address.zip_code
+                                                                        }
+                                                                    </p>
                                                                 </Card>
                                                             </Col>
                                                         )
+                                                    )
+                                                ) : (
+                                                    <p>No addresses found.</p>
+                                                )}
+                                            </Row>
+                                        </>
+                                    )}
+                                    {selectedMenu === "3" && (
+                                        <>
+                                            <h2
+                                                className={
+                                                    screenWidth > 800
+                                                        ? "hide-display"
+                                                        : ""
+                                                }
+                                            >
+                                                My Orders
+                                            </h2>
+                                            <div>
+                                                <Row gutter={[16, 16]}>
+                                                    {orderInfo &&
+                                                    orderInfo.length > 0 ? (
+                                                        <>
+                                                            {orderInfo.map(
+                                                                (
+                                                                    order,
+                                                                    orderIndex
+                                                                ) => (
+                                                                    <Col
+                                                                        key={
+                                                                            orderIndex
+                                                                        }
+                                                                        flex="0 0 auto"
+                                                                    >
+                                                                        <Card
+                                                                            title={`Order ${
+                                                                                orderIndex +
+                                                                                1
+                                                                            }`}
+                                                                            bordered={
+                                                                                false
+                                                                            }
+                                                                            style={{
+                                                                                width: 350,
+                                                                                border: "solid 1px rgba(128, 128, 128, 0.527)",
+                                                                            }}
+                                                                            value={
+                                                                                order.order_id_pkey
+                                                                            }
+                                                                        >
+                                                                            <h3>
+                                                                                Order
+                                                                                Total
+                                                                                Price:
+                                                                                $
+                                                                                {
+                                                                                    order.order_total
+                                                                                }
+                                                                            </h3>
+
+                                                                            <h3>
+                                                                                Items:
+                                                                            </h3>
+                                                                            {order
+                                                                                .order_items
+                                                                                .length >
+                                                                                0 &&
+                                                                                order.order_items.map(
+                                                                                    (
+                                                                                        item,
+                                                                                        itemIndex
+                                                                                    ) => (
+                                                                                        <div
+                                                                                            key={
+                                                                                                itemIndex
+                                                                                            }
+                                                                                            className="order-item-summary"
+                                                                                        >
+                                                                                            <p>
+                                                                                                <span
+                                                                                                    style={{
+                                                                                                        fontWeight:
+                                                                                                            "620",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    Product
+                                                                                                    Name:{" "}
+                                                                                                </span>
+                                                                                                {
+                                                                                                    item.name
+                                                                                                }
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <span
+                                                                                                    style={{
+                                                                                                        fontWeight:
+                                                                                                            "620",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    Price
+                                                                                                    per
+                                                                                                    unit:
+                                                                                                </span>{" "}
+                                                                                                $
+                                                                                                {
+                                                                                                    item.price
+                                                                                                }
+                                                                                            </p>
+                                                                                            <p>
+                                                                                                <span
+                                                                                                    style={{
+                                                                                                        fontWeight:
+                                                                                                            "620",
+                                                                                                    }}
+                                                                                                >
+                                                                                                    Quantity:{" "}
+                                                                                                </span>
+                                                                                                {
+                                                                                                    item.quantity
+                                                                                                }
+                                                                                            </p>
+                                                                                        </div>
+                                                                                    )
+                                                                                )}
+
+                                                                            <h3>
+                                                                                Ordered
+                                                                                At:{" "}
+                                                                                {new Date(
+                                                                                    order.created_at
+                                                                                ).toLocaleString()}
+                                                                            </h3>
+                                                                            <h3>
+                                                                                Payment
+                                                                                Method:{" "}
+                                                                                <span
+                                                                                    style={{
+                                                                                        textTransform:
+                                                                                            "capitalize",
+                                                                                        fontWeight:
+                                                                                            "normal ",
+                                                                                    }}
+                                                                                >
+                                                                                    {
+                                                                                        order.payment_details_id
+                                                                                    }
+                                                                                </span>
+                                                                            </h3>
+                                                                            <h3>
+                                                                                Shipping
+                                                                                Method:{" "}
+                                                                                <span
+                                                                                    style={{
+                                                                                        textTransform:
+                                                                                            "capitalize",
+                                                                                        fontWeight:
+                                                                                            "normal ",
+                                                                                    }}
+                                                                                >
+                                                                                    {
+                                                                                        order.shipping_details
+                                                                                    }
+                                                                                </span>
+                                                                            </h3>
+                                                                            <h3>
+                                                                                Order
+                                                                                Address:{" "}
+                                                                                <span
+                                                                                    style={{
+                                                                                        textTransform:
+                                                                                            "capitalize",
+                                                                                        fontWeight:
+                                                                                            "normal",
+                                                                                    }}
+                                                                                >
+                                                                                    {
+                                                                                        order
+                                                                                            .order_address
+                                                                                            .address
+                                                                                            .label
+                                                                                    }
+                                                                                </span>
+                                                                            </h3>
+                                                                        </Card>
+                                                                    </Col>
+                                                                )
+                                                            )}
+                                                        </>
+                                                    ) : (
+                                                        <>No Orders</>
                                                     )}
-                                                </>
-                                            ) : (
-                                                <>No Orders</>
-                                            )}
-                                        </Row>
-                                    </div>
-                                </>
-                            )}
-                        </Content>
-                    </>
-                )}
-            </Layout>
-        </Layout>
+                                                </Row>
+                                            </div>
+                                        </>
+                                    )}
+                                </Content>
+                            </>
+                        )}
+                    </Layout>
+                </Layout>
+            </div>
+        </div>
     );
 };
 

@@ -45,14 +45,42 @@
     background-color: rgb(255, 213, 135);
 }
 
-/* .menu-hover:hover {
-    color: orange;
-} */
-
 .ant-menu-title-content:hover {
     color: orange;
 }
 
 .ant-menu-item-selected .ant-menu-title-content:hover {
+    color: white;
+}
+
+.my-account-parent {
+    display: flex;
+    flex-direction: column;
+}
+
+.my-account-dash {
+    background-color: white;
+    padding-bottom: 1rem;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    position: sticky;
+    z-index: 999;
+    top: 12vh;
+}
+
+.dash-user-name {
+    margin-top: 1.5rem;
+    padding-right: 1.5rem;
+}
+
+.dash-button {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+}
+
+.custom-dash-drawer .ant-drawer-close {
     color: white;
 }
