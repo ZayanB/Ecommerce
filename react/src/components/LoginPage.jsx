@@ -3,9 +3,11 @@ import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { notification } from "antd";
+import useScreenWidth from "./useScreenWidth";
 
 const LoginPage = () => {
     const navigate = useNavigate();
+    const screenWidth = useScreenWidth();
 
     const handleClick = () => {
         navigate("/createAcc");
@@ -62,7 +64,11 @@ const LoginPage = () => {
 
     return (
         <div className="MainContainerLogin">
-            <div className="Inputs">
+            <div
+                className={
+                    screenWidth > 800 ? "Inputs-signIn" : "input-sign-in-mobile"
+                }
+            >
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Sign In</div>
                     <div className="pd-0">
@@ -71,7 +77,7 @@ const LoginPage = () => {
                             <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-sign-in "
                             type="email"
                             id="email"
                             name="email"
@@ -85,7 +91,7 @@ const LoginPage = () => {
                             Password <span style={{ color: "red" }}>*</span>
                         </label>
                         <input
-                            className="Input"
+                            className="Input-sign-in "
                             type="password"
                             id="password"
                             name="password"
@@ -99,7 +105,10 @@ const LoginPage = () => {
                         <div className="ForgotPass">Forgot Your Password?</div>
                     </div>
                     <div style={{ width: "100%" }}>
-                        <button type="submit" className="SignInButton">
+                        <button
+                            type="submit"
+                            className="SignInButton-sign-in-page"
+                        >
                             SIGN IN
                         </button>
                     </div>
@@ -107,11 +116,14 @@ const LoginPage = () => {
                 <div className="divider">
                     <span className="divider-text">Or</span>
                 </div>
-                <form className="Form1" action="">
+                <form
+                    className={screenWidth > 800 ? "Form1" : "Form1-mobile"}
+                    action=""
+                >
                     <div style={{ width: "100%" }}>
                         <button
                             onClick={handleClick}
-                            className="CreateAccButton"
+                            className="CreateAccButton-sign-in-page"
                         >
                             CREATE AN ACCOUNT
                         </button>
