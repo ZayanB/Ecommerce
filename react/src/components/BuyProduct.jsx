@@ -1,6 +1,15 @@
 import { React, useEffect, useState } from "react";
 import "./BuyProduct.css";
-import { Form, Radio, Flex, notification, Spin, Badge } from "antd";
+import {
+    Form,
+    Radio,
+    Flex,
+    notification,
+    Spin,
+    Badge,
+    Collapse,
+    Typography,
+} from "antd";
 import { useParams } from "react-router-dom";
 import axios from "../api/axios";
 import { PiMoney } from "react-icons/pi";
@@ -10,8 +19,12 @@ import { FaCcMastercard } from "react-icons/fa";
 import CreateAddress from "./CreateAddress";
 import Spinner from "./Spinner";
 import CreateAddressPopUp from "./CreateAddressPopUp";
+import useScreenWidth from "./useScreenWidth";
+const { Panel } = Collapse;
+const { Text } = Typography;
 
 const BuyProduct = () => {
+    const screenWidth = useScreenWidth();
     const params = useParams();
 
     const hasParams = Object.keys(params).length > 0;
@@ -280,6 +293,10 @@ const BuyProduct = () => {
             total: totalCartePriceShipping,
         }));
     }, [totalCartePriceShipping]);
+    const [isExpanded, setIsExpanded] = useState(false);
+    const handleCollapseChange = (key) => {
+        setIsExpanded(key.length > 0);
+    };
 
     return (
         <>
@@ -287,8 +304,223 @@ const BuyProduct = () => {
                 <Spinner />
             ) : (
                 <>
-                    <div className="buy-product-parent">
-                        <div className="contact-info">
+                    <div
+                        className={
+                            screenWidth > 800
+                                ? "buy-product-parent"
+                                : "buy-product-parent-mobile"
+                        }
+                    >
+                        <div
+                            className={screenWidth > 800 ? "hide-display" : ""}
+                        >
+                            {" "}
+                            <Collapse
+                                onChange={handleCollapseChange}
+                                size="large"
+                            >
+                                <Panel
+                                    header={
+                                        <div
+                                            style={{
+                                                display: "flex",
+                                                justifyContent: "space-between",
+                                                alignItems: "center",
+                                            }}
+                                        >
+                                            <Text>
+                                                {isExpanded
+                                                    ? "Hide order summary"
+                                                    : "Show order summary"}
+                                            </Text>
+                                        </div>
+                                    }
+                                    key="1"
+                                >
+                                    {productId ? (
+                                        <>
+                                            <div className="buy-product-image">
+                                                <div className="buy-single-image-section">
+                                                    <div className="panel-resize-img-single">
+                                                        {product.image &&
+                                                        product.image.length >
+                                                            0 &&
+                                                        product.image[0]
+                                                            .image_url ? (
+                                                            <img
+                                                                src={
+                                                                    product
+                                                                        .image[0]
+                                                                        .image_url
+                                                                }
+                                                                alt="product"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                }}
+                                                            />
+                                                        ) : (
+                                                            <p>
+                                                                Image not
+                                                                available
+                                                            </p>
+                                                        )}
+                                                    </div>
+                                                    <div className="product-name-buy-single">
+                                                        {product.product_name}
+                                                    </div>
+                                                    <div>
+                                                        ${product.product_price}
+                                                    </div>
+                                                </div>
+                                                <div className="single-buy-sub">
+                                                    <div>Subtotal</div>
+                                                    <div>
+                                                        ${product.product_price}
+                                                    </div>
+                                                </div>
+                                                <div className="single-buy-sub">
+                                                    <div>Shipping</div>
+                                                    <div>
+                                                        $
+                                                        {
+                                                            placeOrder.shippingMethod
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="single-buy-sub">
+                                                    <div
+                                                        style={{
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        Total
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            style={{
+                                                                fontSize:
+                                                                    "11px",
+                                                            }}
+                                                        >
+                                                            USD
+                                                        </span>{" "}
+                                                        <span
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                            }}
+                                                        >
+                                                            ${totalPrice}
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    ) : (
+                                        <>
+                                            {cartItems.map((item, index) => {
+                                                return (
+                                                    <>
+                                                        <div className="buy-product-image-cart">
+                                                            <div
+                                                                key={index}
+                                                                className="buy-image-resize-cart-mobile-panel"
+                                                            >
+                                                                <Badge
+                                                                    count={
+                                                                        item.quantity
+                                                                    }
+                                                                    color="grey"
+                                                                >
+                                                                    <img
+                                                                        src={
+                                                                            item
+                                                                                .product_image[0]
+                                                                                .image_url
+                                                                        }
+                                                                        alt="product"
+                                                                        style={{
+                                                                            width: "100%",
+                                                                            height: "100%",
+                                                                        }}
+                                                                    />
+                                                                </Badge>
+                                                            </div>
+                                                            <div className="xyc">
+                                                                <div>
+                                                                    {
+                                                                        item.product_name
+                                                                    }
+                                                                </div>
+                                                                <div>
+                                                                    $
+                                                                    {
+                                                                        item.product_price
+                                                                    }
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </>
+                                                );
+                                            })}
+                                            <div className="checkout-total">
+                                                <div className="total-cart-shipping">
+                                                    <div>Subtotal</div>
+                                                    <div>${totalCartPrice}</div>
+                                                </div>
+                                                <div className="total-cart-shipping">
+                                                    <div>Shipping</div>
+                                                    <div>
+                                                        $
+                                                        {
+                                                            placeOrder.shippingMethod
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className="total-cart-shipping">
+                                                    <div
+                                                        style={{
+                                                            fontWeight: "bold",
+                                                        }}
+                                                    >
+                                                        Total
+                                                    </div>
+                                                    <div>
+                                                        <span
+                                                            style={{
+                                                                fontSize:
+                                                                    "11px",
+                                                            }}
+                                                        >
+                                                            USD
+                                                        </span>{" "}
+                                                        <span
+                                                            style={{
+                                                                fontWeight:
+                                                                    "bold",
+                                                            }}
+                                                        >
+                                                            $
+                                                            {
+                                                                totalCartePriceShipping
+                                                            }
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </>
+                                    )}
+                                </Panel>
+                            </Collapse>
+                        </div>
+                        <div
+                            className={
+                                screenWidth > 800
+                                    ? "contact-info"
+                                    : "contact-info-mobile"
+                            }
+                        >
                             {hasAddress.length == 0 ? (
                                 <>
                                     <div>
@@ -302,7 +534,12 @@ const BuyProduct = () => {
                                             Saved Addresses
                                         </h2>
                                         <Radio.Group
-                                            style={{ width: "40vw" }}
+                                            style={{
+                                                width:
+                                                    screenWidth > 800
+                                                        ? "40vw"
+                                                        : "80vw",
+                                            }}
                                             onChange={handleRadioChange}
                                             value={placeOrder.addressId}
                                         >
@@ -310,9 +547,10 @@ const BuyProduct = () => {
                                                 <Spin
                                                     style={{
                                                         transform:
-                                                            "translateX(290px)",
+                                                            screenWidth > 800
+                                                                ? "translateX(290px)"
+                                                                : "translateX(180px)",
                                                         marginBottom: "0.5rem",
-                                                        
                                                     }}
                                                 />
                                             ) : (
@@ -402,7 +640,12 @@ const BuyProduct = () => {
                                 </>
                             )}
                             <div>
-                                <Form style={{ width: "40vw" }}>
+                                <Form
+                                    style={{
+                                        width:
+                                            screenWidth > 800 ? "40vw" : "80vw",
+                                    }}
+                                >
                                     {/* Shipping Section */}
                                     <h2>Shipping Method</h2>
 
@@ -548,42 +791,65 @@ const BuyProduct = () => {
                             {productId ? (
                                 <>
                                     <div className="buy-product-image">
-                                        <div>
-                                            {product.image &&
-                                            product.image.length > 0 &&
-                                            product.image[0].image_url ? (
-                                                <img
-                                                    src={
-                                                        product.image[0]
-                                                            .image_url
-                                                    }
-                                                    alt="product"
-                                                    className="buy-image-resize"
-                                                />
-                                            ) : (
-                                                <p>Image not available</p>
-                                            )}
-                                        </div>
-                                        <div>{product.product_name}</div>
-                                    </div>
-                                    <div>${product.product_price}</div>
-                                    <div style={{ marginTop: "2rem" }}>
-                                        <div>Subtotal</div>
-                                        <div>${product.product_price}</div>
-                                        <div>Shipping</div>
-                                        <div>${placeOrder.shippingMethod}</div>
-                                        <div style={{ fontWeight: "bold" }}>
-                                            Total
-                                        </div>
-                                        <div>
-                                            <span style={{ fontSize: "11px" }}>
-                                                USD
-                                            </span>{" "}
-                                            <span
-                                                style={{ fontWeight: "bold" }}
+                                        <div className="buy-single-image-section">
+                                            <div
+                                                className={
+                                                    screenWidth > 800
+                                                        ? "resize-image-single-buy"
+                                                        : ""
+                                                }
                                             >
-                                                ${totalPrice}
-                                            </span>
+                                                {product.image &&
+                                                product.image.length > 0 &&
+                                                product.image[0].image_url ? (
+                                                    <img
+                                                        src={
+                                                            product.image[0]
+                                                                .image_url
+                                                        }
+                                                        alt="product"
+                                                        style={{
+                                                            width: "100%",
+                                                            height: "100%",
+                                                        }}
+                                                    />
+                                                ) : (
+                                                    <p>Image not available</p>
+                                                )}
+                                            </div>
+                                            <div className="product-name-buy-single">
+                                                {product.product_name}
+                                            </div>
+                                            <div>${product.product_price}</div>
+                                        </div>
+                                        <div className="single-buy-sub">
+                                            <div>Subtotal</div>
+                                            <div>${product.product_price}</div>
+                                        </div>
+                                        <div className="single-buy-sub">
+                                            <div>Shipping</div>
+                                            <div>
+                                                ${placeOrder.shippingMethod}
+                                            </div>
+                                        </div>
+                                        <div className="single-buy-sub">
+                                            <div style={{ fontWeight: "bold" }}>
+                                                Total
+                                            </div>
+                                            <div>
+                                                <span
+                                                    style={{ fontSize: "11px" }}
+                                                >
+                                                    USD
+                                                </span>{" "}
+                                                <span
+                                                    style={{
+                                                        fontWeight: "bold",
+                                                    }}
+                                                >
+                                                    ${totalPrice}
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
                                 </>
@@ -593,7 +859,14 @@ const BuyProduct = () => {
                                         return (
                                             <>
                                                 <div className="buy-product-image-cart">
-                                                    <div key={index}>
+                                                    <div
+                                                        key={index}
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "buy-image-resize-cart"
+                                                                : "buy-image-resize-cart-mobile"
+                                                        }
+                                                    >
                                                         <Badge
                                                             count={
                                                                 item.quantity
@@ -607,7 +880,10 @@ const BuyProduct = () => {
                                                                         .image_url
                                                                 }
                                                                 alt="product"
-                                                                className="buy-image-resize-cart"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                }}
                                                             />
                                                         </Badge>
                                                     </div>
