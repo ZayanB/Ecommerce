@@ -1,5 +1,6 @@
 .nav-active {
     color: orange;
+    font-size: 18px;
 }
 .nav-active:hover {
     color: orange;
@@ -7,6 +8,7 @@
 
 .nav-non {
     color: black;
+    font-size: 18px;
 }
 
 .nav-non:hover {
@@ -50,7 +52,7 @@
     display: none;
     position: absolute;
     z-index: 1;
-    transform: translate(-32%, 52%);
+    transform: translate(-37%, 52%);
     width: 98%;
     overflow: hidden;
     padding-top: 40px;

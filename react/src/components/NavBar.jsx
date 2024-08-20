@@ -37,7 +37,12 @@ const NavBar = () => {
                         style={{ color: "black", marginLeft: "1rem" }}
                         to="/"
                     >
-                        MOLEEZ
+                        ZYN
+                        {/* <img
+                            src="https://files.oaiusercontent.com/file-UVu7njKHZ7q90GQdZAHKNRPg?se=2024-08-20T09%3A19%3A31Z&sp=r&sv=2024-08-04&sr=b&rscc=max-age%3D604800%2C%20immutable%2C%20private&rscd=attachment%3B%20filename%3D85c02529-1cca-4abd-b0e0-6ac7de89e3a7.webp&sig=QA%2B%2B%2BnGHqZmC3zb5%2BKaJyihZbzZCEa41IpnkuvSRdmc%3D"
+                            alt="rgr"
+                            style={{ transform: "scale(0.5)" }}
+                        /> */}
                     </NavLink>
                 </h1>
             </div>

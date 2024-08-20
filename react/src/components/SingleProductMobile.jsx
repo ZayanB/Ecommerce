@@ -258,7 +258,7 @@ const SingleProductMobile = () => {
                             </div>
                             <div>
                                 Spend{" "}
-                                <span style={{ color: "red" }}>$1.00</span> to
+                                <span style={{ color: "red" }}>$50.00</span> to
                                 get Free Shipping
                             </div>
                         </div>
@@ -299,8 +299,9 @@ const SingleProductMobile = () => {
                                         {product.product_description}
                                     </TabPane>
                                     <TabPane tab="RATING" key="2">
-                                        Customers rated {product.product_name}{" "}
-                                        {product.product_rating} out of 5
+                                        {product.average_rating != 0
+                                            ? `Customers rated ${product.product_name} at average of ${product.average_rating}`
+                                            : `${product.product_name} is not rated yet`}
                                     </TabPane>
                                 </Tabs>
                             </div>

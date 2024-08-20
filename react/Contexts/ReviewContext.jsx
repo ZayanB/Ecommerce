@@ -28,7 +28,7 @@ const ReviewsProvider = ({ children }) => {
 
     const [state, dispatch] = useReducer(reviewsReducer, initialState);
 
-    const addReview = async (reviewData) => {
+    const addReview = async (reviewData, resetForm) => {
         try {
             const token = localStorage.getItem("access_token");
 
@@ -52,6 +52,7 @@ const ReviewsProvider = ({ children }) => {
                 placement: "topRight",
                 duration: 2,
             });
+            resetForm();
             fetchReviews();
         } catch (error) {
             if (error.response && error.response.data.errors) {

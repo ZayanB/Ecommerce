@@ -72,7 +72,7 @@ const SingleProduct = () => {
                 );
 
                 setProduct(response.data);
-                // console.log(response.data);
+                console.log(response.data);
                 // setLoading(false);
             } catch (error) {
                 console.error("Error fetching product data:", error);
@@ -115,8 +115,17 @@ const SingleProduct = () => {
         });
     };
 
-    const handleSubmitReview = () => {
-        addReview(addReviewData);
+    const resetForm = () => {
+        setAddReviewData({
+            productid: productId,
+            rating: "",
+            description: "",
+        });
+        console.log("resetForm called");
+    };
+    const handleSubmitReview = async (e) => {
+        e.preventDefault();
+        await addReview(addReviewData, resetForm);
     };
     return (
         <>
@@ -276,7 +285,7 @@ const SingleProduct = () => {
                                     <div>
                                         Spend{" "}
                                         <span style={{ color: "red" }}>
-                                            $1.00
+                                            $50.00
                                         </span>{" "}
                                         to get Free Shipping
                                     </div>
@@ -289,11 +298,11 @@ const SingleProduct = () => {
                                     <div>
                                         <Rate
                                             onChange={handleRateChange}
-                                            value={addReview.rating}
+                                            value={addReviewData.rating} // Ensure this points to `addReviewData`
                                         />
                                         <Input.TextArea
                                             rows={4}
-                                            value={addReview.description}
+                                            value={addReviewData.description} // Ensure this points to `addReviewData`
                                             onChange={handleDescriptionChange}
                                             placeholder="Write your review"
                                             style={{
@@ -322,8 +331,9 @@ const SingleProduct = () => {
                                 {product.product_description}
                             </TabPane>
                             <TabPane tab="RATING" key="2">
-                                Customers rated {product.product_name}{" "}
-                                {product.product_rating} out of 5
+                                {product.average_rating != 0
+                                    ? `Customers rated ${product.product_name} at average of ${product.average_rating}`
+                                    : `${product.product_name} is not rated yet`}
                             </TabPane>
                         </Tabs>
                     </div>

@@ -31,7 +31,7 @@ class Product extends Model
     {
         return $this->belongsTo(Category::class, 'category_id');
     }
-    public function review(): HasMany
+    public function reviews(): HasMany
     {
         return $this->hasMany(ProductReview::class, 'product_id', 'product_id_pkey');
     }
@@ -44,17 +44,13 @@ class Product extends Model
                 $products = Product::orderBy('created_at', 'desc');
                 break;
 
-            case 'our_favorites':
-                $products = Product::orderBy('product_rating', 'desc');
-                break;
-
             default:
                 $products = Product::orderBy('created_at', 'desc');
                 break;
         }
 
         $products = Product::with('image:product_id,image_url')
-            ->select(['product_id_pkey', 'product_name', 'product_price', 'product_rating', 'created_at', 'product_sale', 'product_size', 'product_description'])->limit($limit)->get();
+            ->select(['product_id_pkey', 'product_name', 'product_price', 'created_at', 'product_sale', 'product_size', 'product_description'])->limit($limit)->get();
 
 
         return $products;

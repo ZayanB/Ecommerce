@@ -2,8 +2,10 @@ import React from "react";
 import { Button, Modal } from "antd";
 import CreateAddress from "./CreateAddress";
 import { PiPlus } from "react-icons/pi";
+import useScreenWidth from "./useScreenWidth";
 
 const CreateAddressPopUp = ({ isModalVisible, showModal, handleCancel }) => {
+    const screenWidth = useScreenWidth();
     return (
         <div>
             <Button
@@ -19,7 +21,7 @@ const CreateAddressPopUp = ({ isModalVisible, showModal, handleCancel }) => {
                 title=""
                 visible={isModalVisible}
                 onCancel={handleCancel}
-                width="43vw"
+                width={screenWidth > 800 ? "43vw" : "80vw"}
                 footer={null}
             >
                 <CreateAddress />

@@ -81,7 +81,6 @@ const NavbarList = ({ onClose }) => {
                         <div
                             onMouseOver={onMouseOver}
                             className={`arrowDown dropDown`}
-                            
                         >
                             <NavLink
                                 className={linkClass}
@@ -217,17 +216,18 @@ const NavbarList = ({ onClose }) => {
                             </NavLink>
                         </div>
                     </span>
-
-                    <div
-                        className={
-                            screenWidth < 800 ? "arrowDown" : "hide-display"
-                        }
-                        onClick={onClose}
-                    >
-                        <NavLink to="/createAcc" className="nav-non">
-                            CREATE ACCOUNT
-                        </NavLink>
-                    </div>
+                    <span className={!token ? "" : "hide-display"}>
+                        <div
+                            className={
+                                screenWidth < 800 ? "arrowDown" : "hide-display"
+                            }
+                            onClick={onClose}
+                        >
+                            <NavLink to="/createAcc" className="nav-non">
+                                CREATE ACCOUNT
+                            </NavLink>
+                        </div>
+                    </span>
                     <span className={token ? "" : "hide-display"}>
                         <div
                             className={

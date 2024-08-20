@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import "./LoginPage.css";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-import { notification } from "antd";
+import { notification, Alert } from "antd";
 import useScreenWidth from "./useScreenWidth";
 
 const LoginPage = () => {
     const navigate = useNavigate();
     const screenWidth = useScreenWidth();
+    const [accError, setAccError] = useState("");
 
     const handleClick = () => {
         navigate("/createAcc");
@@ -51,14 +52,12 @@ const LoginPage = () => {
                 duration: 2,
             });
         } catch (error) {
-            notification.error({
-                message: "Error",
-                description:
-                    "Failed to sign in: " +
-                    Object.values(error.response.data.errors).join(" "),
-                placement: "topRight",
-                duration: 5,
-            });
+            let tryError =
+                "Failed to sign in: <br/> " +
+                Object.values(error.response.data.errors)
+                    .map((err) => `${err}<br />`)
+                    .join("");
+            setAccError(tryError);
         }
     };
 
@@ -71,6 +70,26 @@ const LoginPage = () => {
             >
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Sign In</div>
+                    {accError ? (
+                        <div>
+                            <Alert
+                                message={
+                                    <span
+                                        style={{
+                                            textAlign: "center",
+                                            display: "block",
+                                        }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: accError,
+                                        }}
+                                    />
+                                }
+                                type="error"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
                     <div className="pd-0">
                         <label htmlFor="email">
                             Email Address{" "}

@@ -62,13 +62,19 @@ const UserDropDown = () => {
             {token ? (
                 <></>
             ) : (
-                <Menu.Item className="dropdown-menu-item" key="sign-in">
-                    <Link to="/signIn">Sign In</Link>
-                </Menu.Item>
+                <>
+                    <Menu.Item className="dropdown-menu-item" key="sign-in">
+                        <Link to="/signIn">Sign In</Link>
+                    </Menu.Item>
+                    <Menu.Item
+                        key="create-account"
+                        className="dropdown-menu-item"
+                    >
+                        <Link to="/createAcc">Create Account</Link>
+                    </Menu.Item>
+                </>
             )}
-            <Menu.Item key="create-account" className="dropdown-menu-item">
-                <Link to="/createAcc">Create Account</Link>
-            </Menu.Item>
+
             {token ? (
                 <Menu.Item key="sign-out" onClick={logout}>
                     <Link> Sign Out</Link>
