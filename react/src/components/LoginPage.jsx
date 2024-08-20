@@ -133,7 +133,12 @@ const LoginPage = () => {
                     </div>
                 </form>
                 <div className="divider">
-                    <span className="divider-text">Or</span>
+                    <span
+                        className="divider-text"
+                        style={{ transform: "translateY(-2px)" }}
+                    >
+                        Don't have an account?
+                    </span>
                 </div>
                 <form
                     className={screenWidth > 800 ? "Form1" : "Form1-mobile"}
