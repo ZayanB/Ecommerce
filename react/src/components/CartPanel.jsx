@@ -23,6 +23,8 @@ const CartPanel = () => {
         setVisible(false);
     };
 
+    const token = localStorage.getItem("access_token");
+
     return (
         <div>
             <Button
@@ -115,7 +117,41 @@ const CartPanel = () => {
                                 );
                             })
                         ) : (
-                            <div>No items</div>
+                            <>
+                                {token ? (
+                                    <>
+                                        <div className="empty-cart">
+                                            <div>Your cart is empty</div>
+                                            <div>
+                                                <Link to={"/allProducts"}>
+                                                    <button
+                                                        className="start-shopping-btn"
+                                                        onClick={onClose}
+                                                    >
+                                                        Start Shopping
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </>
+                                ) : (
+                                    <>
+                                        <div className="empty-cart">
+                                            <div>
+                                                <Link to={"/signIn"}>
+                                                    <button
+                                                        className="start-shopping-btn"
+                                                        onClick={onClose}
+                                                    >
+                                                        Sign in to start
+                                                        shopping
+                                                    </button>
+                                                </Link>
+                                            </div>
+                                        </div>
+                                    </>
+                                )}
+                            </>
                         )}
                     </div>
 
@@ -129,8 +165,12 @@ const CartPanel = () => {
                             </div>
                         </div>
 
-                        <button className="view-button">VIEW CART</button>
-                        <Link to={"/buyProduct/cart"}>
+                        <Link to={token ? "/buyProduct/cart" : "/"}>
+                            <button className="view-button" onClick={onClose}>
+                                VIEW CART
+                            </button>
+                        </Link>
+                        <Link to={token ? "/buyProduct/cart" : "/"}>
                             <button
                                 className="checkout-button"
                                 onClick={onClose}

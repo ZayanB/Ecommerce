@@ -61,12 +61,15 @@
 .view-button {
     border: solid black 1px;
     border-radius: 0;
+    width: 100%;
+    transition: ease 700ms;
 }
 
 .view-button:hover {
-    border: black;
+    border: solid black 1px;
     background-color: black;
     color: white;
+    transition: ease 700ms;
 }
 
 .checkout-button {
@@ -75,11 +78,13 @@
     background-color: grey;
     color: white;
     width: 100%;
+    transition: ease 700ms;
 }
 
 .checkout-button:hover {
-    border: black;
+    border: solid 1px black;
     background-color: black;
+    transition: ease 700ms;
 }
 
 .product-price-quantity {
@@ -98,4 +103,26 @@
 
 .cart-qty-hide {
     display: none;
+}
+
+.empty-cart {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 75%;
+}
+
+.start-shopping-btn {
+    border-radius: 0;
+    border: solid 1px black;
+    transition: ease 700ms;
+}
+
+.start-shopping-btn:hover {
+    color: white;
+    background-color: black;
+    border: solid 1px black;
+    transition: ease 700ms;
 }
