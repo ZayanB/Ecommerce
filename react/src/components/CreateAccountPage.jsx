@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./CreateAccountPage.css";
 import { useNavigate } from "react-router-dom";
-import { notification } from "antd";
+import { notification, Alert } from "antd";
 import useScreenWidth from "./useScreenWidth";
 
 const CreateAccountPage = () => {
     const navigate = useNavigate();
     const screeWidth = useScreenWidth();
+    const [accError, setAccError] = useState("");
 
     const handleClick = () => {
         navigate("/signIn");
@@ -50,22 +51,40 @@ const CreateAccountPage = () => {
             });
             navigate("/signIn");
         } catch (error) {
-            notification.error({
-                message: "Error",
-                description:
-                    "Failed to create account: " +
-                    Object.values(error.response.data.errors).join(" "),
-                placement: "topRight",
-                duration: 5,
-            });
+            let tryError =
+                "Failed to create account: <br/> " +
+                Object.values(error.response.data.errors)
+                    .map((err) => `${err}<br />`)
+                    .join("");
+            setAccError(tryError);
         }
     };
 
     return (
         <div className="MainContainerCreateAcc">
-            <div className={screeWidth>800?"Inputs":"inputs-mobile"}>
+            <div className={screeWidth > 800 ? "Inputs" : "inputs-mobile"}>
                 <form className="Form" onSubmit={handleSubmit}>
                     <div className="Text">Create An Account</div>
+                    {accError ? (
+                        <div>
+                            <Alert
+                                message={
+                                    <span
+                                        style={{
+                                            textAlign: "center",
+                                            display: "block",
+                                        }}
+                                        dangerouslySetInnerHTML={{
+                                            __html: accError,
+                                        }}
+                                    />
+                                }
+                                type="error"
+                            />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
 
                     <div className="pd-0">
                         <label htmlFor="firstname">
@@ -140,7 +159,10 @@ const CreateAccountPage = () => {
                         />
                     </div>
                     <div style={{ width: "100%" }}>
-                        <button type="submit" className="CreateAccButton-createPage">
+                        <button
+                            type="submit"
+                            className="CreateAccButton-createPage"
+                        >
                             CREATE AN ACCOUNT
                         </button>
                     </div>
@@ -149,7 +171,10 @@ const CreateAccountPage = () => {
                     <span className="divider-text">Or</span>
                 </div>
                 <div style={{ width: "100%" }}>
-                    <button onClick={handleClick} className="SignInButton-createPage">
+                    <button
+                        onClick={handleClick}
+                        className="SignInButton-createPage"
+                    >
                         SIGN IN
                     </button>
                 </div>

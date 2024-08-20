@@ -122,11 +122,16 @@
 }
 
 .ant-radio-button-wrapper-checked {
-    /* color: rgba(0, 0, 0, 0.651) !important; */
-    /* color: rgba(255, 166, 0, 0.507) !important; */
     color: black !important;
     border: solid 1px orange !important;
 }
+.css-dev-only-do-not-override-d2lrxs
+    .ant-radio-button-wrapper-checked:not(
+        .ant-radio-button-wrapper-disabled
+    )::before {
+    background-color: transparent;
+}
+
 .custom-payment-buttons .ant-radio-button-wrapper-checked {
     color: orange !important;
     border: solid 1px orange !important;

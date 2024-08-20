@@ -2,8 +2,10 @@ import { React, useState } from "react";
 import axios from "../api/axios";
 import { Form, Input, Select, Spin, notification } from "antd";
 import "./CreateAddress.css";
+import useScreenWidth from "./useScreenWidth";
 
 const CreateAddress = () => {
+    const screenWidth = useScreenWidth();
     const { Option } = Select;
     const countries = [
         "Afghanistan",
@@ -321,7 +323,12 @@ const CreateAddress = () => {
             ) : (
                 <>
                     <div>
-                        <Form layout="vertical" style={{ width: "40vw" }}>
+                        <Form
+                            layout="vertical"
+                            style={{
+                                width: screenWidth > 800 ? "40vw" : "70vw",
+                            }}
+                        >
                             {/* Delivery Section */}
                             <h2>Address</h2>
                             <Form.Item

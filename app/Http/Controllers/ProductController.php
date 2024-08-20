@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Product;
+use App\Models\ProductReview;
 
 class ProductController extends Controller
 {
@@ -38,10 +39,6 @@ class ProductController extends Controller
             $products->whereRaw('? = ANY(product_size)', [$size]);
         }
 
-        // if ($request->has('new_arrival')) {
-        //     $products->orderBy('created_at', 'desc');
-        // }
-
         if ($request->has('sort')) {
             $sort = $request->input('sort');
             switch ($sort) {
@@ -71,7 +68,28 @@ class ProductController extends Controller
 
     public function getSingleProduct($productId)
     {
-        $productInfo = Product::where('product_id_pkey', $productId)->with('image:product_id,image_url', 'category:category_id_pkey,category_name')->select('product_id_pkey', 'product_name', 'product_size', 'product_price', 'product_sale', 'product_description', 'created_at', 'product_rating', 'sku', 'category_id')->first();
+        $productInfo = Product::where('product_id_pkey', $productId)
+            ->with(['image:product_id,image_url', 'category:category_id_pkey,category_name', 'reviews'])
+            ->select(
+                'product_id_pkey',
+                'product_name',
+                'product_size',
+                'product_price',
+                'product_sale',
+                'product_description',
+                'created_at',
+                'sku',
+                'category_id'
+            )
+            ->first();
+
+        if ($productInfo) {
+            // Calculate average rating
+            $averageRating = $productInfo->reviews->avg('product_rating') ?? 0;
+            $productInfo->average_rating = round($averageRating, 1); // Round to one decimal place
+        } else {
+            $productInfo->average_rating = 0;
+        }
 
         return response()->json($productInfo);
     }

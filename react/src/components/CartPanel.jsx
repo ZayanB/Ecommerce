@@ -36,7 +36,14 @@ const CartPanel = () => {
                 {screenWidth > 800 ? (
                     <PiShoppingCart size={22} className="cart-hover" />
                 ) : (
-                    <Badge count={items.totalItemCount} showZero>
+                    <Badge
+                        count={
+                            items.totalItemCount
+                                ? `${items.totalItemCount}`
+                                : "0"
+                        }
+                        showZero
+                    >
                         <PiShoppingCart size={22} className="cart-hover" />
                     </Badge>
                 )}
