@@ -1,0 +1,27 @@
+.sizes-compare-display {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: flex-start;
+    margin-left: 0.5rem;
+}
+
+th,
+td {
+    border: 0.1px solid rgba(0, 0, 0, 0.148);
+    padding: 8px;
+}
+
+th {
+    background-color: #f2f2f2;
+}
+
+table {
+    border-spacing: 0rem;
+    border: 1px solid rgba(0, 0, 0, 0.148);
+    width: 100%;
+}
+
+.compare-modal .ant-modal-content {
+    overflow-x: scroll;
+}
