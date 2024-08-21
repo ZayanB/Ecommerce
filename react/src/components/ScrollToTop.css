@@ -2,8 +2,8 @@
     position: fixed !important;
     bottom: 40px !important;
     right: 40px !important;
-
-    /* padding-right: 5rem; */
+    z-index: 9999;
+    width: auto;
 }
 
 .ant-btn-primary.ant-btn-background-ghost {

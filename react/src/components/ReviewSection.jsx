@@ -100,9 +100,9 @@ const ReviewSection = () => {
                                                         {review.user &&
                                                             review.user
                                                                 .user_first_name}{" "}
-                                                        {review.user &&
+                                                        {/* {review.user &&
                                                             review.user
-                                                                .user_last_name}{" "}
+                                                                .user_last_name}{" "} */}
                                                     </span>
                                                     on product{" "}
                                                     {review.product &&

@@ -480,10 +480,10 @@ const MyAccount = () => {
                                                 gutter={[16, 16]}
                                                 wrap={true}
                                                 style={{
-                                                    marginLeft:
+                                                    paddingLeft:
                                                         screenWidth > 800
                                                             ? "0"
-                                                            : "1rem",
+                                                            : "2.2rem",
                                                 }}
                                             >
                                                 {hasAddress &&
