@@ -8,6 +8,7 @@ import { PiScales, PiList } from "react-icons/pi";
 import UserDropDown from "./UserDropDown";
 import NavbarList from "./NavbarList";
 import NavListPanel from "./NavListPanel";
+import CompareProducts from "./CompareProducts";
 
 const NavBar = () => {
     // const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
@@ -60,13 +61,14 @@ const NavBar = () => {
                         <UserDropDown />
                     </div>
                     <div>
-                        <PiScales
+                        {/* <PiScales
                             className={
                                 screenWidth > 986
                                     ? "CartHover"
                                     : "nav-user-hide"
                             }
-                        />
+                        /> */}
+                        <CompareProducts />
                     </div>
                     <div
                         style={{

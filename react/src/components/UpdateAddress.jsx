@@ -294,7 +294,7 @@ const UpdateAddress = ({ addressId, visible, onClose, onUpdateSuccess }) => {
 
     return (
         <Modal
-            title="Update Address"
+            title="Edit Address"
             visible={visible}
             onCancel={onClose}
             footer={null}

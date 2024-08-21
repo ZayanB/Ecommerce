@@ -40,6 +40,10 @@ class UserInfo extends Authenticatable
     {
         return $this->hasOne(ShoppingCart::class, 'user_id', 'user_id_pkey');
     }
+    public function compare(): HasOne
+    {
+        return $this->hasOne(ProductCompare::class, 'user_id', 'user_id_pkey');
+    }
 
     public function review(): HasMany
     {

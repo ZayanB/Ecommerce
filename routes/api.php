@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\OrderInfoController;
+use App\Http\Controllers\ProductCompareController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserAddressController;
@@ -42,6 +43,7 @@ Route::post('/addAddress', [UserAddressController::class, 'addAddress'])->middle
 Route::post('/getAddress', [UserAddressController::class, 'getAddress'])->middleware('auth:sanctum');
 Route::post('/getAddressById/{id}', [UserAddressController::class, 'getAddressById'])->middleware('auth:sanctum');
 Route::put('/updateAddress/{id}', [UserAddressController::class, 'updateAddress'])->middleware('auth:sanctum');
+Route::delete('/deleteAddress/{id}', [UserAddressController::class, 'deleteAddress'])->middleware('auth:sanctum');
 
 Route::post('/createOrderAddress', [OrderAddressController::class, 'addOrderAddress'])->middleware(('auth:sanctum'));
 
@@ -49,3 +51,6 @@ Route::post('/placeOrder', [OrderInfoController::class, 'createOrder'])->middlew
 
 Route::post('/getUserInfo', [UserInfoController::class, 'getUserInfo'])->middleware('auth:sanctum');
 Route::post('/getOrderInfo', [OrderInfoController::class, 'getOrderInfo'])->middleware('auth:sanctum');
+
+Route::post('/addProductCompare/{id}', [ProductCompareController::class, 'addProductToCompare'])->middleware('auth:sanctum');
+Route::post('/getProductCompare', [ProductCompareController::class, 'getProductsToCompare'])->middleware('auth:sanctum');
