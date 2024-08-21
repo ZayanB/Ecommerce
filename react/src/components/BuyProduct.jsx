@@ -614,7 +614,7 @@ const BuyProduct = () => {
                                                                         </div>
                                                                         <div>
                                                                             {
-                                                                                address.zip_code
+                                                                                address.zipCode
                                                                             }
                                                                         </div>
                                                                     </div>

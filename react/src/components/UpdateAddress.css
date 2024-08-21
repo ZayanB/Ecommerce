@@ -1,0 +1,9 @@
+.update-address-btn {
+    width: 100%;
+    transition: ease 400ms;
+}
+.update-address-btn:hover {
+    border-color: orange;
+    color: orange;
+    transition: ease 400ms;
+}

@@ -11,13 +11,21 @@ import {
 } from "antd";
 import axios from "../api/axios";
 import "./MyAccount.css";
-import { PiUserCircle, PiBag, PiMapPin, PiUserList } from "react-icons/pi";
+import {
+    PiUserCircle,
+    PiBag,
+    PiMapPin,
+    PiUserList,
+    PiPencil,
+    PiTrash,
+} from "react-icons/pi";
 import Spinner from "./Spinner";
 const { Sider, Content } = Layout;
 import CreateAddressPopUp from "./CreateAddressPopUp";
 import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
 import useScreenWidth from "./useScreenWidth";
+import UpdateAddress from "./UpdateAddress";
 
 const MyAccount = () => {
     const [selectedMenu, setSelectedMenu] = useState("1");
@@ -168,6 +176,22 @@ const MyAccount = () => {
         } catch (error) {
             console.error("Logout failed:", error);
         }
+    };
+
+    const [selectedAddressId, setSelectedAddressId] = useState(null);
+    const [isModalVisible, setIsModalVisible] = useState(false);
+    const handleEditClick = (userAddressId) => {
+        setSelectedAddressId(userAddressId);
+        setIsModalVisible(true);
+    };
+
+    const handleModalClose = () => {
+        setIsModalVisible(false);
+        setSelectedAddressId(null);
+    };
+
+    const handleUpdateSuccess = () => {
+        fetchAddresses(); // Refresh the address list after an update
     };
 
     return (
@@ -544,13 +568,57 @@ const MyAccount = () => {
                                                                     </p>
                                                                     <p>
                                                                         <strong>
+                                                                            Building:
+                                                                        </strong>{" "}
+                                                                        {
+                                                                            address.building
+                                                                        }
+                                                                    </p>
+                                                                    <p>
+                                                                        <strong>
                                                                             Zip
                                                                             Code:
                                                                         </strong>{" "}
                                                                         {
-                                                                            address.zip_code
+                                                                            address.zipCode
                                                                         }
                                                                     </p>
+                                                                    <div className="edit-delete">
+                                                                        <button
+                                                                            type="link"
+                                                                            onClick={() =>
+                                                                                handleEditClick(
+                                                                                    address.user_address_id
+                                                                                )
+                                                                            }
+                                                                            className="edit-delete-btns"
+                                                                        >
+                                                                            <PiPencil
+                                                                                style={{
+                                                                                    transform:
+                                                                                        "translateY(2px)",
+                                                                                }}
+                                                                            />{" "}
+                                                                            Edit
+                                                                        </button>
+                                                                        <button
+                                                                            type="link"
+                                                                            onClick={() =>
+                                                                                handleEditClick(
+                                                                                    address.user_address_id
+                                                                                )
+                                                                            }
+                                                                            className="edit-delete-btns"
+                                                                        >
+                                                                            <PiTrash
+                                                                                style={{
+                                                                                    transform:
+                                                                                        "translateY(2px)",
+                                                                                }}
+                                                                            />{" "}
+                                                                            Delete
+                                                                        </button>
+                                                                    </div>
                                                                 </Card>
                                                             </Col>
                                                         )
@@ -559,6 +627,18 @@ const MyAccount = () => {
                                                     <p>No addresses found.</p>
                                                 )}
                                             </Row>
+                                            {selectedAddressId && (
+                                                <UpdateAddress
+                                                    addressId={
+                                                        selectedAddressId
+                                                    }
+                                                    visible={isModalVisible}
+                                                    onClose={handleModalClose}
+                                                    onUpdateSuccess={
+                                                        handleUpdateSuccess
+                                                    }
+                                                />
+                                            )}
                                         </>
                                     )}
                                     {selectedMenu === "3" && (

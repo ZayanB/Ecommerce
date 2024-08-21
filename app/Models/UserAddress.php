@@ -7,7 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
 
-class UserAddress extends Model {
+class UserAddress extends Model
+{
     use HasFactory;
 
     protected $table = 'user_address';
@@ -20,16 +21,18 @@ class UserAddress extends Model {
         'city',
         'street',
         'building',
-        'zip_code',
+        'zipCode',
         'label'
     ]);
 
     public $timestamps = true;
 
-    public function userInfo(): BelongsTo {
+    public function userInfo(): BelongsTo
+    {
         return $this->belongsTo(UserInfo::class, 'user_id', 'user_id_pkey');
     }
-    public function orderAddress(): HasOne {
+    public function orderAddress(): HasOne
+    {
         return $this->hasOne(OrderAddress::class, 'address_id', 'user_address_id');
     }
 }
