@@ -15,7 +15,7 @@ import {
     PiList,
 } from "react-icons/pi";
 import { useCart } from "../../Contexts/CartContext";
-import { Select, Drawer, Button } from "antd";
+import { Select, Drawer, Button, notification } from "antd";
 const { Option } = Select;
 import useScreenWidth from "./useScreenWidth";
 import ProductsPageSidebar from "./ProductsPageSidebar";
@@ -119,6 +119,40 @@ const ProductsPage = ({ product }) => {
 
     const onClose = () => {
         setDrawerVisible(false);
+    };
+
+    const addToCompare = async (product_id_pkey) => {
+        const token = localStorage.getItem("access_token");
+
+        try {
+            const response = await axios.post(
+                `http://127.0.0.1:8000/api/addProductCompare/${product_id_pkey}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            notification.success({
+                message: "Success",
+                description: "Product added for comparison",
+                placement: "topRight",
+                duration: 2,
+            });
+        } catch (error) {
+            notification.error({
+                message: "Error",
+                description: "Product cannot be added for comparison",
+                placement: "topRight",
+                duration: 2,
+            });
+            console.error(
+                "Error adding product to compare:",
+                error.response ? error.response.data : error.message
+            );
+        }
     };
 
     return (
@@ -322,7 +356,14 @@ const ProductsPage = ({ product }) => {
                                                                 <button className="overlayButton">
                                                                     <PiHeart className="overlayIcons" />
                                                                 </button>
-                                                                <button className="overlayButton">
+                                                                <button
+                                                                    className="overlayButton"
+                                                                    onClick={() =>
+                                                                        addToCompare(
+                                                                            product.product_id_pkey
+                                                                        )
+                                                                    }
+                                                                >
                                                                     <PiScales className="overlayIcons" />
                                                                 </button>
                                                             </div>
