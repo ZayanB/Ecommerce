@@ -87,9 +87,22 @@
     margin: 0% !important;
 }
 
-/* .margin-0 {
-    margin-left: 0rem;
+.edit-delete {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    justify-content: space-between;
 }
-.margin-1 .ant-layout .css-dev-only-do-not-override-d2lrxs {
-    margin-left: 2rem !important;
-} */
+
+.edit-delete-btns {
+    width: 50%;
+    border: solid 1px black;
+    transition: ease 400ms;
+}
+
+.edit-delete-btns:hover {
+    border: solid 1px black;
+    background-color: black;
+    color: white;
+    transition: ease 400ms;
+}

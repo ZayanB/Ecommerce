@@ -319,7 +319,15 @@ const CreateAddress = () => {
     return (
         <>
             {loading ? (
-                <Spin size="large" style={{ transform: "translateX(250px)" }} />
+                <Spin
+                    size="large"
+                    style={{
+                        transform:
+                            screenWidth > 800
+                                ? "translateX(250px)"
+                                : "translateX(125px)",
+                    }}
+                />
             ) : (
                 <>
                     <div>
@@ -344,6 +352,13 @@ const CreateAddress = () => {
                                     placeholder="Select your country"
                                     value={userAddress.country}
                                     onChange={handleCountryChange}
+                                    showSearch
+                                    optionFilterProp="children" // This will filter based on the text of the Option
+                                    filterOption={(input, option) =>
+                                        option.children
+                                            .toLowerCase()
+                                            .includes(input.toLowerCase())
+                                    }
                                 >
                                     {countries.map((country) => (
                                         <Option key={country} value={country}>

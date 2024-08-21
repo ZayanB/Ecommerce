@@ -40,6 +40,8 @@ Route::post('/addProductReview', [ProductReviewController::class, 'addProductRev
 
 Route::post('/addAddress', [UserAddressController::class, 'addAddress'])->middleware('auth:sanctum');
 Route::post('/getAddress', [UserAddressController::class, 'getAddress'])->middleware('auth:sanctum');
+Route::post('/getAddressById/{id}', [UserAddressController::class, 'getAddressById'])->middleware('auth:sanctum');
+Route::put('/updateAddress/{id}', [UserAddressController::class, 'updateAddress'])->middleware('auth:sanctum');
 
 Route::post('/createOrderAddress', [OrderAddressController::class, 'addOrderAddress'])->middleware(('auth:sanctum'));
 
