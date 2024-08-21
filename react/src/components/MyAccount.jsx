@@ -8,6 +8,8 @@ import {
     notification,
     Button,
     Drawer,
+    Spin,
+    Modal,
 } from "antd";
 import axios from "../api/axios";
 import "./MyAccount.css";
@@ -26,6 +28,7 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
 import useScreenWidth from "./useScreenWidth";
 import UpdateAddress from "./UpdateAddress";
+import DeleteAddress from "./DeleteAddress";
 
 const MyAccount = () => {
     const [selectedMenu, setSelectedMenu] = useState("1");
@@ -192,6 +195,54 @@ const MyAccount = () => {
 
     const handleUpdateSuccess = () => {
         fetchAddresses(); // Refresh the address list after an update
+    };
+    const [deleteLoading, setDeleteLoading] = useState(false);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleDelete = async (userAddressId) => {
+        try {
+            setDeleteLoading(true);
+            const token = localStorage.getItem("access_token");
+            const response = await axios.delete(
+                `http://127.0.0.1:8000/api/deleteAddress/${userAddressId}`,
+                {
+                    headers: {
+                        Accept: "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setDeleteLoading(false);
+            setIsModalOpen(false);
+
+            notification.success({
+                message: "Success",
+                description: "Address Deleted Successfully!",
+                placement: "topRight",
+                duration: 2,
+            });
+        } catch (error) {
+            setDeleteLoading(false);
+            setIsModalOpen(false);
+            console.error(
+                "Error deleting the address:",
+                error.response?.data?.message || error.message
+            );
+            notification.error({
+                message: "Error",
+                description: "Cannot Delete Address!",
+                placement: "topRight",
+                duration: 2,
+            });
+        }
     };
 
     return (
@@ -603,10 +654,8 @@ const MyAccount = () => {
                                                                         </button>
                                                                         <button
                                                                             type="link"
-                                                                            onClick={() =>
-                                                                                handleEditClick(
-                                                                                    address.user_address_id
-                                                                                )
+                                                                            onClick={
+                                                                                showModal
                                                                             }
                                                                             className="edit-delete-btns"
                                                                         >
@@ -618,6 +667,26 @@ const MyAccount = () => {
                                                                             />{" "}
                                                                             Delete
                                                                         </button>
+                                                                        <Modal
+                                                                            className="orng-ant-btn"
+                                                                            title="Are you sure you want to delete address?"
+                                                                            open={
+                                                                                isModalOpen
+                                                                            }
+                                                                            onOk={() =>
+                                                                                handleDelete(
+                                                                                    address.user_address_id
+                                                                                )
+                                                                            }
+                                                                            onCancel={
+                                                                                handleCancel
+                                                                            }
+                                                                            centered={
+                                                                                true
+                                                                            }
+                                                                        >
+                                                                            {" "}
+                                                                        </Modal>
                                                                     </div>
                                                                 </Card>
                                                             </Col>

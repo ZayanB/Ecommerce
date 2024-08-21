@@ -106,3 +106,15 @@
     color: white;
     transition: ease 400ms;
 }
+.orng-ant-btn .ant-btn-primary {
+    background: orange !important;
+}
+.orng-ant-btn .ant-btn-primary:hover {
+    background: black !important;
+    border-color: black;
+}
+
+.orng-ant-btn .ant-btn-default:hover {
+    color: orange !important;
+    border-color: orange !important;
+}

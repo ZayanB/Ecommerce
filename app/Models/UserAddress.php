@@ -22,7 +22,8 @@ class UserAddress extends Model
         'street',
         'building',
         'zipCode',
-        'label'
+        'label',
+        'deleted'
     ]);
 
     public $timestamps = true;

@@ -15,7 +15,9 @@ class UserAddressController extends Controller
         $user = Auth::user();
         $userId = $user->user_id_pkey;
 
-        $address = UserAddress::where('user_id', $userId)->get();
+        $address = UserAddress::where('user_id', $userId)
+            ->where('deleted', false)
+            ->get();
 
         return response()->json($address);
     }
@@ -98,5 +100,14 @@ class UserAddressController extends Controller
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 500);
         }
+    }
+
+    public function deleteAddress($id)
+    {
+        $address = UserAddress::find($id);
+        $address->deleted = true;
+        $address->save();
+
+        return response()->json(['message' => 'Address deleted successfully'], 200);
     }
 }
