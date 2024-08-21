@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
-// use phpDocumentor\Reflection\DocBlock\Tags\Var_;
 
 class Product extends Model
 {
@@ -34,6 +33,10 @@ class Product extends Model
     public function reviews(): HasMany
     {
         return $this->hasMany(ProductReview::class, 'product_id', 'product_id_pkey');
+    }
+    public function compare(): HasMany
+    {
+        return $this->hasMany(ProductCompare::class, 'product_id', 'product_id_pkey');
     }
 
 

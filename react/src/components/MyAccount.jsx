@@ -6,10 +6,9 @@ import {
     Row,
     Col,
     notification,
-    Button,
     Drawer,
-    Spin,
     Modal,
+    Spin,
 } from "antd";
 import axios from "../api/axios";
 import "./MyAccount.css";
@@ -28,7 +27,6 @@ import { useNavigate } from "react-router-dom";
 import { useCart } from "../../Contexts/CartContext";
 import useScreenWidth from "./useScreenWidth";
 import UpdateAddress from "./UpdateAddress";
-import DeleteAddress from "./DeleteAddress";
 
 const MyAccount = () => {
     const [selectedMenu, setSelectedMenu] = useState("1");
@@ -669,7 +667,6 @@ const MyAccount = () => {
                                                                         </button>
                                                                         <Modal
                                                                             className="orng-ant-btn"
-                                                                            title="Are you sure you want to delete address?"
                                                                             open={
                                                                                 isModalOpen
                                                                             }
@@ -685,7 +682,37 @@ const MyAccount = () => {
                                                                                 true
                                                                             }
                                                                         >
-                                                                            {" "}
+                                                                            {deleteLoading ? (
+                                                                                <>
+                                                                                    <Spin
+                                                                                        style={{
+                                                                                            transform:
+                                                                                                screenWidth >
+                                                                                                800
+                                                                                                    ? "translateX(220px)"
+                                                                                                    : "translateX(165px)",
+                                                                                        }}
+                                                                                    ></Spin>
+                                                                                </>
+                                                                            ) : (
+                                                                                <>
+                                                                                    <p
+                                                                                        style={{
+                                                                                            marginLeft:
+                                                                                                "1rem",
+                                                                                        }}
+                                                                                    >
+                                                                                        Are
+                                                                                        you
+                                                                                        sure
+                                                                                        you
+                                                                                        want
+                                                                                        to
+                                                                                        delete
+                                                                                        address?
+                                                                                    </p>{" "}
+                                                                                </>
+                                                                            )}
                                                                         </Modal>
                                                                     </div>
                                                                 </Card>

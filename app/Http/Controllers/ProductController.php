@@ -93,4 +93,10 @@ class ProductController extends Controller
 
         return response()->json($productInfo);
     }
+
+    public function compareProduct($id){
+
+        
+
+    }
 }

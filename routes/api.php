@@ -8,6 +8,7 @@ use App\Http\Controllers\AuthenticationController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\OrderInfoController;
+use App\Http\Controllers\ProductCompareController;
 use App\Http\Controllers\ProductReviewController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserAddressController;
@@ -50,3 +51,6 @@ Route::post('/placeOrder', [OrderInfoController::class, 'createOrder'])->middlew
 
 Route::post('/getUserInfo', [UserInfoController::class, 'getUserInfo'])->middleware('auth:sanctum');
 Route::post('/getOrderInfo', [OrderInfoController::class, 'getOrderInfo'])->middleware('auth:sanctum');
+
+Route::post('/addProductCompare/{id}', [ProductCompareController::class, 'addProductToCompare'])->middleware('auth:sanctum');
+Route::post('/getProductCompare', [ProductCompareController::class, 'getProductsToCompare'])->middleware('auth:sanctum');
