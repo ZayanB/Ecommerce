@@ -48,100 +48,243 @@ const SingleBlog = () => {
                                         : "single-blog-main-container-mobile"
                                 }
                             >
-                                <div
-                                    className={
-                                        screenWidth > 800
-                                            ? "single-blog-side-bar"
-                                            : "single-blog-side-bar-mobile"
-                                    }
-                                >
-                                    <div style={{ color: "black" }}>
-                                        ABOUT ME
-                                    </div>
-                                    <div
-                                        className={
-                                            screenWidth > 800
-                                                ? "single-blog-author-image"
-                                                : "single-blog-author-image-mobile"
-                                        }
-                                    >
-                                        {blog.author_photo && (
-                                            <img
-                                                src={blog.author_photo}
-                                                alt="Author"
-                                                style={{
-                                                    width: "100%",
-                                                    height: "100%",
-                                                }}
-                                            />
-                                        )}
-                                    </div>
-                                    <div className="single-blog-author-about">
-                                        {blog.author_about
-                                            ? blog.author_about
-                                            : "No information available about the author."}
-                                    </div>
-                                </div>
-                                <div className="single-blog-content">
-                                    <div className="single-blog-title">
-                                        {blog.title}
-                                    </div>
-                                    <div className="single-blog-auth-date">
-                                        <div>{blog.author_name}</div>
-                                        <div>
-                                            {new Date(
-                                                blog.created_at
-                                            ).toLocaleDateString("en-US", {
-                                                year: "numeric",
-                                                month: "short",
-                                                day: "numeric",
-                                            })}
-                                        </div>
-                                    </div>
-                                    <div
-                                        className={
-                                            screenWidth > 800
-                                                ? "blog-product-image"
-                                                : "blog-product-image-mobile"
-                                        }
-                                    >
-                                        {blog.product &&
-                                            blog.product.image &&
-                                            blog.product.image.length > 0 && (
-                                                <img
-                                                    src={
-                                                        blog.product.image[0]
-                                                            .image_url
+                                <>
+                                    {screenWidth > 800 ? (
+                                        <>
+                                            <>
+                                                <div
+                                                    className={
+                                                        screenWidth > 800
+                                                            ? "single-blog-side-bar"
+                                                            : "single-blog-side-bar-mobile"
                                                     }
-                                                    alt="Product"
-                                                    style={{
-                                                        width: "100%",
-                                                        height: "100%",
-                                                    }}
-                                                />
-                                            )}
-                                    </div>
-                                    <div
-                                        className={
-                                            screenWidth > 800
-                                                ? "blog-single-description"
-                                                : "blog-single-description-mobile"
-                                        }
-                                    >
-                                        {blog.description}
-                                    </div>
-                                    <div className="blog-single-quote">
-                                        <div>
-                                            <PiQuotes
-                                                size={32}
-                                                style={{
-                                                    transform: "rotate(180deg)",
-                                                }}
-                                            />
-                                        </div>
-                                        <div>{blog.qoute}</div>
-                                    </div>
-                                </div>
+                                                >
+                                                    <div
+                                                        style={{
+                                                            color: "black",
+                                                        }}
+                                                    >
+                                                        ABOUT ME
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "single-blog-author-image"
+                                                                : "single-blog-author-image-mobile"
+                                                        }
+                                                    >
+                                                        {blog.author_photo && (
+                                                            <img
+                                                                src={
+                                                                    blog.author_photo
+                                                                }
+                                                                alt="Author"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                }}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <div className="single-blog-author-about">
+                                                        {blog.author_about
+                                                            ? blog.author_about
+                                                            : "No information available about the author."}
+                                                    </div>
+                                                </div>
+                                            </>
+                                            <>
+                                                <div className="single-blog-content">
+                                                    <div className="single-blog-title">
+                                                        {blog.title}
+                                                    </div>
+                                                    <div className="single-blog-auth-date">
+                                                        <div>
+                                                            {blog.author_name}
+                                                        </div>
+                                                        <div>
+                                                            {new Date(
+                                                                blog.created_at
+                                                            ).toLocaleDateString(
+                                                                "en-US",
+                                                                {
+                                                                    year: "numeric",
+                                                                    month: "short",
+                                                                    day: "numeric",
+                                                                }
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "blog-product-image"
+                                                                : "blog-product-image-mobile"
+                                                        }
+                                                    >
+                                                        {blog.product &&
+                                                            blog.product
+                                                                .image &&
+                                                            blog.product.image
+                                                                .length > 0 && (
+                                                                <img
+                                                                    src={
+                                                                        blog
+                                                                            .product
+                                                                            .image[0]
+                                                                            .image_url
+                                                                    }
+                                                                    alt="Product"
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        height: "100%",
+                                                                    }}
+                                                                />
+                                                            )}
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "blog-single-description"
+                                                                : "blog-single-description-mobile"
+                                                        }
+                                                    >
+                                                        {blog.description}
+                                                    </div>
+                                                    <div className="blog-single-quote">
+                                                        <div>
+                                                            <PiQuotes
+                                                                size={32}
+                                                                style={{
+                                                                    transform:
+                                                                        "rotate(180deg)",
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div>{blog.qoute}</div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <>
+                                                <div className="single-blog-content">
+                                                    <div className="single-blog-title">
+                                                        {blog.title}
+                                                    </div>
+                                                    <div className="single-blog-auth-date">
+                                                        <div>
+                                                            {blog.author_name}
+                                                        </div>
+                                                        <div>
+                                                            {new Date(
+                                                                blog.created_at
+                                                            ).toLocaleDateString(
+                                                                "en-US",
+                                                                {
+                                                                    year: "numeric",
+                                                                    month: "short",
+                                                                    day: "numeric",
+                                                                }
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "blog-product-image"
+                                                                : "blog-product-image-mobile"
+                                                        }
+                                                    >
+                                                        {blog.product &&
+                                                            blog.product
+                                                                .image &&
+                                                            blog.product.image
+                                                                .length > 0 && (
+                                                                <img
+                                                                    src={
+                                                                        blog
+                                                                            .product
+                                                                            .image[0]
+                                                                            .image_url
+                                                                    }
+                                                                    alt="Product"
+                                                                    style={{
+                                                                        width: "100%",
+                                                                        height: "100%",
+                                                                    }}
+                                                                />
+                                                            )}
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "blog-single-description"
+                                                                : "blog-single-description-mobile"
+                                                        }
+                                                    >
+                                                        {blog.description}
+                                                    </div>
+                                                    <div className="blog-single-quote">
+                                                        <div>
+                                                            <PiQuotes
+                                                                size={32}
+                                                                style={{
+                                                                    transform:
+                                                                        "rotate(180deg)",
+                                                                }}
+                                                            />
+                                                        </div>
+                                                        <div>{blog.qoute}</div>
+                                                    </div>
+                                                </div>
+                                            </>
+                                            <>
+                                                <div
+                                                    className={
+                                                        screenWidth > 800
+                                                            ? "single-blog-side-bar"
+                                                            : "single-blog-side-bar-mobile"
+                                                    }
+                                                >
+                                                    <div
+                                                        style={{
+                                                            color: "black",
+                                                        }}
+                                                    >
+                                                        ABOUT ME
+                                                    </div>
+                                                    <div
+                                                        className={
+                                                            screenWidth > 800
+                                                                ? "single-blog-author-image"
+                                                                : "single-blog-author-image-mobile"
+                                                        }
+                                                    >
+                                                        {blog.author_photo && (
+                                                            <img
+                                                                src={
+                                                                    blog.author_photo
+                                                                }
+                                                                alt="Author"
+                                                                style={{
+                                                                    width: "100%",
+                                                                    height: "100%",
+                                                                }}
+                                                            />
+                                                        )}
+                                                    </div>
+                                                    <div className="single-blog-author-about">
+                                                        {blog.author_about
+                                                            ? blog.author_about
+                                                            : "No information available about the author."}
+                                                    </div>
+                                                </div>
+                                            </>
+                                        </>
+                                    )}
+                                </>
                             </div>
                         ))}
                 </>
