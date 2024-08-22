@@ -33,9 +33,17 @@ const NavBar = () => {
                 <NavListPanel />
             </div>
             <div>
-                <h1 className={ShopName}>
+                <h1
+                    className={ShopName}
+                    style={{
+                        transform: screenWidth > 800 ? "" : "translateX(15px)",
+                    }}
+                >
                     <NavLink
-                        style={{ color: "black", marginLeft: "1rem" }}
+                        style={{
+                            color: "black",
+                            marginLeft: "1rem",
+                        }}
                         to="/"
                     >
                         ZYN
@@ -61,13 +69,6 @@ const NavBar = () => {
                         <UserDropDown />
                     </div>
                     <div>
-                        {/* <PiScales
-                            className={
-                                screenWidth > 986
-                                    ? "CartHover"
-                                    : "nav-user-hide"
-                            }
-                        /> */}
                         <CompareProducts />
                     </div>
                     <div

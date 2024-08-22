@@ -1,16 +1,19 @@
 import React, { useEffect, useState } from "react";
 import "./CompareProducts.css";
-import { PiScales } from "react-icons/pi";
-import { Modal, Button } from "antd";
+import { PiScales, PiX } from "react-icons/pi";
+import { Modal, Button, notification, Badge } from "antd";
 import axios from "../api/axios";
 import { Link } from "react-router-dom";
 import Spinner from "./Spinner";
+import useScreenWidth from "./useScreenWidth";
 
 const CompareProducts = () => {
     const [isModalVisible, setIsModalVisible] = useState(false);
     const [comparedItems, setComparedItems] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [removeLoading, setRemoveLoading] = useState(false);
+    const screenWidth = useScreenWidth();
 
     const parseProductSize = (sizeString) => {
         if (!sizeString) {
@@ -47,7 +50,6 @@ const CompareProducts = () => {
         // []
         [comparedItems]
     );
-    // const sizes = parseProductSize(comparedItems.product_size);
     const showModal = () => {
         setIsModalVisible(true);
     };
@@ -55,6 +57,41 @@ const CompareProducts = () => {
     const handleCancel = () => {
         setIsModalVisible(false);
     };
+
+    const removeCompare = async (compareItemId) => {
+        const token = localStorage.getItem("access_token");
+        setRemoveLoading(true);
+        try {
+            const response = await axios.post(
+                `http://127.0.0.1:8000/api/deleteProductCompare/${compareItemId}`,
+                {},
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+            setRemoveLoading(false);
+            notification.success({
+                message: "Success",
+                description: "Product removed from comparison",
+                placement: "topRight",
+                duration: 2,
+            });
+        } catch (error) {
+            setRemoveLoading(false);
+            setError(error.message);
+            notification.error({
+                message: "Error",
+                description: "Cannot remove product from comparison",
+                placement: "topRight",
+                duration: 2,
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
+    const productsToCompare = comparedItems.length;
 
     return (
         <>
@@ -64,7 +101,26 @@ const CompareProducts = () => {
                 className="cart-button"
                 ghost={true}
             >
-                <PiScales size={23} style={{ transform: "translateX(6px)" }} />
+                <Badge
+                    count={productsToCompare}
+                    // size="small"
+                    style={{
+                        transform:
+                            screenWidth < 800
+                                ? "translateX(32px) translateY(-5px)"
+                                : "translateX(17px) translateY(-9px)",
+                    }}
+                >
+                    <PiScales
+                        size={23}
+                        style={{
+                            transform:
+                                screenWidth > 800
+                                    ? "translateX(6px)"
+                                    : "translateY(4px) translateX(20px) ",
+                        }}
+                    />
+                </Badge>
             </Button>
             <Modal
                 visible={isModalVisible}
@@ -112,23 +168,72 @@ const CompareProducts = () => {
                                                                     }}
                                                                 >
                                                                     {image && (
-                                                                        <Link
-                                                                            to={`/allProducts/${product.product_id_pkey}`}
+                                                                        <div
+                                                                            style={{
+                                                                                position:
+                                                                                    "relative",
+                                                                                display:
+                                                                                    "inline-block",
+                                                                            }}
                                                                         >
-                                                                            <img
-                                                                                src={
-                                                                                    image
-                                                                                }
-                                                                                alt={
-                                                                                    product.product_name
-                                                                                }
-                                                                                style={{
-                                                                                    width: "240px",
-                                                                                    height: "270px",
-                                                                                }}
-                                                                            />
-                                                                        </Link>
+                                                                            <div className="remove-compare-icon">
+                                                                                <PiX
+                                                                                    onClick={() =>
+                                                                                        removeCompare(
+                                                                                            item.comapre_items_id_pkey
+                                                                                        )
+                                                                                    }
+                                                                                />
+                                                                            </div>
+                                                                            <div>
+                                                                                <Link
+                                                                                    to={`/allProducts/${product.product_id_pkey}`}
+                                                                                >
+                                                                                    <img
+                                                                                        src={
+                                                                                            image
+                                                                                        }
+                                                                                        alt={
+                                                                                            product.product_name
+                                                                                        }
+                                                                                        style={{
+                                                                                            width: "240px",
+                                                                                            height: "270px",
+                                                                                        }}
+                                                                                    />
+                                                                                </Link>
+                                                                            </div>
+                                                                        </div>
                                                                     )}
+                                                                </td>
+                                                            );
+                                                        }
+                                                    )
+                                                ) : (
+                                                    <td>
+                                                        No products to compare.
+                                                    </td>
+                                                )}
+                                            </tr>
+                                            <tr>
+                                                <th>Name</th>
+
+                                                {comparedItems.length > 0 ? (
+                                                    comparedItems.map(
+                                                        (item, index) => {
+                                                            const product =
+                                                                item.product;
+                                                            return (
+                                                                <td
+                                                                    key={index}
+                                                                    style={{
+                                                                        textAlign:
+                                                                            "center",
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        product.product_name
+                                                                    }
                                                                 </td>
                                                             );
                                                         }
@@ -245,7 +350,7 @@ const CompareProducts = () => {
 
                                                             return (
                                                                 <td key={index}>
-                                                                    <div className="sizes-compare-display ">
+                                                                    <div className="sizes-compare-display">
                                                                         {sizes.length >
                                                                         0 ? (
                                                                             sizes.map(
@@ -278,6 +383,36 @@ const CompareProducts = () => {
                                                     )
                                                 ) : (
                                                     <td>No sizes available.</td>
+                                                )}
+                                            </tr>
+                                            <tr>
+                                                <th>Category</th>
+                                                {comparedItems.length > 0 ? (
+                                                    comparedItems.map(
+                                                        (item, index) => {
+                                                            const product =
+                                                                item.product;
+                                                            return (
+                                                                <td
+                                                                    key={index}
+                                                                    style={{
+                                                                        paddingLeft:
+                                                                            "0.5rem",
+                                                                    }}
+                                                                >
+                                                                    {
+                                                                        product
+                                                                            .category
+                                                                            .category_name
+                                                                    }
+                                                                </td>
+                                                            );
+                                                        }
+                                                    )
+                                                ) : (
+                                                    <td>
+                                                        No products to compare.
+                                                    </td>
                                                 )}
                                             </tr>
                                         </tbody>
