@@ -36,7 +36,7 @@ const CompareProducts = () => {
                             },
                         }
                     );
-                    console.log(response.data);
+                    // console.log(response.data);
                     setComparedItems(response.data);
                 } catch (error) {
                     setError(error.message);

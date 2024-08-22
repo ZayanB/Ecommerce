@@ -38,6 +38,10 @@ class Product extends Model
     {
         return $this->hasMany(ProductCompare::class, 'product_id', 'product_id_pkey');
     }
+    public function blog(): HasMany
+    {
+        return $this->hasMany(Blog::class, 'product_id', 'product_id_pkey');
+    }
 
 
     public static function getFeaturedProducts($criteria = 'new_arrivals', $limit = 6)

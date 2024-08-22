@@ -178,7 +178,14 @@ const NavbarList = ({ onClose }) => {
                         </NavLink>
                     </div>
                     <div className="arrowDown" onClick={onClose}>
-                        <NavLink className="nav-non">BLOG</NavLink>
+                        <NavLink
+                            to="/blog"
+                            onClick={onClose}
+                            // className="nav-non"
+                            className={linkClass}
+                        >
+                            BLOG
+                        </NavLink>
                     </div>
                     <span className={token ? "" : "hide-display"}>
                         <div
