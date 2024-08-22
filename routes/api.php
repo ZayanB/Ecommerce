@@ -5,6 +5,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\AuthenticationController;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\CartItemController;
 use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\OrderInfoController;
@@ -55,3 +56,6 @@ Route::post('/getOrderInfo', [OrderInfoController::class, 'getOrderInfo'])->midd
 Route::post('/addProductCompare/{id}', [ProductCompareController::class, 'addProductToCompare'])->middleware('auth:sanctum');
 Route::post('/getProductCompare', [ProductCompareController::class, 'getProductsToCompare'])->middleware('auth:sanctum');
 Route::post('/deleteProductCompare/{id}', [ProductCompareController::class, 'removeProductToCompare'])->middleware('auth:sanctum');
+
+Route::get('/getBlog', [BlogController::class, 'getBlog']);
+Route::get('/getBlog/{id}', [BlogController::class, 'getSingleBlog']);

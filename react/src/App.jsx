@@ -17,6 +17,8 @@ import ProductView from "./Pages/ProductView";
 import SingleProductPage from "./Pages/SingleProductPage";
 import BuyProductPage from "./Pages/BuyProductPage";
 import MyAccountPage from "./Pages/MyAccountPage";
+import BlogPage from "./Pages/BlogPage";
+import SingleBlogPage from "./Pages/SingleBlogPage";
 
 const router = createBrowserRouter(
     createRoutesFromElements(
@@ -32,6 +34,8 @@ const router = createBrowserRouter(
             <Route path="/buyProduct/:productId" element={<BuyProductPage />} />
             <Route path="/buyProduct/cart" element={<BuyProductPage />} />
             <Route path="/MyAccount" element={<MyAccountPage />} />
+            <Route path="/Blog" element={<BlogPage />} />
+            <Route path="/Blog/:blogId" element={<SingleBlogPage />} />
         </Route>
     )
 );
