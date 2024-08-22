@@ -4,11 +4,11 @@ import { NavLink } from "react-router-dom";
 import "./NavBar.css";
 import CartPanel from "./CartPanel";
 import useScreenWidth from "./useScreenWidth";
-import { PiScales, PiList } from "react-icons/pi";
 import UserDropDown from "./UserDropDown";
 import NavbarList from "./NavbarList";
 import NavListPanel from "./NavListPanel";
 import CompareProducts from "./CompareProducts";
+import Search from "./Search";
 
 const NavBar = () => {
     // const linkClass = ({ isActive }) => (isActive ? "nav-active" : "nav-non");
@@ -30,19 +30,23 @@ const NavBar = () => {
             <div
                 className={screenWidth > 986 ? "hide-display" : "show-nav-list"}
             >
-                <NavListPanel />
+                <div>
+                    <NavListPanel />
+                </div>
+                <div>
+                    <Search />
+                </div>
             </div>
             <div>
                 <h1
                     className={ShopName}
                     style={{
-                        transform: screenWidth > 800 ? "" : "translateX(15px)",
+                        transform: screenWidth > 800 ? "" : "translateX(5px)",
                     }}
                 >
                     <NavLink
                         style={{
                             color: "black",
-                            marginLeft: "1rem",
                         }}
                         to="/"
                     >
@@ -65,6 +69,14 @@ const NavBar = () => {
 
             <div>
                 <div className="navbar-addToCart">
+                    {screenWidth > 800 ? (
+                        <div>
+                            <Search />
+                        </div>
+                    ) : (
+                        <></>
+                    )}
+
                     <div className={screenWidth > 986 ? "" : "nav-user-hide"}>
                         <UserDropDown />
                     </div>
