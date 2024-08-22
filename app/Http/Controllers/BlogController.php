@@ -18,6 +18,7 @@ class BlogController extends Controller
     {
         $blog = Blog::where('blog_id', $id)
             ->with('product.image')
+            ->orderBy('created_at', 'desc')
             ->get();
 
         return response()->json($blog);

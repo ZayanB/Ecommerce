@@ -7,6 +7,14 @@
     padding-right: 9rem;
     /* margin-right: 18rem; */
 }
+.blog-main-container-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    padding-right: 1.5rem;
+}
 
 .blog-single-container {
     display: flex;
@@ -16,9 +24,21 @@
     align-items: flex-start;
 }
 
+.blog-single-container-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    align-items: flex-start;
+}
+
 .blog-image {
     width: 80vw;
     height: 50vh;
+}
+
+.blog-image-mobile {
+    width: 100%;
+    height: 45vh;
 }
 .blog-image-description {
     display: flex;

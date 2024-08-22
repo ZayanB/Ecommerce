@@ -3,10 +3,12 @@ import "./Blog.css";
 import axios from "../api/axios";
 import Spinner from "./Spinner";
 import { NavLink } from "react-router-dom";
+import useScreenWidth from "./useScreenWidth";
 
 const Blog = () => {
     const [blogs, setBlog] = useState([]);
     const [loading, setLoading] = useState(true);
+    const screenWidth = useScreenWidth();
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -32,7 +34,13 @@ const Blog = () => {
         return str.slice(0, maxLength).trim() + "...";
     }
     return (
-        <div className="blog-main-container">
+        <div
+            className={
+                screenWidth > 800
+                    ? "blog-main-container"
+                    : "blog-main-container-mobile"
+            }
+        >
             {loading ? (
                 <>
                     <Spinner />
@@ -56,10 +64,20 @@ const Blog = () => {
 
                             return (
                                 <div
-                                    className="blog-single-container"
+                                    className={
+                                        screenWidth > 800
+                                            ? "blog-single-container"
+                                            : "blog-single-container-mobile"
+                                    }
                                     key={index}
                                 >
-                                    <div className="blog-image">
+                                    <div
+                                        className={
+                                            screenWidth > 800
+                                                ? "blog-image"
+                                                : "blog-image-mobile"
+                                        }
+                                    >
                                         {image_url && (
                                             <img
                                                 src={image_url}

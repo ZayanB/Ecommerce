@@ -4,11 +4,13 @@ import axios from "../api/axios";
 import { useParams } from "react-router-dom";
 import Spinner from "./Spinner";
 import { PiQuotes } from "react-icons/pi";
+import useScreenWidth from "./useScreenWidth";
 
 const SingleBlog = () => {
     const [blogs, setBlog] = useState([]);
     const [loading, setLoading] = useState(true);
     const { blogId } = useParams();
+    const screenWidth = useScreenWidth();
 
     useEffect(() => {
         const fetchBlog = async () => {
@@ -40,13 +42,29 @@ const SingleBlog = () => {
                         blogs.map((blog) => (
                             <div
                                 key={blog.blog_id}
-                                className="single-blog-main-container"
+                                className={
+                                    screenWidth > 800
+                                        ? "single-blog-main-container"
+                                        : "single-blog-main-container-mobile"
+                                }
                             >
-                                <div className="single-blog-side-bar">
+                                <div
+                                    className={
+                                        screenWidth > 800
+                                            ? "single-blog-side-bar"
+                                            : "single-blog-side-bar-mobile"
+                                    }
+                                >
                                     <div style={{ color: "black" }}>
                                         ABOUT ME
                                     </div>
-                                    <div className="single-blog-author-image">
+                                    <div
+                                        className={
+                                            screenWidth > 800
+                                                ? "single-blog-author-image"
+                                                : "single-blog-author-image-mobile"
+                                        }
+                                    >
                                         {blog.author_photo && (
                                             <img
                                                 src={blog.author_photo}
@@ -80,7 +98,13 @@ const SingleBlog = () => {
                                             })}
                                         </div>
                                     </div>
-                                    <div className="blog-product-image">
+                                    <div
+                                        className={
+                                            screenWidth > 800
+                                                ? "blog-product-image"
+                                                : "blog-product-image-mobile"
+                                        }
+                                    >
                                         {blog.product &&
                                             blog.product.image &&
                                             blog.product.image.length > 0 && (
@@ -97,7 +121,13 @@ const SingleBlog = () => {
                                                 />
                                             )}
                                     </div>
-                                    <div className="blog-single-description">
+                                    <div
+                                        className={
+                                            screenWidth > 800
+                                                ? "blog-single-description"
+                                                : "blog-single-description-mobile"
+                                        }
+                                    >
                                         {blog.description}
                                     </div>
                                     <div className="blog-single-quote">

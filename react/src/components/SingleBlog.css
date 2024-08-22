@@ -6,6 +6,15 @@
     margin-left: 6rem;
 }
 
+.single-blog-main-container-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-top: 3rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
 .single-blog-side-bar {
     display: flex;
     flex-direction: column;
@@ -14,9 +23,22 @@
     width: 45%;
 }
 
+.single-blog-side-bar-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    align-items: center;
+}
+
 .single-blog-author-image {
     width: 15vw;
     height: 15vw;
+    border-radius: 50%;
+    overflow: hidden;
+}
+.single-blog-author-image-mobile {
+    width: 75vw;
+    height: 75vw;
     border-radius: 50%;
     overflow: hidden;
 }
@@ -48,12 +70,20 @@
     width: 50vw;
     height: 80vh;
 }
+.blog-product-image-mobile {
+    width: 98%;
+    height: 42vh;
+}
 
 .blog-single-description {
     width: 67%;
     color: rgba(0, 0, 0, 0.815);
     line-height: 1.8;
-    /* transform: rot; */
+}
+
+.blog-single-description-mobile {
+    color: rgba(0, 0, 0, 0.815);
+    line-height: 1.8;
 }
 
 .blog-single-quote {
