@@ -1,0 +1,65 @@
+.single-blog-main-container {
+    display: flex;
+    flex-direction: row;
+    gap: 3rem;
+    margin-top: 4rem;
+    margin-left: 6rem;
+}
+
+.single-blog-side-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    margin-left: 7rem;
+    width: 45%;
+}
+
+.single-blog-author-image {
+    width: 15vw;
+    height: 15vw;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.single-blog-author-about {
+    text-align: center;
+    color: rgba(128, 128, 128, 0.993);
+}
+
+.single-blog-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.single-blog-title {
+    color: black;
+    font-size: 30px;
+}
+
+.single-blog-auth-date {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+    color: rgba(128, 128, 128, 0.829);
+}
+
+.blog-product-image {
+    width: 50vw;
+    height: 80vh;
+}
+
+.blog-single-description {
+    width: 67%;
+    color: rgba(0, 0, 0, 0.815);
+    line-height: 1.8;
+    /* transform: rot; */
+}
+
+.blog-single-quote {
+    display: flex;
+    flex-direction: column;
+    margin-left: 2rem;
+    color: rgba(0, 0, 0, 0.815);
+    font-style: italic;
+}

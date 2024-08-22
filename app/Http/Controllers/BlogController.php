@@ -16,7 +16,9 @@ class BlogController extends Controller
 
     public function getSingleBlog($id)
     {
-        $blog = Blog::where('blog_id', $id)->first();
+        $blog = Blog::where('blog_id', $id)
+            ->with('product.image')
+            ->get();
 
         return response()->json($blog);
     }
