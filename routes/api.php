@@ -11,6 +11,7 @@ use App\Http\Controllers\OrderAddressController;
 use App\Http\Controllers\OrderInfoController;
 use App\Http\Controllers\ProductCompareController;
 use App\Http\Controllers\ProductReviewController;
+use App\Http\Controllers\SearchController;
 use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\UserAddressController;
 use App\Http\Controllers\UserInfoController;
@@ -59,3 +60,5 @@ Route::post('/deleteProductCompare/{id}', [ProductCompareController::class, 'rem
 
 Route::get('/getBlog', [BlogController::class, 'getBlog']);
 Route::get('/getBlog/{id}', [BlogController::class, 'getSingleBlog']);
+
+Route::get('/search', [SearchController::class, 'search']);
