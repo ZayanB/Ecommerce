@@ -1,0 +1,9 @@
+.search-icon {
+    border: none;
+}
+.search-icon:focus,
+.search-icon:active {
+    outline: none;
+    box-shadow: none;
+    border-color: transparent;
+}
