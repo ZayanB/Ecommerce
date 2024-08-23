@@ -17,14 +17,24 @@ class SearchController extends Controller
             ->orWhere('product_description', 'ilike', "%{$query}%")
             ->get();
 
-        $blogs = Blog::where('title', 'ilike', "%{$query}%")
+        $blogs = Blog::with('product.image')
+            ->where('title', 'ilike', "%{$query}%")
             ->orWhere('description', 'ilike', "%{$query}%")
             ->orWhere('description', 'ilike', "%{$query}%")
             ->get();
 
-        return response()->json([
-            'products' => $products,
-            'blogs' => $blogs,
-        ]);
+        if ($products->isEmpty() && $blogs->isEmpty()) {
+            return response()->json([
+                'message' => 'No products or blogs found.',
+                'products' => [],
+                'blogs' => [],
+            ]);
+        } else {
+            return response()->json([
+                'message' => 'Results found.',
+                'products' => $products,
+                'blogs' => $blogs,
+            ]);
+        }
     }
 }
