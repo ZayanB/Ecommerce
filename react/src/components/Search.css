@@ -7,3 +7,27 @@
     box-shadow: none;
     border-color: transparent;
 }
+
+.search-drawer .ant-btn {
+    color: orange;
+    background-color: black;
+    transition: ease 500ms;
+}
+
+.search-drawer:hover .ant-btn:hover {
+    color: orange;
+    background-color: black;
+    border-color: orange;
+    transition: ease 500ms;
+}
+.product-search-result {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+.product-search-name-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
